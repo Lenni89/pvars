@@ -11,6 +11,8 @@ as.pplot(
   names_g = NULL,
   color_g = NULL,
   shape_g = NULL,
+  width_L = NULL,
+  color_L = NULL,
   n.rows = NULL,
   scales = "free_y",
   Latex = FALSE
@@ -35,6 +37,14 @@ For LaTeX exports, use e.g. \code{paste0("\\\epsilon_{ ", 1:dim_S, " }")}.}
 \item{shape_g}{Vector. Shapes of the layered plots \eqn{g=1,\ldots,G}, 
 see \strong{ggplot2}'s \code{\link[ggplot2]{geom_point}} for shapes. 
 If \code{NULL} (the default), no points will be set on the IRF-lines.}
+
+\item{width_L}{Integer. The \code{\link[ggplot2:aes_linetype_size_shape]{linewidth}} 
+of the lines tracing the ribbon edges. Note that each line is centered around 
+the ribbon edge, thus exceeding the interval endpoints by \code{width_L}\eqn{/2}.
+If \code{NULL} (the default), no lines will be set on the edges.}
+
+\item{color_L}{Character. The color of the lines tracing the edges. If \code{NULL} 
+(the default), the plot-specific \code{color_g} will be used instead.}
 
 \item{n.rows}{Integer. Number of rows in \code{\link[ggplot2]{facet_wrap}}. 
 If \code{NULL} (the default), the dimensions of the facet plots given 
@@ -100,7 +110,8 @@ R.irf$F.plot + guides(fill="none") + labs(color="Country", shape="Country")
 idx_nord = c(5, 6, 10, 17, 20)  # Nordic countries
 R.irf = as.pplot(color_g=c("black", "blue"), 
   Other  = plot(sboot.mg(L.chol[-idx_nord])), 
-  Nordic = plot(sboot.mg(L.chol[ idx_nord])))
+  Nordic = plot(sboot.mg(L.chol[ idx_nord])),
+  width_L=0.2, color_L="black")
 plot(R.irf)
  
 # compare different shock ordering for MG-IRF #
@@ -113,7 +124,7 @@ R.irf = as.pplot(color_g=R.pal, shape_g=c(2, 3, 20),
   GKLY = plot(irf(R.pid1, n.ahead=25)), 
   YLKG = plot(irf(R.pid2, n.ahead=25)), 
   GYKL = plot(irf(R.pid3, n.ahead=25)))
-R.mg = as.pplot(color_g=R.pal, shape_g=c(2, 3, 20), 
+R.mg = as.pplot(color_g=R.pal, shape_g=c(2, 3, 20), width_L=0.3, 
   GKLY = plot(sboot.mg(R.pid1, n.ahead=25), lowerq=0.05, upperq=0.95), 
   YLKG = plot(sboot.mg(R.pid2, n.ahead=25), lowerq=0.05, upperq=0.95), 
   GYKL = plot(sboot.mg(R.pid3, n.ahead=25), lowerq=0.05, upperq=0.95))

@@ -1,11 +1,11 @@
 
 
 #' @title Panel cointegration rank tests
-#' @description Performs test procedures for the rank of cointegration in a panel of VAR models.
+#' @description Performs test procedures for the rank of cointegration in a panel of VAR models. 
 #'   First, the chosen individual procedure is applied over 
 #'   all \eqn{N} individual entities for \eqn{r_{H0}=0,\ldots,K-1}. 
 #'   Then, the \eqn{K \times N} individual statistics and \eqn{p}-values 
-#'   are combined to panel test results on each \eqn{r_{H0}}
+#'   are combined to panel test results on each \eqn{r_{H0}} 
 #'   using all combination approaches available for the chosen procedure.
 #' 
 #' @param L.data List of '\code{data.frame}' objects for each individual. 
@@ -32,7 +32,7 @@
 #'   The accompanying lagged regressors are automatically included in \eqn{d_{it}}. 
 #'   The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples.
 #' 
-#' @return A list of class '\code{pcoint}' with elements:
+#' @return A list of class '\code{pcoint}' with elements: 
 #' \item{panel}{List for the panel test results, 
 #'   which contains one matrix for the test statistics and one for the \eqn{p}-values.}
 #' \item{individual}{List for the individual test results, 

@@ -21,7 +21,7 @@
 #'   which are unrestricted.
 #' 
 #' @return A list of class '\code{coint}', 
-#'   which contains elements of length \eqn{K} for each \eqn{r_{H0}=0,\ldots,K-1}:
+#'   which contains elements of length \eqn{K} for each \eqn{r_{H0}=0,\ldots,K-1}: 
 #' \item{r_H0}{Rank under each null hypothesis.}
 #' \item{stats_TR}{Trace (TR) test statistics.}
 #' \item{stats_ME}{Maximum eigenvalue (ME) test statistics.}

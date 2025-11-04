@@ -31,7 +31,13 @@
 #' @param color_g Vector. Colors of the layered plots \eqn{g=1,\ldots,G}. 
 #' @param shape_g Vector. Shapes of the layered plots \eqn{g=1,\ldots,G}, 
 #'   see \strong{ggplot2}'s \code{\link[ggplot2]{geom_point}} for shapes. 
-#'   If \code{NULL} (the default), no points will be set on the IRF-lines.  
+#'   If \code{NULL} (the default), no points will be set on the IRF-lines.
+#' @param width_L Integer. The \code{\link[ggplot2:aes_linetype_size_shape]{linewidth}} 
+#'   of the lines tracing the ribbon edges. Note that each line is centered around 
+#'   the ribbon edge, thus exceeding the interval endpoints by \code{width_L}\eqn{/2}.
+#'   If \code{NULL} (the default), no lines will be set on the edges.
+#' @param color_L Character. The color of the lines tracing the edges. If \code{NULL} 
+#'   (the default), the plot-specific \code{color_g} will be used instead.
 #' @param n.rows Integer. Number of rows in \code{\link[ggplot2]{facet_wrap}}. 
 #'   If \code{NULL} (the default), the dimensions of the facet plots given 
 #'   in \code{...} are reused.
@@ -53,14 +59,16 @@
 #' @export
 #' 
 as.pplot <- function(..., names_k=NULL, names_s=NULL, names_g=NULL, 
-  color_g=NULL, shape_g=NULL, n.rows=NULL, scales="free_y", Latex=FALSE) UseMethod("as.pplot")
+  color_g=NULL, shape_g=NULL, width_L=NULL, color_L=NULL, 
+  n.rows=NULL, scales="free_y", Latex=FALSE) UseMethod("as.pplot")
 
 
 #' @method as.pplot default
 #' @importFrom scales hue_pal
 #' @export
 as.pplot.default <- function(..., names_k=NULL, names_s=NULL, names_g=NULL, 
-  color_g=NULL, shape_g=NULL, n.rows=NULL, scales="free_y", Latex=FALSE){
+  color_g=NULL, shape_g=NULL, width_L=NULL, color_L=NULL, 
+  n.rows=NULL, scales="free_y", Latex=FALSE){
   # defaults if overwritten as NULL
   if( is.null(scales) ){ scales = "free_y" }
   if( is.null(Latex)  ){ Latex  = FALSE }
@@ -164,10 +172,26 @@ as.pplot.default <- function(..., names_k=NULL, names_s=NULL, names_g=NULL,
   
   # plot IRF with optional confidence bands
   F.plot = ggplot() +
-    ## geoms ##
+    ## geoms for df_cbs ##
     {if(!is.null(df_cbs)) 
-      geom_ribbon(data = df_cbs, aes(x=x, ymin=ymin, ymax=ymax, fill=fill, 
-                  alpha=alpha, group=interaction(group, fill)))} +
+      geom_ribbon(data = df_cbs, 
+                  aes(x=x, ymin=ymin, ymax=ymax, fill=fill, 
+                  alpha=alpha, group=interaction(group, fill)))} + 
+    {if(!is.null(df_cbs) & !is.null(width_L)) if(!is.null(color_L))
+      geom_line(data = df_cbs, 
+                aes(x=x, y=ymin, group=interaction(group, fill)), 
+                show.legend=FALSE, linewidth=width_L, color=color_L) else 
+      geom_line(data = df_cbs, 
+                aes(x=x, y=ymin, colour=fill, group=interaction(group, fill)), 
+                show.legend=FALSE, linewidth=width_L)} +
+    {if(!is.null(df_cbs) & !is.null(width_L)) if(!is.null(color_L))
+      geom_line(data = df_cbs, 
+                aes(x=x, y=ymax, group=interaction(group, fill)), 
+                show.legend=FALSE, linewidth=width_L, color=color_L) else 
+      geom_line(data = df_cbs, 
+                aes(x=x, y=ymax, colour=fill, group=interaction(group, fill)), 
+                show.legend=FALSE, linewidth=width_L)} +
+    ## geoms for df_irf ###
     geom_line(data = df_irf, aes(x=x, y=y, color=colour)) +
     {if(!is.null(shape_g)) 
       geom_point(data = df_irf, aes(x=x, y=y, color=colour, shape=colour))} +
@@ -187,7 +211,8 @@ as.pplot.default <- function(..., names_k=NULL, names_s=NULL, names_g=NULL,
   # return result
   if( is.null(shape_g) ){ R.shps = NULL }
   args_pplot = list(names_k=names_k, names_s=names_s, names_g=names_g, 
-    color_g=R.clrs, shape_g=R.shps, n.rows=n.rows, scales=scales, Latex=Latex)
+    color_g=R.clrs, shape_g=R.shps, width_L=width_L, color_L=color_L,
+    n.rows=n.rows, scales=scales, Latex=Latex)
   result = list(F.plot=F.plot, L.plot=L.plot, args_pplot=args_pplot)
   class(result) = "pplot"
   return(result)
@@ -197,13 +222,16 @@ as.pplot.default <- function(..., names_k=NULL, names_s=NULL, names_g=NULL,
 #' @method as.pplot pplot
 #' @export
 as.pplot.pplot <- function(..., names_k=NULL, names_s=NULL, names_g=NULL, 
-  color_g=NULL, shape_g=NULL, n.rows=NULL, scales=NULL, Latex=NULL){
+  color_g=NULL, shape_g=NULL, width_L=NULL, color_L=NULL,
+  n.rows=NULL, scales=NULL, Latex=NULL){
   # gather arguments
   x = list(...)[[1]]
   args_pplot = list(names_k=names_k, names_s=names_s, names_g=names_g, 
-       color_g=color_g, shape_g=shape_g, n.rows=n.rows, scales=scales, Latex=Latex)
+       color_g=color_g, shape_g=shape_g, width_L=width_L, color_L=color_L,
+       n.rows=n.rows, scales=scales, Latex=Latex)
   is_NULL = c(is.null(names_k), is.null(names_s), is.null(names_g), 
-       is.null(color_g), is.null(shape_g), is.null(n.rows), is.null(scales), is.null(Latex))
+       is.null(color_g), is.null(shape_g), is.null(width_L), is.null(color_L),
+       is.null(n.rows), is.null(scales), is.null(Latex))
   is_same = sapply(1:length(args_pplot), FUN=function(j) identical(args_pplot[j], x$args_pplot[j]))
   
   # compare arguments and return
@@ -217,12 +245,15 @@ as.pplot.pplot <- function(..., names_k=NULL, names_s=NULL, names_g=NULL,
     if( is.null(names_g) ){ names_g = x$args_pplot$names_g }
     if( is.null(color_g) ){ color_g = x$args_pplot$color_g }
     if( is.null(shape_g) ){ shape_g = x$args_pplot$shape_g }
+    if( is.null(width_L) ){ width_L = x$args_pplot$width_L }
+    if( is.null(color_L) ){ color_L = x$args_pplot$color_L }
     if( is.null(n.rows)  ){ n.rows  = x$args_pplot$n.rows  }
     if( is.null(scales)  ){ scales  = x$args_pplot$scales  }
     if( is.null(Latex)   ){ Latex   = x$args_pplot$Latex   }
     
     return(as.pplot.default(..., names_k=names_k, names_s=names_s, names_g=names_g, 
-      color_g=color_g, shape_g=shape_g, n.rows=n.rows, scales=scales, Latex=Latex))
+      color_g=color_g, shape_g=shape_g, width_L=width_L, color_L=color_L,
+      n.rows=n.rows, scales=scales, Latex=Latex))
   }
 }
 

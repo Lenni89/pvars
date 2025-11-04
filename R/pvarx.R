@@ -1,7 +1,7 @@
 
 
 #' @title Estimation of VAR models for heterogeneous panels
-#' @description Performs the (pooled) mean-group estimation of a panel VAR model.
+#' @description Performs the (pooled) mean-group estimation of a panel VAR model. 
 #'   First, VAR models are estimated for all \eqn{N} individual entities. 
 #'   Then, their (pooled) mean-group estimate is calculated for each coefficient.
 #' 
@@ -20,7 +20,7 @@
 #' @param n.iterations Integer. The (maximum) number of iterations 
 #'   for the estimation of SUR resp. the pooled cointegrating vectors.
 #' 
-#' @return A list of class '\code{\link[=as.pvarx]{pvarx}}' with the elements:
+#' @return A list of class '\code{\link[=as.pvarx]{pvarx}}' with the elements: 
 #' \item{A}{Matrix. The lined-up coefficient matrices \eqn{A_j, j=1,\ldots,p} 
 #'         for the lagged variables in the panel VAR estimated by mean-group.}
 #' \item{B}{Matrix. Placeholder for the structural impact matrix.}

@@ -94,7 +94,7 @@ by Ahn and Reinsel (1990) if exclusively in the interval \eqn{[0,...,r]}.
 Deactivated if \code{NULL} (the default).}
 }
 \value{
-A list of class '\code{\link[=as.pvarx]{pvarx}}' with the elements:
+A list of class '\code{\link[=as.pvarx]{pvarx}}' with the elements: 
 \item{A}{Matrix. The lined-up coefficient matrices \eqn{A_j, j=1,\ldots,p} 
         for the lagged variables in the panel VAR estimated by mean-group.}
 \item{B}{Matrix. Placeholder for the structural impact matrix.}
@@ -108,7 +108,7 @@ A list of class '\code{\link[=as.pvarx]{pvarx}}' with the elements:
   indicating the estimator and specifications that have been used.}
 }
 \description{
-Performs the (pooled) mean-group estimation of a panel VAR model.
+Performs the (pooled) mean-group estimation of a panel VAR model. 
   First, VAR models are estimated for all \eqn{N} individual entities. 
   Then, their (pooled) mean-group estimate is calculated for each coefficient.
 }
