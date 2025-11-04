@@ -175,13 +175,13 @@ as.pplot.default <- function(..., names_k=NULL, names_s=NULL, names_g=NULL,
     facet_wrap(~factor(variable, levels=names_IRF), nrow=n.rows, scales=scales, labeller=label_IRF) + 
     ## scales ##
     {if(!is.null(df_cbs)) 
-      scale_fill_manual( labels=names(names_g), values=R.fill)} + 
-    scale_color_manual(  labels=names(names_g), values=R.clrs)  +
+      scale_fill_manual( labels=names(names_g), values=R.fill, name="Group")} + 
+    scale_color_manual(  labels=names(names_g), values=R.clrs, name="Group")  +
     {if(!is.null(shape_g)) 
-      scale_shape_manual(labels=names(names_g), values=R.shps)} +
+      scale_shape_manual(labels=names(names_g), values=R.shps, name="Group")} +
     ## layout ##
     guides(alpha="none") +
-    labs(x="Horizon", y="Response", color="Group", shape="Group", fill="Group") +
+    labs(x="Horizon", y="Response") +
     theme_bw()
   
   # return result
