@@ -561,10 +561,18 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
     }else if(args_pid$method == "Distance covariances"){
       S.pid = pid.dc(S.pvarx, combine=args_pid$combine, n.factors=args_pid$n.factors, 
                      n.iterations=args_pid$n.iterations)
+      # sign and column ordering according to the point estimates
+      for(i in 1:dim_N){ S.pid$L.varx[[i]]$B = aux_sico(S.pid$L.varx[[i]]$B, B.orig=L.B[[i]]) }
+      S.pid$MG_B = aux_MG(S.pid$L.varx, w=w, idx_par="B")
+      S.pid$B    = S.pid$MG_B$mean
       
     }else if(args_pid$method == "Cramer-von Mises distance"){
       S.pid = pid.cvm(S.pvarx, combine=args_pid$combine, n.factors=args_pid$n.factors, 
                       dd=args_pid$dd, itermax=args_pid$itermax, steptol=args_pid$steptol, iter2=args_pid$iter2)
+      # sign and column ordering according to the point estimates
+      for(i in 1:dim_N){ S.pid$L.varx[[i]]$B = aux_sico(S.pid$L.varx[[i]]$B, B.orig=L.B[[i]]) }
+      S.pid$MG_B = aux_MG(S.pid$L.varx, w=w, idx_par="B")
+      S.pid$B    = S.pid$MG_B$mean
       
     }else if(args_pid$method == "Proxy"){
       L.iv = lapply(args_pid$L.iv, FUN=function(i) tail(i, c(NA, dim_T)))
@@ -580,13 +588,6 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
         
     }else{
       stop("Identification method is not available in this bootstrap function!")
-    }
-    
-    # sign and column ordering according to the point estimates
-    if(args_pid$method %in% c("Distance covariances", "Cramer-von Mises distance")){ 
-      for(i in 1:dim_N){ S.pid$L.varx[[i]]$B = aux_sico(S.pid$L.varx[[i]]$B, B.orig=L.B[[i]]) }
-      S.pid$MG_B = aux_MG(S.pid$L.varx, w=w, idx_par="B")
-      S.pid$B    = S.pid$MG_B$mean
     }
     
     # return bootstrap result
