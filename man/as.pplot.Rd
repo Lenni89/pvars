@@ -112,7 +112,7 @@ R.irf = as.pplot(color_g=c("black", "blue"),
   Other  = plot(sboot.mg(L.chol[-idx_nord])), 
   Nordic = plot(sboot.mg(L.chol[ idx_nord])),
   width_L=0.2, color_L="black")
-plot(R.irf)
+R.irf$F.plot + guides(fill=guide_legend(title="Group"))
  
 # compare different shock ordering for MG-IRF #
 R.pid1 = pid.chol(L.vars)
@@ -128,7 +128,8 @@ R.mg = as.pplot(color_g=R.pal, shape_g=c(2, 3, 20), width_L=0.3,
   GKLY = plot(sboot.mg(R.pid1, n.ahead=25), lowerq=0.05, upperq=0.95), 
   YLKG = plot(sboot.mg(R.pid2, n.ahead=25), lowerq=0.05, upperq=0.95), 
   GYKL = plot(sboot.mg(R.pid3, n.ahead=25), lowerq=0.05, upperq=0.95))
-R.mg$F.plot + labs(color="Ordering")
+R.mg$F.plot + guides(fill=guide_legend()) + 
+  labs(color="Ordering", fill="Ordering")
          
 # colorize and export a single sub-plot to Latex #
 library("tikzDevice")
