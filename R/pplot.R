@@ -153,59 +153,62 @@ as.pplot.default <- function(..., names_k=NULL, names_s=NULL, names_g=NULL,
       L.irf[[g]] = L.built[[g]]$data[[1]]
       L.cbs[[g]] = NULL
       L.irf[[g]]$variable = names_IRF[match(L.irf[[g]]$PANEL, df_lay$PANEL)]
-      L.irf[[g]]$colour = names_g[g]  # slot name in British English!
+      L.irf[[g]]$plot_g = names_g[g]
     }else{
       # from plot.sboot() for IRF with confidence bands
       L.irf[[g]] = L.built[[g]]$data[[2]]
       L.cbs[[g]] = L.built[[g]]$data[[1]]
       L.irf[[g]]$variable = names_IRF[match(L.irf[[g]]$PANEL, df_lay$PANEL)]
       L.cbs[[g]]$variable = names_IRF[match(L.cbs[[g]]$PANEL, df_lay$PANEL)]
-      L.irf[[g]]$colour = names_g[g]  # slot name in British English!
-      L.cbs[[g]]$fill   = names_g[g]
+      L.irf[[g]]$plot_g = names_g[g]
+      L.cbs[[g]]$plot_g = names_g[g]
     }
   }
   df_irf = do.call("rbind", L.irf)
   df_cbs = do.call("rbind", L.cbs)
   
   # stfu R CMD check vs. ggplot2 (common practice, aes_ is deprecated)
-  y = ymin = ymax = fill = alpha = group = colour = NULL
+  y = ymin = ymax = alpha = group = plot_g = NULL  # 'group' identifies different confidence bands
   
   # plot IRF with optional confidence bands
-  F.plot = ggplot() +
+  R.guide = guide_legend(override.aes=list(shape=R.shps, fill=R.fill))  # aesthetics to merge in color legend
+  F.plot  = ggplot() +
     ## geoms for df_cbs ##
     {if(!is.null(df_cbs)) 
       geom_ribbon(data = df_cbs, 
-                  aes(x=x, ymin=ymin, ymax=ymax, fill=fill, 
-                  alpha=alpha, group=interaction(group, fill)))} + 
+                  aes(x=x, ymin=ymin, ymax=ymax, alpha=alpha, 
+                  fill=plot_g, group=interaction(group, plot_g)))} +
     {if(!is.null(df_cbs) & !is.null(width_L)) if(!is.null(color_L))
       geom_line(data = df_cbs, 
-                aes(x=x, y=ymin, group=interaction(group, fill)), 
+                aes(x=x, y=ymin, group=interaction(group, plot_g)), 
                 show.legend=FALSE, linewidth=width_L, color=color_L) else 
       geom_line(data = df_cbs, 
-                aes(x=x, y=ymin, colour=fill, group=interaction(group, fill)), 
+                aes(x=x, y=ymin, color=plot_g, group=interaction(group, plot_g)), 
                 show.legend=FALSE, linewidth=width_L)} +
     {if(!is.null(df_cbs) & !is.null(width_L)) if(!is.null(color_L))
       geom_line(data = df_cbs, 
-                aes(x=x, y=ymax, group=interaction(group, fill)), 
+                aes(x=x, y=ymax, group=interaction(group, plot_g)), 
                 show.legend=FALSE, linewidth=width_L, color=color_L) else 
       geom_line(data = df_cbs, 
-                aes(x=x, y=ymax, colour=fill, group=interaction(group, fill)), 
+                aes(x=x, y=ymax, color=plot_g, group=interaction(group, plot_g)), 
                 show.legend=FALSE, linewidth=width_L)} +
     ## geoms for df_irf ###
-    geom_line(data = df_irf, aes(x=x, y=y, color=colour)) +
+    geom_line(data = df_irf, aes(x=x, y=y, color=plot_g)) +
     {if(!is.null(shape_g)) 
-      geom_point(data = df_irf, aes(x=x, y=y, color=colour, shape=colour))} +
+      geom_point(data = df_irf, aes(x=x, y=y, color=plot_g, shape=plot_g))} +
     geom_hline(yintercept=0, color="red") + 
     facet_wrap(~factor(variable, levels=names_IRF), nrow=n.rows, scales=scales, labeller=label_IRF) + 
     ## scales ##
     {if(!is.null(df_cbs)) 
-      scale_fill_manual( labels=names(names_g), values=R.fill, name="Group")} + 
-    scale_color_manual(  labels=names(names_g), values=R.clrs, name="Group")  +
+      scale_alpha_identity()} + 
+    {if(!is.null(df_cbs)) 
+      scale_fill_manual( labels=names(names_g), values=R.fill)} +
+    scale_color_manual(  labels=names(names_g), values=R.clrs)  +
     {if(!is.null(shape_g)) 
-      scale_shape_manual(labels=names(names_g), values=R.shps, name="Group")} +
+      scale_shape_manual(labels=names(names_g), values=R.shps)} +
     ## layout ##
-    guides(alpha="none") +
-    labs(x="Horizon", y="Response") +
+    guides(color=R.guide, shape="none", fill="none", alpha="none") +
+    labs(x="Horizon", y="Response", color="Group") +
     theme_bw()
   
   # return result

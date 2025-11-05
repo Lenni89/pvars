@@ -104,7 +104,7 @@ F.mg  = plot(sboot.mg(L.chol, n.ahead=30), lowerq=0.05, upperq=0.95)
 R.irf = as.pplot(MG=F.mg, L.irf[c("DEU", "FRA", "ITA", "JPN")])
 plot(R.irf)  # emphasize MG-IRF in next step
 R.irf = as.pplot(R.irf, color_g="black", shape_g=c(20, rep(NA, 4)))
-R.irf$F.plot + guides(fill="none") + labs(color="Country", shape="Country")
+R.irf$F.plot + labs(color="Country")
 
 # compare two mean-groups and their quantiles #
 idx_nord = c(5, 6, 10, 17, 20)  # Nordic countries
@@ -128,6 +128,7 @@ R.mg = as.pplot(color_g=R.pal, shape_g=c(2, 3, 20), width_L=0.3,
   GKLY = plot(sboot.mg(R.pid1, n.ahead=25), lowerq=0.05, upperq=0.95), 
   YLKG = plot(sboot.mg(R.pid2, n.ahead=25), lowerq=0.05, upperq=0.95), 
   GYKL = plot(sboot.mg(R.pid3, n.ahead=25), lowerq=0.05, upperq=0.95))
+R.mg$F.plot + labs(color="Ordering")
          
 # colorize and export a single sub-plot to Latex #
 library("tikzDevice")
