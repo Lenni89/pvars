@@ -44,10 +44,12 @@ Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in
 but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.}
 
 \item{deltas}{Vector. Numeric weights \eqn{\delta_j} that are successively 
-multiplied to each bias estimate \eqn{\hat{\Psi}_i} for a stationary correction. 
-The default weights \code{deltas = cumprod((100:0)/100)} correspond
-to the iterative correction procedure of Step 1b in Kilian (1998). 
-Choosing \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.}
+multiplied to each bias estimate \eqn{\hat{\Psi}_i} for a stationarity correction. 
+The default weights \code{deltas = cumprod((100:0)/100)} correspond 
+to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
+\code{deltas = 1} inhibits the stationarity correction, and 
+\code{deltas = 0} inhibits the bias-correction but still returns a bias estimate. 
+However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.}
 
 \item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 into an output matrix of same dimension. See the example in \code{\link{id.iv}} 

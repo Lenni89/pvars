@@ -16,10 +16,12 @@
 #'   Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in \code{vars:::.bootsvec}, 
 #'   but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.
 #' @param deltas Vector. Numeric weights \eqn{\delta_j} that are successively 
-#'   multiplied to the bias estimate \eqn{\hat{\Psi}} for a stationary correction. 
-#'   The default weights \code{deltas = cumprod((100:0)/100)} correspond
-#'   to the iterative correction procedure of Step 1b in Kilian (1998). 
-#'   Choosing \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
+#'   multiplied to the bias estimate \eqn{\hat{\Psi}} for a stationarity correction. 
+#'   The default weights \code{deltas = cumprod((100:0)/100)} correspond 
+#'   to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
+#'   \code{deltas = 1} inhibits the stationarity correction, and 
+#'   \code{deltas = 0} inhibits the bias-correction but still returns a bias estimate. 
+#'   However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
 #' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 #'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
 #'   for the normalization of Jentsch and Lunsford (2021) 
@@ -114,6 +116,7 @@
 sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=TRUE, deltas=cumprod((100:0)/100), normf=NULL){
   # define
   PSI_bc = x$PSI_bc  # bias term (Note that 'x' will be overwritten for exogenous variables.)
+  if( is.null(PSI_bc) & inherits(x, "sboot") ){ warning("The bootstrap is performed without bias-correction due to unavailable bias estimates.") }
   y = D = D1 = D2 = A = B = beta = resid = NULL
   dim_K = dim_S = dim_T = dim_p = dim_r = t_D1 = t_D2 = NULL
   args_varx = args_id = NULL
@@ -275,7 +278,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
   # first-step bias-correction of VAR coefficients, from Kilian 1998:220
   if(is.null(PSI_bc) & !is.null(deltas)){
     # Step 1a: bias estimate
-    PSI_bc   = apply(Aboot, MARGIN=1:2, mean) - A_hat
+    R.varx$PSI_bc = PSI_bc = apply(Aboot, MARGIN=1:2, mean) - A_hat
     # Step 1b: stationary correction
     R.varx$A = aux_BaB(A_hat=A_hat, dim_p=dim_p, PSI=PSI_bc, deltas=deltas)
   }
@@ -326,10 +329,12 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in \code{vars:::.bootsvec}, 
 #'   but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.
 #' @param deltas Vector. Numeric weights \eqn{\delta_j} that are successively 
-#'   multiplied to each bias estimate \eqn{\hat{\Psi}_i} for a stationary correction. 
-#'   The default weights \code{deltas = cumprod((100:0)/100)} correspond
-#'   to the iterative correction procedure of Step 1b in Kilian (1998). 
-#'   Choosing \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
+#'   multiplied to each bias estimate \eqn{\hat{\Psi}_i} for a stationarity correction. 
+#'   The default weights \code{deltas = cumprod((100:0)/100)} correspond 
+#'   to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
+#'   \code{deltas = 1} inhibits the stationarity correction, and 
+#'   \code{deltas = 0} inhibits the bias-correction but still returns a bias estimate. 
+#'   However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
 #' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 #'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
 #'   for the normalization of Jentsch and Lunsford (2021) 
@@ -416,6 +421,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_beta=TRUE, deltas=cumprod((100:0)/100), normf=NULL, w=NULL, MG_IRF=TRUE){
   # define
   L.PSI_bc = x$L.PSI_bc  # list of individual bias terms
+  if( is.null(L.PSI_bc) & inherits(x, "sboot") ){ warning("The bootstrap is performed without bias-correction due to unavailable bias estimates.") }
   A_MG = B_MG = beta = dim_N = dim_K = dim_S = dim_r = NULL
   L.varx = L.dim_T = L.dim_p = L.resid = L.beta = L.A = L.B = L.D = L.D1 = L.D2 = NULL
   args_pvarx = args_pid = NULL
@@ -630,12 +636,13 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
       A_hat = R.pvarx$L.varx[[i]]$A
       A_sim = array(NA, dim=c(dim_K, ncol(A_hat), n.boot), dimnames=list(names_k, colnames(A_hat), NULL))
       for(j in 1:n.boot){ A_sim[,, j] = L.boot[[j]][[5]][[i]] }
-      L.PSI_bc[[i]] = apply(A_sim, MARGIN=1:2, mean) - A_hat
+      R.pvarx$L.varx[[i]]$PSI_bc = L.PSI_bc[[i]] = apply(A_sim, MARGIN=1:2, mean) - A_hat
       
       # Step 1b: stationary correction
       R.pvarx$L.varx[[i]]$A = aux_BaB(A_hat=A_hat, dim_p=R.pvarx$L.varx[[i]]$dim_p, PSI=L.PSI_bc[[i]], deltas=deltas)
     }
     R.pvarx$A = aux_MG(R.pvarx$L.varx, w=w, idx_par="A")$mean
+    R.pvarx$L.PSI_bc = L.PSI_bc
   }
   
   # return result
