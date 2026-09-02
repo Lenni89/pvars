@@ -1,7 +1,7 @@
 
 
 #' @title Independence-based identification of panel SVAR models via Cramer-von Mises (CVM) distance
-#' @description Given an estimated panel of VAR models, this function applies independence-based identification for 
+#' @description Given an estimated panel VAR model, this function applies independence-based identification for 
 #'   the structural impact matrix \eqn{B_i} of the corresponding SVAR model
 #'   \deqn{y_{it} = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + u_{it}}
 #'   \deqn{       = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + B_i \epsilon_{it}.}
@@ -242,7 +242,7 @@ pid.cvm <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, dd=N
 
 
 #' @title Independence-based identification of panel SVAR models using distance covariance (DC) statistic
-#' @description Given an estimated panel of VAR models, this function applies independence-based identification for 
+#' @description Given an estimated panel VAR model, this function applies independence-based identification for 
 #'   the structural impact matrix \eqn{B_i} of the corresponding SVAR model
 #'   \deqn{y_{it} = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + u_{it}}
 #'   \deqn{       = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + B_i \epsilon_{it}.}
@@ -450,20 +450,20 @@ pid.dc <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, n.ite
 
 
 #' @title Identification of panel SVAR models by means of proxy variables
-#' @description Given an estimated panel of VAR models, this function 
-#'   uses proxy variables to partially identify
-#'   the structural impact matrix \eqn{B_i} of the corresponding SVAR model
+#' @description Given an estimated panel VAR model, this function 
+#'   uses proxy variables to identify the structural impact matrix \eqn{B_i} 
+#'   of the corresponding SVAR model
 #'   \deqn{y_{it} = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + u_{it}}
 #'   \deqn{       = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + B_i \epsilon_{it}.}
 #'   In general, identification procedures determine \eqn{B_i} up to column ordering, scale, and sign. 
 #'   For a unique solution, \code{pid.iv} follows the literature on proxy SVAR. 
-#'   The \eqn{S} columns in \eqn{B_i = [B_{i,1} : B_{i,2}]} of the identified shocks 
-#'   \eqn{\epsilon_{its}, s=1,\ldots,S,} are ordered first, and the variance 
-#'   \eqn{\sigma^2_{\epsilon,is} = 1} is normalized to unity (see e.g. Lunsford 
-#'   2015:6, Eq. 9). Further, the sign is fixed to a positive correlation 
-#'   between proxy and shock series. A normalization of the impulsed shock 
-#'   that may fix the size of the impact response in the IRF can be imposed 
-#'   subsequently via '\code{normf}' in \code{\link{irf.pvarx}} and \code{\link{sboot.pmb}}.
+#'   The \eqn{K_1} columns in \eqn{B_i = [B_{i,1} : B_{i,2}]} of the instrumented 
+#'   shocks \eqn{\epsilon_{itk}, k=1,\ldots,K_1,} are ordered first, and their 
+#'   variances \eqn{\sigma^2_{\epsilon,ik} = 1} are normalized to unity  
+#'   (see e.g. Mertens, Ravn 2013:1215 and Lunsford 2015:6, Eq. 9). 
+#'   A normalization of the impulsed shock that may fix the size of the impact 
+#'   response in the IRF can be imposed subsequently via '\code{normf}' 
+#'   in \code{\link{irf.pvarx}} and \code{\link{sboot.pmb}}.
 #' 
 #' @param x An object of class '\code{pvarx}' or a list of VAR objects 
 #'   that will be \link[=as.varx]{coerced} to '\code{varx}'. 
@@ -473,24 +473,37 @@ pid.dc <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, n.ite
 #'   individual proxy time series \eqn{m_{it}}. The proxies must have the same 
 #'   succession \eqn{l = 1,\ldots,L} in each individual '\code{data.frame}'.
 #' @param combine Character. The combination of the individual reduced-form residuals 
-#'   via '\code{pool}' for the pooled shocks by Empting et al. (2025) using a common orthogonal matrix or
+#'   via '\code{pool}' for the pooled shocks by Empting et al. (2026) using a common orthogonal matrix \eqn{Q} or
 #'   via '\code{indiv}' for individual-specific \eqn{B_i \forall i} using strictly separated identification runs.
-#' @param S2 Character. Identification within multiple proxies \eqn{m_{it}} 
-#'   via '\code{MR}' for lower-triangular \eqn{[I_S : -B_{i,11} B_{i,12}^{-1} ] B_{i,1}} by Mertens, Ravn (2013), 
-#'   via '\code{JL}' for chol\eqn{(\Sigma_{mu,i} \Sigma_{u,i}^{-1} \Sigma_{um,i})} by Jentsch, Lunsford (2021), or
-#'   via '\code{NQ}' for the nearest orthogonal matrix from \code{\link[base]{svd}} decomposition by Empting et al. (2025). 
-#'   In case of \eqn{S=L=1} proxy, all three choices provide identical results on \eqn{B_{i,1}}.
-#'   In case of \code{combine='pool'}, the argument is automatically fixed to '\code{NQ}'.
+#' @param S2 Character. Selection of the exact identification within multiple instrumented shock series, see 'Details'. 
+#'   In case of \eqn{K_1=1} instrumented shock series, all four choices provide identical results on \eqn{B_{i,1}} up to the sign.
 #' @param cov_u Character. Selection of the estimated residual covariance matrices \eqn{\hat{\Sigma}_{u,i}} 
 #'   to be used in the identification procedure. 
-#'   Either \code{'OMEGA'} (the default) for \eqn{\hat{U}_i \hat{U}_i'/T_i} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2021)
+#'   Either \code{'OMEGA'} (the default) for \eqn{\hat{U}_i \hat{U}_i'/T_i} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2022)
 #'   or \code{'SIGMA'} for \eqn{\hat{U}_i \hat{U}_i'/(T_i - n_{zi})}, which corrects for the number of regressors \eqn{n_{zi}}. 
 #'   Both character options refer to the name of the respective estimate in the '\code{varx}' objects.
-#' @param R0 Matrix. A \eqn{(L \times S)} selection matrix for '\code{NQ}' that 
-#'   governs the attribution of the \eqn{L} proxies to their specific \eqn{S} 
-#'   structural shock series. If \code{NULL} (the default), \code{R0} 
-#'   \eqn{= I_S} will be used such that the \eqn{S=L} columns of \eqn{B_{i,1}} are 
-#'   one-by-one estimated from the \eqn{S=L} proxy series '\code{iv}' available. 
+#' @param dim_K1 Integer. Number of shock series instrumented by the \eqn{L \ge K_1} proxy variables. 
+#'   If \code{NULL} (the default), the first \eqn{L=K_1} shock series are instrumented.
+#'   
+#' @details For the exact identification within the \eqn{K_1 > 1} shock series, 
+#'   the literature on proxy SVAR provides the following templates to impose 
+#'   \eqn{K_1(K_1-1)/2} additional restrictions. Those are available via \code{S2} as:
+#'   \itemize{
+#'   \item{'\code{MR}'} for the lower-triangular Schur complement 
+#'   \eqn{S_{i,1} = B_{i,11} - B_{i,12} B_{i,22}^{-1} B_{i,21}} by Mertens, Ravn (2013), 
+#'   \item{'\code{JL}'} for the lower-triangular covariance matrix \eqn{\Sigma_{m\epsilon 1,i}}
+#'   of proxies \eqn{m_{it}} and instrumented shocks \eqn{\epsilon_{1,it}} by Jentsch, Lunsford (2022), 
+#'   \item{'\code{NQ}'} for the nearest orthogonal matrix by Empting et al. (2026), or
+#'   \item{'\code{LT}'} for lower-triangular blocks \eqn{Q_{i,11}} and \eqn{B_{i,11}} by Empting et al. (2026, Appendix A).
+#'   }
+#'   If \code{combine='pool'} or if the argument \code{dim_K1} is not \code{NULL}, 
+#'   the identification procedure resorts to \code{\link[base]{svd}} and 
+#'   a subsequent recovery of the selected \code{S2} restrictions 
+#'   (see Empting et al. 2026, Appendix A).
+#'   The solution by \code{\link[base]{svd}} further provides the orthogonal 
+#'   complement \eqn{Q_{i,2}} for a full identification of \eqn{Q_i = [Q_{i,1} : Q_{i,2}]}, 
+#'   where \eqn{K_2(K_2-1)/2} additional restrictions are imposed as lower-triangular 
+#'   blocks \eqn{Q_{i,12}} and \eqn{B_{i,12}} irrespective of the choice of \code{S2}.
 #' 
 #' @return List of class '\code{pid}' with elements:
 #' \item{A}{Matrix. The lined-up coefficient matrices \eqn{A_j, j=1,\ldots,p} 
@@ -516,11 +529,11 @@ pid.dc <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, n.ite
 #' @references Jentsch, C., and Lunsford, K. G. (2019): 
 #'   "The Dynamic Effects of Personal and Corporate Income Tax Changes in the 
 #'   United States: Comment", \emph{American Economic Review}, 109, pp. 2655-2678.
-#' @references Jentsch, C., and Lunsford, K. G. (2021):
+#' @references Jentsch, C., and Lunsford, K. G. (2022):
 #'   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
 #'   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
-#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2025): 
-#'   "Inference in Panel SVARs with Cross-Sectional Dependence of Unknown Form".
+#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
+#'   "Inference in Panel SVARs with Two-Way Dependence".
 #' 
 #' @examples
 #' data("PCIT")
@@ -539,20 +552,20 @@ pid.dc <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, n.ite
 #' @importFrom steadyICA steadyICA W2theta
 #' @export
 #' 
-pid.iv <- function(x, iv, S2=c("MR", "JL", "NQ"), cov_u="OMEGA", R0=NULL, combine=c("pool", "indiv")){
+pid.iv <- function(x, iv, S2=c("MR", "JL", "NQ", "LT"), cov_u="OMEGA", dim_K1=NULL, combine=c("pool", "indiv")){
   # define and check
   x = as.pvarx(x)
   dim_N  = length(x$L.varx)
   names_i = names(x$L.varx)
   L.iv = aux_check(iv, "iv", dim_N, names_i)
   if( is.null(names_i) ){ names_i = 1:dim_N }
-  if( combine=="pool" & S2!="NQ" ){ warning("Resorting to 'NQ' for pooling."); S2 = "NQ" }
   
   # combine reduced-form residuals
-  args_id = list(method="Proxy", S2=S2, cov_u=cov_u, R0=R0, combine=combine)
+  args_id = list(method="Proxy", S2=S2, cov_u=cov_u, combine=combine, dim_K1=dim_K1)
   if(combine=="pool"){
     # define
-    names_k = if( !is.null(rownames(x$A)) ){ rownames(x$A) }else{ names_k = paste0("y", 1:nrow(x$A)) }
+    dim_K1  = if( !is.null(dim_K1) ){ dim_K1 }else{ nrow(L.iv[[1]]) }
+    names_k = if( !is.null(rownames(x$A)) ){ rownames(x$A) }else{ paste0("y", 1:nrow(x$A)) }
     L.resid = lapply(x$L.varx, FUN=function(x_i) x_i$resid)
     L.Ucov  = lapply(x$L.varx, FUN=function(x_i) x_i[[cov_u]])
     
@@ -563,26 +576,32 @@ pid.iv <- function(x, iv, S2=c("MR", "JL", "NQ"), cov_u="OMEGA", R0=NULL, combin
     L.Uchl = R.pool$L.Uchl  # lower triangular, Cholesky-decomposed correlation matrices
     
     # identify via pooled proxy variables (L x NT)
-    L.iv = sapply(names_i, FUN=function(i) tail(L.iv[[i]], n=c(NA, ncol(L.resid[[i]]))), simplify=FALSE)
-    R.id = aux_idNQ(eps=R.eps, m=do.call("cbind", L.iv), R0=R0)
+    L.iv  = sapply(names_i, FUN=function(i) tail(L.iv[[i]], n=c(NA, ncol(L.resid[[i]]))), simplify=FALSE)
+    R.udv = aux_idSVD(eps_u=R.eps, eps_m=do.call("cbind", L.iv), S2=S2, dim_K1=dim_K1)
     
     # recover unique structural impact matrices, by Herwartz 2017:12, Eq.23
     for(i in 1:dim_N){ 
-      x$L.varx[[i]]$B = L.Ustd[[i]] %*% L.Uchl[[i]] %*% R.id$Q
+      x$L.varx[[i]]$B = L.Ustd[[i]] %*% L.Uchl[[i]] %*% R.udv$Q
       x$L.varx[[i]]$args_id = args_id
       x$L.varx[[i]]$args_id$iv = L.iv[[i]]
       rownames(x$L.varx[[i]]$B) = names_k
       class(x$L.varx[[i]]) = c("id", "varx")
     }
     
+    if(S2=="MR"){
+      MG_B = aux_MG(x$L.varx, w=x$args_pvarx$w, idx_par="B")$mean
+      R.udv$w = R.udv$w %*% aux_NQ2MR(MG_B, dim_K1=dim_K1)
+      for(i in 1:dim_N){ x$L.varx[[i]]$B = x$L.varx[[i]]$B %*% R.udv$w }
+    }
+    
   }else if(combine=="indiv"){
     # strictly individual-specific identification
     idf <- function(x, iv){
       # identify via proxy variables
-      R.id = aux_idIV(u=x$resid, m=iv, S2=S2, SIGMA_uu=x[[cov_u]], R0=R0)
+      R.id = aux_idIV(u=x$resid, m=iv, S2=S2, SIGMA_uu=x[[cov_u]], dim_K1=dim_K1)
       
       # add to "varx"-object
-      x$B = R.id$B
+      x$B = R.id$B1
       x$Q = R.id$Q
       x$udv = R.id$udv
       x$F_stats = R.id$F_stats
@@ -595,7 +614,7 @@ pid.iv <- function(x, iv, S2=c("MR", "JL", "NQ"), cov_u="OMEGA", R0=NULL, combin
     # calculate structural impact matrices
     x$L.varx = sapply(names_i, function(i) idf(x$L.varx[[i]], iv=L.iv[[i]]), simplify=FALSE)
     L.iv = lapply(x$L.varx, function(i) i$args_id$iv)  # proxy time series of accordant dim_T
-    R.id = list(); R.eps = NULL  # void panel results
+    R.udv = list(); R.eps = NULL  # void panel results
     
   }else{
     stop("Incorrect specification of the combination approach!")
@@ -607,8 +626,8 @@ pid.iv <- function(x, iv, S2=c("MR", "JL", "NQ"), cov_u="OMEGA", R0=NULL, combin
   
   # return result
   x$eps0 = R.eps
-  x$udv  = R.id$udv
-  x$Q    = R.id$Q
+  x$udv  = R.udv
+  x$Q    = R.udv$Q
   x$args_pid = args_id
   x$args_pid$L.iv = L.iv
   class(x) = c("pid", "pvarx")

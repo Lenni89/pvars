@@ -39,11 +39,11 @@ plot(fevd(R.idBL, n.ahead=20))
 
 }
 \references{
-Luetkepohl, H. (2005): 
+Luetkepohl, H. (2005):
   \emph{New Introduction to Multiple Time Series Analysis}, 
   Springer, 2nd ed.
 
-Jentsch, Lunsford (2022): 
+Jentsch, C., and Lunsford, K. G. (2022):
   "Asymptotically Valid Bootstrap Inference for Proxy SVARs", 
   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
 }

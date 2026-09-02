@@ -2,41 +2,54 @@
 
 #' @title Identification of SVAR models by means of proxy variables
 #' @description Given an estimated VAR model, this function uses proxy variables
-#'   to partially identify the structural impact matrix \eqn{B} 
+#'   to identify the structural impact matrix \eqn{B} 
 #'   of the corresponding SVAR model
 #'   \deqn{y_{t} = c_{t} + A_{1} y_{t-1} + ... + A_{p} y_{t-p} + u_{t}}
 #'   \deqn{      = c_{t} + A_{1} y_{t-1} + ... + A_{p} y_{t-p} + B \epsilon_{t}.}
 #'   In general, identification procedures determine \eqn{B} up to 
 #'   column ordering, scale, and sign. For a unique solution, \code{id.iv} 
 #'   follows the literature on proxy SVAR. 
-#'   The \eqn{S} columns in \eqn{B = [B_1 : B_2]} of the identified shocks 
-#'   \eqn{\epsilon_{ts}, s=1,\ldots,S,} are ordered first, and the variance 
-#'   \eqn{\sigma^2_{\epsilon,s} = 1} is normalized to unity (see e.g. Lunsford 
-#'   2015:6, Eq. 9). Further, the sign is fixed to a positive correlation 
-#'   between proxy and shock series. A normalization of the impulsed shock 
-#'   that may fix the size of the impact response in the IRF can be imposed 
-#'   subsequently via '\code{normf}' in \code{\link{irf.varx}} and 
-#'   \code{\link{sboot.mb}}.
+#'   The \eqn{K_1} columns in \eqn{B = [B_1 : B_2]} of the instrumented 
+#'   shocks \eqn{\epsilon_{tk}, k=1,\ldots,K_1,} are ordered first, and their 
+#'   variances \eqn{\sigma^2_{\epsilon,k} = 1} are normalized to unity 
+#'   (see e.g. Mertens, Ravn 2013:1215 and Lunsford 2015:6, Eq. 9). 
+#'   A normalization of the impulsed shock that may fix the size of the impact 
+#'   response in the IRF can be imposed subsequently via '\code{normf}' 
+#'   in \code{\link{irf.varx}} and \code{\link{sboot.mb}}.
 #'   
 #' @param x VAR object of class '\code{varx}' or any other 
 #'   that will be \link[=as.varx]{coerced} to '\code{varx}'. 
 #' @param iv Matrix. A \eqn{(L \times T)} data matrix of the \eqn{L} proxy 
 #'   time series \eqn{m_t}. 
-#' @param S2 Character. Identification within multiple proxies \eqn{m_t} 
-#'   via '\code{MR}' for lower-triangular \eqn{[I_S : -B_{11} B_{12}^{-1} ] B_{1}} by Mertens, Ravn (2013), 
-#'   via '\code{JL}' for chol\eqn{(\Sigma_{mu} \Sigma_{u}^{-1} \Sigma_{um})} by Jentsch, Lunsford (2021), or
-#'   via '\code{NQ}' for the nearest orthogonal matrix from \code{\link[base]{svd}} decomposition by Empting et al. (2025). 
-#'   In case of \eqn{S=L=1} proxy, all three choices provide identical results on \eqn{B_1}.
+#' @param S2 Character. Selection of the exact identification within multiple instrumented shock series, see 'Details'. 
+#'   In case of \eqn{K_1=1} instrumented shock series, all four choices provide identical results on \eqn{B_1} up to the sign.
 #' @param cov_u Character. Selection of the estimated residual covariance matrix \eqn{\hat{\Sigma}_{u}} 
 #'   to be used in the identification procedure. 
-#'   Either \code{'OMEGA'} (the default) for \eqn{\hat{U} \hat{U}'/T_i} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2021)
+#'   Either \code{'OMEGA'} (the default) for \eqn{\hat{U} \hat{U}'/T_i} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2022)
 #'   or \code{'SIGMA'} for \eqn{\hat{U}\hat{U}'/(T-n_{z})}, which corrects for the number of regressors \eqn{n_z}. 
 #'   Both character options refer to the name of the respective estimate in the '\code{varx}' object.
-#' @param R0 Matrix. A \eqn{(L \times S)} selection matrix for '\code{NQ}' that 
-#'   governs the attribution of the \eqn{L} proxies to their specific \eqn{S} 
-#'   structural shock series. If \code{NULL} (the default), \code{R0} 
-#'   \eqn{= I_S} will be used such that the \eqn{S=L} columns of \eqn{B_1} are 
-#'   one-by-one estimated from the \eqn{S=L} proxy series '\code{iv}' available. 
+#' @param dim_K1 Integer. Number of shock series instrumented by the \eqn{L \ge K_1} proxy variables. 
+#'   If \code{NULL} (the default), the first \eqn{L=K_1} shock series are instrumented.
+#'   
+#' @details For the exact identification within the \eqn{K_1 > 1} shock series, 
+#'   the literature on proxy SVAR provides the following templates to impose 
+#'   \eqn{K_1(K_1-1)/2} additional restrictions. Those are available via \code{S2} as:
+#'   \itemize{
+#'   \item{'\code{MR}'} for the lower-triangular Schur complement 
+#'   \eqn{S_1 = B_{11} - B_{12} B_{22}^{-1} B_{21}} by Mertens, Ravn (2013), 
+#'   \item{'\code{JL}'} for the lower-triangular covariance matrix \eqn{\Sigma_{m\epsilon 1}}
+#'   of proxies \eqn{m_{t}} and instrumented shocks \eqn{\epsilon_{1,t}} by Jentsch, Lunsford (2022),
+#'   \item{'\code{NQ}'} for the nearest orthogonal matrix by Empting et al. (2026), or
+#'   \item{'\code{LT}'} for lower-triangular blocks \eqn{Q_{11}} and \eqn{B_{11}} by Empting et al. (2026, Appendix A).
+#'   }
+#'   If the argument \code{dim_K1} is not \code{NULL}, 
+#'   the identification procedure resorts to \code{\link[base]{svd}} and 
+#'   a subsequent recovery of the selected \code{S2} restrictions 
+#'   (see Empting et al. 2026, Appendix A). 
+#'   The solution by \code{\link[base]{svd}} further provides the orthogonal 
+#'   complement \eqn{Q_{2}} for a full identification of \eqn{Q = [Q_{1} : Q_{2}]}, 
+#'   where \eqn{K_2(K_2-1)/2} additional restrictions are imposed as lower-triangular 
+#'   blocks \eqn{Q_{12}} and \eqn{B_{12}} irrespective of the choice of \code{S2}.
 #' 
 #' @return List of class '\code{\link[=as.varx]{id}}'.
 #' 
@@ -49,30 +62,30 @@
 #' @references Jentsch, C., and Lunsford, K. G. (2019):
 #'   "The Dynamic Effects of Personal and Corporate Income Tax Changes in the 
 #'   United States: Comment", \emph{American Economic Review}, 109, pp. 2655-2678.
-#' @references Jentsch, C., and Lunsford, K. G. (2021):
+#' @references Jentsch, C., and Lunsford, K. G. (2022):
 #'   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
 #'   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
-#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2025): 
-#'   "Inference in Panel SVARs with Cross-Sectional Dependence of Unknown Form".
+#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
+#'   "Inference in Panel SVARs with Two-Way Dependence".
 #' @seealso \ldots the individual identification approaches 
 #'   by Lange et al. (2021) in \strong{svars}.
 #' @family identification functions
 #' @example inst/examples/id_iv.R
 #' @export
 #' 
-id.iv <- function(x, iv, S2=c("MR", "JL", "NQ"), cov_u="OMEGA", R0=NULL){
+id.iv <- function(x, iv, S2=c("MR", "JL", "NQ", "LT"), cov_u="OMEGA", dim_K1=NULL){
   # define
   x = as.varx(x)
   
   # identify via proxy variables
-  R.id = aux_idIV(u=x$resid, m=iv, S2=S2, SIGMA_uu=x[[cov_u]], R0=R0)
+  R.id = aux_idIV(u=x$resid, m=iv, S2=S2, SIGMA_uu=x[[cov_u]], dim_K1=dim_K1)
   
   # return result
-  x$B = R.id$B1  # estimated B matrix (partially identified by "JL" and "MR")
-  x$Q = R.id$Q   # estimated orthogonal matrix (only by "NQ")
-  x$udv = R.id$udv   # SVD results (only by "NQ")
+  x$B = R.id$B1  # estimated impact matrix B
+  x$Q = R.id$Q   # estimated orthogonal matrix
+  x$udv = R.id$udv   # SVD results
   x$F_stats = R.id$F_stats  # F-statistic on proxy relevance
-  x$args_id = list(method="Proxy", iv=R.id$m, S2=S2, cov_u=cov_u, R0=R0)
+  x$args_id = list(method="Proxy", iv=R.id$m, S2=S2, cov_u=cov_u, dim_K1=dim_K1)
   class(x)  = c("id", "varx")
   return(x)
 }

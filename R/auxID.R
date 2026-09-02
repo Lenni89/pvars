@@ -87,7 +87,7 @@ aux_sico <- function(B, B.orig=NULL, names_s=NULL){
     idx_si = c(idx_si, rep(FALSE, dim_S-dim_K))  # does not touch potential excess shocks
     
     # return result
-    mat_perm = diag(dim_S)[ , idx_co] %*% diag(-1*idx_si + 1*!idx_si)  # permutation matrix
+    mat_perm = diag(nrow=dim_S)[ , idx_co] %*% diag(-1*idx_si + 1*!idx_si)  # permutation matrix
     colnames(mat_perm) = names_s
     B.sico = B %*% mat_perm
     result = list(B=B.sico, idx_co=idx_co, idx_si=idx_si, mat_perm=mat_perm)
@@ -141,7 +141,7 @@ aux_sico <- function(B, B.orig=NULL, names_s=NULL){
     sign.change = -1*(l2.2<l2.1) + 1*(l2.1<=l2.2) 
     
     # return result
-    mat_perm = diag(n.comp)[,map] %*% diag(sign.change)
+    mat_perm = diag(nrow=n.comp)[,map] %*% diag(sign.change)
     B.sico   = B %*% mat_perm
     dimnames(B.sico) = dimnames(B.orig)
     return(B.sico)
@@ -172,30 +172,54 @@ aux_permute <- function(n){
 }
 
 
+# orthogonal factor of a signed LQ decomposition via QR decomposition
+aux_signLQ <- function(M, S=NULL){
+  # define
+  dim_M = ncol(M)  # M is a square matrix
+  R.qr = qr(t(M))  # Use the default QR decomposition (LAPACK = FALSE) only!
+  Q = qr.Q(R.qr)   # Note that qr.Q() returns 1 if dim_M = 1 and <0 x 0> if dim_M = 0.
+  
+  # sign-correction such that R_tr = t(M) %*% Q is lower-triangular with positive diagonal elements 
+  diag_R = if(is.null(S)){ diag(qr.R(R.qr)) }else{ diag(S %*% Q) }  #  ... or of (S %*% Q) if an anchor is supplied.
+  idx_si = (0 > diag_R)
+  Q = Q %*% diag(c(-1*idx_si + 1*!idx_si), nrow=dim_M)
+  
+  # return result
+  return(Q)
+}
+
+
 # identify structural shocks with proxy variables / external instruments
-aux_idIV <- function(u, m, S2=c("MR", "JL", "NQ"), SIGMA_uu, R0=NULL){
+aux_idIV <- function(u, m, S2=c("MR", "JL", "LT", "NQ"), SIGMA_uu, dim_K1=NULL){
   # define
   u = aux_asDataMatrix(u, "u")  # named residual matrix is KxT
   m = aux_asDataMatrix(m, "m")  # named proxy matrix is LxT
   dim_T = ncol(u)  # number of observation without presample
   dim_K = nrow(u)  # number of endogenous variables in the VAR
   dim_L = nrow(m)  # number of proxy variables
-  dim_S = if( is.null(R0) ){ dim_L }else{ nrow(R0) }  # effective number of shocks
+  dim_S = if( S2 %in% c("MR", "JL") & is.null(dim_K1) ){ dim_L }else{ dim_K }  # number of identified shocks
   if(ncol(m) > dim_T){ m = tail(m, n=c(dim_L, dim_T)) }  # remove presample periods
   names_k = if( !is.null(rownames(u)) ){ rownames(u) }else{ paste0("y[ ", 1:dim_K, " ]") }
-  names_s = if( !is.null(rownames(R0)) ){ rownames(R0) }else{ paste0("epsilon[ ", 1:dim_S, " ]") }
+  names_s = paste0("epsilon[ ", 1:dim_S, " ]")
   
   # void results for some S2
-  R.id = list()
-  shocks = F_stats = NULL 
+  R.udv = list()
+  F_stats = NULL 
   
-  # identify using multiple instruments
-  if( S2=="NQ" ){
-    # ... from Empting et al. (2025)
-    B0   = t(chol(SIGMA_uu))
-    R.id = aux_idNQ(eps = solve(B0)%*%u, m=m, R0=R0)
-    B1   = B0 %*% R.id$Q  # fully identified
-    rownames(B1) = names_k
+  # identify using multiple proxy variables
+  if( S2=="NQ" | S2=="LT" | !is.null(dim_K1) ){
+    # ... from Empting et al. (2026)
+    if( is.null(dim_K1) ){ dim_K1 = dim_L }
+    B0    = t(chol(SIGMA_uu))
+    eps_u = solve(B0)%*%u
+    R.udv = aux_idSVD(eps_u=eps_u, eps_m=m, S2=S2, dim_K1=dim_K1)
+    B1    = B0 %*% R.udv$Q  # fully identified
+    
+    if(S2=="MR"){
+      R.udv$w = R.udv$w %*% aux_NQ2MR(B1, dim_K1=dim_K1)
+      R.udv$Q = R.udv$u %*% R.udv$w
+      B1      = B0 %*% R.udv$Q
+    }
     
   }else if( S2=="JL" ){
     # ... from Jentsch, Lunsford WP2019:34, Appendix A
@@ -207,13 +231,10 @@ aux_idIV <- function(u, m, S2=c("MR", "JL", "NQ"), SIGMA_uu, R0=NULL){
     PSIinv = solve(chol(SIGMA_mu %*% Pi))
     B1 = SIGMA_um %*% PSIinv
     ### With r=1 in Lunsford 2016:8, PSIinv is the inverted scalar square root of "phi^2".
-    dimnames(B1) = list(names_k, names_s)
     
     # F-test for a weak instrument, from Lunsford (2016)
-    shocks   = t(Pi %*% PSIinv) %*% u  # estimated shocks (S x T), from Lunsford 2016:9
     SIGMA_ee = tcrossprod((m - t(Pi) %*% u))
     F_stats  = ((dim_T - dim_K)/dim_K) * (SIGMA_mm - SIGMA_ee) / SIGMA_ee  # statistic, from Lunsford 2016:15
-    rownames(shocks) = names_s
     
   }else if( S2=="MR" ){
     # ... from Mertens, Raven 2013:1244, see Jentsch,Lunsford 2019:2659
@@ -237,53 +258,90 @@ aux_idIV <- function(u, m, S2=c("MR", "JL", "NQ"), SIGMA_uu, R0=NULL){
     B22B22 = SIGMA_uu22 - B21B11inv %*% B11B11 %*% t(B21B11inv)
     B12B22inv = (t(SIGMA_uu21) - B11B11 %*% t(B21B11inv)) %*% solve(B22B22)
     
-    M3_tmp = diag(dim_S) - B12B22inv %*% B21B11inv
+    M3_tmp = diag(nrow=dim_S) - B12B22inv %*% B21B11inv
     S1S1 = M3_tmp %*% B11B11 %*% t(M3_tmp)  # Eq.13
     B11 = solve(M3_tmp) %*% t(chol(S1S1))  # Eq.14
     B1 = rbind(B11, B21B11inv %*% B11)  # Eq.9+10
-    dimnames(B1) = list(names_k, names_s)
     
   }else{
-    stop("Please select the S2-identification 'JL', 'MR', or 'NQ'.")
+    stop("Please select the S2-identification 'MR', 'JL', 'LT', or 'NQ'.")
   }
   
   # return result
-  result = list(B1=B1, shocks=shocks, m=m, F_stats=F_stats, udv=R.id$udv, Q=R.id$Q)
+  dimnames(B1) = list(names_k, names_s)
+  result = list(B1=B1, m=m, F_stats=F_stats, udv=R.udv, Q=R.udv$Q)
   return(result)
 }
 
 
-# identify structural rotation with proxy variables / external instruments, from Empting et al. (2025)
-aux_idNQ <- function(eps, m, R0=NULL){
+# identify structural rotation with proxy variables / external instruments, from Empting et al. (2026)
+aux_idSVD <- function(eps_u, eps_m, S2=c("MR", "JL", "LT", "NQ"), dim_K1){
   # define
-  eps_u = aux_asDataMatrix(eps, "y")  # named matrix of whitened residuals is KxT
-  eps_m = aux_asDataMatrix(m, "m")    # named matrix of proxies is LxT
+  eps_u = aux_asDataMatrix(eps_u, "y")  # named matrix of whitened residuals is KxT
+  eps_m = aux_asDataMatrix(eps_m, "m")  # named matrix of whitened proxies is LxT
   dim_T = ncol(eps_u)
   dim_K = nrow(eps_u)
-  names_s = if( !is.null(rownames(R0)) ){ rownames(R0) }else{ paste0("epsilon[ ", 1:dim_K, " ]") }
-  dim_K1 = if( !is.null(R0) ){ ncol(R0) }else{ nrow(eps_m) }
+  dim_L = nrow(eps_m)
   dim_K2 = dim_K - dim_K1
+  idx_k1 = 0:dim_K1
+  names_s = paste0("epsilon[ ", 1:dim_K, " ]")
   
+  # moments and SVD
   SIGMA_em = tcrossprod(eps_u, eps_m)/dim_T  # proxy moment matrix
-  ZEROS_2  = matrix(0, nrow=dim_K,  ncol=dim_K2) # for the orthogonal complement
-  ZEROS_12 = matrix(0, nrow=dim_K1, ncol=dim_K2) # for the off-diagonal padding
+  ZEROS_2  = matrix(0, nrow=dim_K,  ncol=max(dim_K-dim_L, 0))  # for the orthogonal complement
+  ZEROS_12 = matrix(0, nrow=dim_K1, ncol=dim_K2)  # for the off-diagonal padding
+  R.udv    = svd(cbind(SIGMA_em, ZEROS_2), nv=dim_K1)
   
-  # find nearest orthogonal matrix
-  udv = svd(cbind(SIGMA_em, ZEROS_2), nv=dim_K1)
-  u12 = udv$u[0:dim_K2, -(0:dim_K1)]
-  v22 = t(qr.Q(qr(t(u12))))  # sub-rotation under recursive causality
-  udv$v = cbind(udv$v, rbind(ZEROS_12, v22))
-  Q = udv$u %*% t(udv$v)
-  ### Note that qr.Q() returns 1 if K_2 = 1 and <0 x 0> if K_2 = 0.
+  # impose n_K1 zero-restrictions
+  if( S2=="NQ" & dim_L==dim_K1 ){
+    w11 = t(R.udv$v[idx_k1, idx_k1, drop=FALSE])
+  }else if( S2=="NQ" ){
+    v11 = R.udv$v[idx_k1, idx_k1, drop=FALSE]
+    D1  = diag(R.udv$d[idx_k1], nrow=dim_K1)
+    udv = svd(v11 %*% D1)
+    w11 = udv$v %*% t(udv$u)
+  }else if( S2=="LT" ){
+    u11 = R.udv$u[idx_k1, idx_k1, drop=FALSE]
+    w11 = aux_signLQ(u11)
+  }else if( S2=="JL" ){
+    v11 = R.udv$v[idx_k1, idx_k1, drop=FALSE]
+    D1  = diag(R.udv$d[idx_k1], nrow=dim_K1)
+    w11 = aux_signLQ(v11 %*% D1)
+  }else{  # S2=="MR" for example
+    w11 = diag(nrow=dim_K1)
+  }
   
-  # normalize sign
-  idx_si = (0 > diag(Q))
-  Q = Q %*% diag(c(-1*idx_si + 1*!idx_si))
+  # impose n_K2 zero-restrictions by "LT", signed on the main diagonal of Q
+  u12 = R.udv$u[0:dim_K2, -idx_k1, drop=FALSE]
+  u22 = R.udv$u[-idx_k1,  -idx_k1, drop=FALSE]
+  w22 = aux_signLQ(u12, S=u22)
   
   # return result
-  colnames(Q) = names_s
-  result = list(Q=Q, udv=udv)
-  return(result)
+  R.udv$w = cbind(rbind(w11, t(ZEROS_12)), rbind(ZEROS_12, w22))
+  colnames(R.udv$w) = names_s
+  R.udv$Q = R.udv$u %*% R.udv$w
+  return(R.udv)
+}
+
+
+# impose restrictions of Mertens, Raven (2013) on Q=UV, from Empting et al. (2026), Appendix A
+aux_NQ2MR <- function(B, dim_K1){
+  # define the blocks of B
+  idx_k1 = 0:dim_K1
+  B11 = B[ idx_k1, idx_k1, drop=FALSE]
+  B12 = B[ idx_k1,-idx_k1, drop=FALSE]
+  B21 = B[-idx_k1, idx_k1, drop=FALSE]
+  B22 = B[-idx_k1,-idx_k1, drop=FALSE]
+  
+  # restrict the Schur complement of B to be lower-triangular with positive diagonal elements
+  S_1 = if(nrow(B22) == 0){ B11 }else{ B11 - B12 %*% solve(B22, B21) }
+  w11 = aux_signLQ(S_1)
+  
+  # return result
+  W = diag(nrow=nrow(B))
+  W[idx_k1, idx_k1] = w11
+  colnames(W) = colnames(B)
+  return(W)
 }
 
 
@@ -299,10 +357,10 @@ aux_cvmICA <- function(eps, dd, itermax = 500, steptol = 100, iter2 = 75){
   rotmat <- function(theta) {
     ts_dim <- (1 + sqrt(1 + 8 * length(theta))) / 2
     combns <- combn(ts_dim, 2, simplify = FALSE)
-    rotmat <- diag(ts_dim)
+    rotmat <- diag(nrow=ts_dim)
 
     for (i in seq_along(theta)) {
-      tmp <- diag(ts_dim)
+      tmp <- diag(nrow=ts_dim)
       tmp[combns[[i]][1], combns[[i]][1]] <-  cos(theta[i])
       tmp[combns[[i]][2], combns[[i]][2]] <-  cos(theta[i])
       tmp[combns[[i]][1], combns[[i]][2]] <- -sin(theta[i])

@@ -4,7 +4,7 @@
 \alias{irf.pvarx}
 \title{Impulse Response Functions for panel SVAR models}
 \usage{
-\method{irf}{pvarx}(x, ..., n.ahead = 20, normf = NULL, w = NULL, MG_IRF = TRUE)
+\method{irf}{pvarx}(x, ..., n.ahead = 20, normf = NULL, w = NULL, MG_IRF = FALSE)
 }
 \arguments{
 \item{x}{Panel VAR object of class '\code{pid}' or '\code{pvarx}' 
@@ -16,7 +16,7 @@ or a list of VAR objects that will be \link[=as.varx]{coerced} to '\code{varx}'.
 
 \item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
-for the normalization of Jentsch and Lunsford (2021) 
+for the normalization of Jentsch and Lunsford (2022) 
 that fixes the size of the impact response.}
 
 \item{w}{Numeric, logical, or character vector. 
@@ -25,8 +25,9 @@ names or \eqn{N} logical elements selecting a subset from the
 individuals \eqn{i = 1, \ldots, N} for the MG estimation. If \code{NULL} 
 (the default), all \eqn{N} individuals are included without weights.}
 
-\item{MG_IRF}{Logical. If \code{TRUE} (the default), the mean-group of individual 
-IRF is calculated in accordance with Gambacorta et al. (2014). If \code{FALSE}, 
+\item{MG_IRF}{Logical. If \code{TRUE}, the mean-group of individual 
+IRF is calculated in accordance with Gambacorta et al. (2014). 
+If \code{FALSE} (the default recommended in Empting et al. 2026), 
 the IRF is calculated for the mean-group of individual VAR estimates.}
 }
 \value{
@@ -63,7 +64,10 @@ Gambacorta L., Hofmann B., and Peersman G. (2014):
   "The Effectiveness of Unconventional Monetary Policy at the Zero Lower Bound: A Cross-Country Analysis",
   \emph{Journal of Money, Credit and Banking}, 46, pp. 615-642.
 
-Jentsch, C., and Lunsford, K. G. (2021):
+Jentsch, C., and Lunsford, K. G. (2022):
   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
+
+Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
+  "Inference in Panel SVARs with Two-Way Dependence".
 }

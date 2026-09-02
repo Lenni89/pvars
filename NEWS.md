@@ -5,6 +5,21 @@ subtitle: pvars - VAR Modeling for Heterogeneous Panels
           | development repository <https://github.com/Lenni89/pvars>
 ---
 ***
+# pvars 1.2.0
+
+### Features: 
+* `pid.iv` and `id.iv` now allow to impose all listed `S2` restrictions on SVD 
+results automatically.
+
+### Removed: 
+* Unused argument `R0` with misleading documentation has been removed from 
+`pid.iv` and `id.iv`.
+
+### Changes or Improvements: 
+* Argument `MG_IRF` in `irf.pvarx` and `sboot.pmb` is now set to the recommended 
+default `FALSE`.
+
+***
 # pvars 1.1.0
 
 ### Documentation: 

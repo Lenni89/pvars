@@ -156,6 +156,27 @@ test_that("pid.iv(c('pool','indiv')) can reproduce the id.iv(S2='NQ') example fo
 })
 
 
+test_that("aux_idSVD() can recover 'MR' and 'JL' from 'NQ' respectively", {
+  # prepare data and estimate #
+  data("PCIT")
+  names_k = c("APITR", "ACITR", "PITB", "CITB", "GOV", "RGDP", "DEBT")
+  names_l = c("m_PI", "m_CI")  # proxy names
+  dim_K1  = length(names_l)  # number of identified shocks 
+  dim_p   = 4  # lag-order
+  R.vars  = vars::VAR(PCIT[ , names_k], p=dim_p, type="const")
+  
+  # identify under "MR" and check #
+  R.idMR = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="MR", cov_u="OMEGA")
+  R.idNQ = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="MR", cov_u="OMEGA", dim_K1=dim_K1)
+  expect_equal(R.idMR$B, R.idNQ$B[ , 1:dim_K1])
+  
+  # identify under "JL" and check #
+  R.idJL = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="JL", cov_u="OMEGA")
+  R.idNQ = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="JL", cov_u="OMEGA", dim_K1=dim_K1)
+  expect_equal(R.idJL$B, R.idNQ$B[ , 1:dim_K1])
+})
+
+
 test_that("the impact matrix from id.grt() fulfills BB'=OMEGA in a just-identified SVECM with period-pecific deterministic term", {
   # prepare data #
   data("PCAP")

@@ -8,15 +8,16 @@
 #' @param n.ahead Integer. Number of periods to consider after the initial impulse, i.e. the horizon of the IRF.
 #' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 #'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
-#'   for the normalization of Jentsch and Lunsford (2021) 
+#'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response.
 #' @param w Numeric, logical, or character vector. 
 #'   \eqn{N} numeric elements weighting the individual coefficients, or 
 #'   names or \eqn{N} logical elements selecting a subset from the 
 #'   individuals \eqn{i = 1, \ldots, N} for the MG estimation. If \code{NULL} 
 #'   (the default), all \eqn{N} individuals are included without weights.
-#' @param MG_IRF Logical. If \code{TRUE} (the default), the mean-group of individual 
-#'   IRF is calculated in accordance with Gambacorta et al. (2014). If \code{FALSE}, 
+#' @param MG_IRF Logical. If \code{TRUE}, the mean-group of individual 
+#'   IRF is calculated in accordance with Gambacorta et al. (2014). 
+#'   If \code{FALSE} (the default recommended in Empting et al. 2026), 
 #'   the IRF is calculated for the mean-group of individual VAR estimates.
 #' 
 #' @return A list of class '\code{svarirf}' holding the impulse response functions as a '\code{data.frame}'.
@@ -27,9 +28,11 @@
 #' @references Gambacorta L., Hofmann B., and Peersman G. (2014):
 #'   "The Effectiveness of Unconventional Monetary Policy at the Zero Lower Bound: A Cross-Country Analysis",
 #'   \emph{Journal of Money, Credit and Banking}, 46, pp. 615-642.
-#' @references Jentsch, C., and Lunsford, K. G. (2021):
+#' @references Jentsch, C., and Lunsford, K. G. (2022):
 #'   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
 #'   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
+#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
+#'   "Inference in Panel SVARs with Two-Way Dependence".
 #' 
 #' @examples
 #' data("PCAP")
@@ -53,7 +56,7 @@
 #' @method irf pvarx
 #' @export
 #' 
-irf.pvarx <- function(x, ..., n.ahead=20, normf=NULL, w=NULL, MG_IRF=TRUE){
+irf.pvarx <- function(x, ..., n.ahead=20, normf=NULL, w=NULL, MG_IRF=FALSE){
   # define and check
   x = as.pvarx(x, w=w)
   
@@ -91,7 +94,7 @@ irf.pvarx <- function(x, ..., n.ahead=20, normf=NULL, w=NULL, MG_IRF=TRUE){
 #' @param n.ahead Integer. Number of periods to consider after the initial impulse, i.e. the horizon of the IRF.
 #' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 #'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
-#'   for the normalization of Jentsch and Lunsford (2021) 
+#'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response.
 #' 
 #' @return A list of class '\code{svarirf}' holding the impulse response functions as a '\code{data.frame}'.
@@ -99,7 +102,7 @@ irf.pvarx <- function(x, ..., n.ahead=20, normf=NULL, w=NULL, MG_IRF=TRUE){
 #' @references Luetkepohl, H. (2005): 
 #'   \emph{New Introduction to Multiple Time Series Analysis}, 
 #'   Springer, 2nd ed.
-#' @references Jentsch, C., and Lunsford, K. G. (2021):
+#' @references Jentsch, C., and Lunsford, K. G. (2022):
 #'   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
 #'   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
 #' @examples

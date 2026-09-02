@@ -128,7 +128,7 @@ F.line   = ggplot(R.speci1$df) +
   theme_bw()
 plot(F.line)
 
-# m=2: discrete heat map #
+# m=2: heat map on integer lattice #
 R.speci2 = speci.VAR(R.vars, lag_set=2, dim_m=2, trim=3)
 dim_T    = nrow(sjd)  # total sample size
 F.heat   = ggplot(R.speci2$df) +

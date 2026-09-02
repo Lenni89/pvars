@@ -1,7 +1,7 @@
 
 
 #' @title Recursive identification of panel SVAR models via Cholesky decomposition
-#' @description Given an estimated panel of VAR models, this function uses the Cholesky decomposition to identify  
+#' @description Given an estimated panel VAR model, this function uses the Cholesky decomposition to identify  
 #'   the structural impact matrix \eqn{B_i} of the corresponding SVAR model
 #'   \deqn{y_{it} = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + u_{it}}
 #'   \deqn{       = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + B_i \epsilon_{it}.}
@@ -100,7 +100,7 @@ pid.chol <- function(x, order_k=NULL){
 
 
 #' @title Identification of panel SVEC models by imposing long- and short-run restrictions
-#' @description Identifies a panel of SVEC models by utilizing a scoring algorithm 
+#' @description Identifies a panel SVEC model by utilizing a scoring algorithm 
 #'   to impose long- and short-run restrictions. 
 #'   See the details of \code{\link[vars]{SVEC}} in \strong{vars}.
 #' 

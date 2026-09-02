@@ -44,7 +44,7 @@ List of class '\code{pid}' with elements:
 \item{args_pvarx}{List of characters and integers indicating the estimator and specifications that have been used.}
 }
 \description{
-Identifies a panel of SVEC models by utilizing a scoring algorithm 
+Identifies a panel SVEC model by utilizing a scoring algorithm 
   to impose long- and short-run restrictions. 
   See the details of \code{\link[vars]{SVEC}} in \strong{vars}.
 }

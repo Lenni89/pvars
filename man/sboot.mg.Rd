@@ -14,7 +14,7 @@ or a list of VAR objects that will be \link[=as.varx]{coerced} to '\code{varx}'.
 
 \item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
-for the normalization of Jentsch and Lunsford (2021) 
+for the normalization of Jentsch and Lunsford (2022) 
 that fixes the size of the impact response in the IRF.}
 
 \item{idx_i}{Logical or character vector. 
@@ -39,7 +39,7 @@ A list of class '\code{sboot2}' with elements:
 \description{
 Calculates confidence bands for impulse response functions via mean group inference. 
   The function does not perform bootstraps, but coerces the panel VAR object to class '\code{sboot}'
-  and, therewith, gives a distributional overview on the parameter heterogeneity.
+  and, therewith, gives a distributional overview on the estimated parameter heterogeneity.
 }
 \details{
 MG inference presumes the individual estimates to be the empirical variation 

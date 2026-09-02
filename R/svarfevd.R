@@ -12,10 +12,10 @@
 #' @return A list of class '\code{svarfevd}' holding the forecast error variance decomposition 
 #'   of each variables as a '\code{data.frame}'.
 #'
-#' @references Luetkepohl, H. (2005): 
+#' @references Luetkepohl, H. (2005):
 #'   \emph{New Introduction to Multiple Time Series Analysis}, 
 #'   Springer, 2nd ed.
-#' @references Jentsch, Lunsford (2022): 
+#' @references Jentsch, C., and Lunsford, K. G. (2022):
 #'   "Asymptotically Valid Bootstrap Inference for Proxy SVARs", 
 #'   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
 #' @examples
@@ -52,7 +52,7 @@ fevd.id <- function(x, n.ahead=10, ...){
   names_k = if( !is.null(rownames(A)) ){ rownames(A) }else{ paste0("y[ ", 1:dim_K, " ]") }
   names_s = if( !is.null(colnames(B)) ){ colnames(B) }else{ paste0("epsilon[ ", 1:dim_S, " ]") }
   
-  # calculate the FEVD, from Luetkepohl 2005:64, Eq.2.3.37 / Jentsch, Lunsford 2021:6, Ch.2.3
+  # calculate the FEVD, from Luetkepohl 2005:64, Eq.2.3.37 / Jentsch, Lunsford 2022:6, Ch.2.3
   R.vma  = aux_var2vma(A=A, B=B, dim_p=dim_p, n.ahead=n.ahead)
   df_k   = as.data.frame(matrix(NA, nrow=n.ahead, ncol=dim_S, dimnames=list(NULL, names_s)))
   result = sapply(names_k, FUN=function(k) df_k, simplify=FALSE)

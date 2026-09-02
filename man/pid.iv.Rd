@@ -7,9 +7,9 @@
 pid.iv(
   x,
   iv,
-  S2 = c("MR", "JL", "NQ"),
+  S2 = c("MR", "JL", "NQ", "LT"),
   cov_u = "OMEGA",
-  R0 = NULL,
+  dim_K1 = NULL,
   combine = c("pool", "indiv")
 )
 }
@@ -23,27 +23,20 @@ series \eqn{m_t} or a list of \eqn{N} '\code{data.frame}' objects of the \eqn{L}
 individual proxy time series \eqn{m_{it}}. The proxies must have the same 
 succession \eqn{l = 1,\ldots,L} in each individual '\code{data.frame}'.}
 
-\item{S2}{Character. Identification within multiple proxies \eqn{m_{it}} 
-via '\code{MR}' for lower-triangular \eqn{[I_S : -B_{i,11} B_{i,12}^{-1} ] B_{i,1}} by Mertens, Ravn (2013), 
-via '\code{JL}' for chol\eqn{(\Sigma_{mu,i} \Sigma_{u,i}^{-1} \Sigma_{um,i})} by Jentsch, Lunsford (2021), or
-via '\code{NQ}' for the nearest orthogonal matrix from \code{\link[base]{svd}} decomposition by Empting et al. (2025). 
-In case of \eqn{S=L=1} proxy, all three choices provide identical results on \eqn{B_{i,1}}.
-In case of \code{combine='pool'}, the argument is automatically fixed to '\code{NQ}'.}
+\item{S2}{Character. Selection of the exact identification within multiple instrumented shock series, see 'Details'. 
+In case of \eqn{K_1=1} instrumented shock series, all four choices provide identical results on \eqn{B_{i,1}} up to the sign.}
 
 \item{cov_u}{Character. Selection of the estimated residual covariance matrices \eqn{\hat{\Sigma}_{u,i}} 
 to be used in the identification procedure. 
-Either \code{'OMEGA'} (the default) for \eqn{\hat{U}_i \hat{U}_i'/T_i} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2021)
+Either \code{'OMEGA'} (the default) for \eqn{\hat{U}_i \hat{U}_i'/T_i} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2022)
 or \code{'SIGMA'} for \eqn{\hat{U}_i \hat{U}_i'/(T_i - n_{zi})}, which corrects for the number of regressors \eqn{n_{zi}}. 
 Both character options refer to the name of the respective estimate in the '\code{varx}' objects.}
 
-\item{R0}{Matrix. A \eqn{(L \times S)} selection matrix for '\code{NQ}' that 
-governs the attribution of the \eqn{L} proxies to their specific \eqn{S} 
-structural shock series. If \code{NULL} (the default), \code{R0} 
-\eqn{= I_S} will be used such that the \eqn{S=L} columns of \eqn{B_{i,1}} are 
-one-by-one estimated from the \eqn{S=L} proxy series '\code{iv}' available.}
+\item{dim_K1}{Integer. Number of shock series instrumented by the \eqn{L \ge K_1} proxy variables. 
+If \code{NULL} (the default), the first \eqn{L=K_1} shock series are instrumented.}
 
 \item{combine}{Character. The combination of the individual reduced-form residuals 
-via '\code{pool}' for the pooled shocks by Empting et al. (2025) using a common orthogonal matrix or
+via '\code{pool}' for the pooled shocks by Empting et al. (2026) using a common orthogonal matrix \eqn{Q} or
 via '\code{indiv}' for individual-specific \eqn{B_i \forall i} using strictly separated identification runs.}
 }
 \value{
@@ -66,20 +59,41 @@ List of class '\code{pid}' with elements:
   estimator and specifications that have been used.}
 }
 \description{
-Given an estimated panel of VAR models, this function 
-  uses proxy variables to partially identify
-  the structural impact matrix \eqn{B_i} of the corresponding SVAR model
+Given an estimated panel VAR model, this function 
+  uses proxy variables to identify the structural impact matrix \eqn{B_i} 
+  of the corresponding SVAR model
   \deqn{y_{it} = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + u_{it}}
   \deqn{       = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + B_i \epsilon_{it}.}
   In general, identification procedures determine \eqn{B_i} up to column ordering, scale, and sign. 
   For a unique solution, \code{pid.iv} follows the literature on proxy SVAR. 
-  The \eqn{S} columns in \eqn{B_i = [B_{i,1} : B_{i,2}]} of the identified shocks 
-  \eqn{\epsilon_{its}, s=1,\ldots,S,} are ordered first, and the variance 
-  \eqn{\sigma^2_{\epsilon,is} = 1} is normalized to unity (see e.g. Lunsford 
-  2015:6, Eq. 9). Further, the sign is fixed to a positive correlation 
-  between proxy and shock series. A normalization of the impulsed shock 
-  that may fix the size of the impact response in the IRF can be imposed 
-  subsequently via '\code{normf}' in \code{\link{irf.pvarx}} and \code{\link{sboot.pmb}}.
+  The \eqn{K_1} columns in \eqn{B_i = [B_{i,1} : B_{i,2}]} of the instrumented 
+  shocks \eqn{\epsilon_{itk}, k=1,\ldots,K_1,} are ordered first, and their 
+  variances \eqn{\sigma^2_{\epsilon,ik} = 1} are normalized to unity  
+  (see e.g. Mertens, Ravn 2013:1215 and Lunsford 2015:6, Eq. 9). 
+  A normalization of the impulsed shock that may fix the size of the impact 
+  response in the IRF can be imposed subsequently via '\code{normf}' 
+  in \code{\link{irf.pvarx}} and \code{\link{sboot.pmb}}.
+}
+\details{
+For the exact identification within the \eqn{K_1 > 1} shock series, 
+  the literature on proxy SVAR provides the following templates to impose 
+  \eqn{K_1(K_1-1)/2} additional restrictions. Those are available via \code{S2} as:
+  \itemize{
+  \item{'\code{MR}'} for the lower-triangular Schur complement 
+  \eqn{S_{i,1} = B_{i,11} - B_{i,12} B_{i,22}^{-1} B_{i,21}} by Mertens, Ravn (2013), 
+  \item{'\code{JL}'} for the lower-triangular covariance matrix \eqn{\Sigma_{m\epsilon 1,i}}
+  of proxies \eqn{m_{it}} and instrumented shocks \eqn{\epsilon_{1,it}} by Jentsch, Lunsford (2022), 
+  \item{'\code{NQ}'} for the nearest orthogonal matrix by Empting et al. (2026), or
+  \item{'\code{LT}'} for lower-triangular blocks \eqn{Q_{i,11}} and \eqn{B_{i,11}} by Empting et al. (2026, Appendix A).
+  }
+  If \code{combine='pool'} or if the argument \code{dim_K1} is not \code{NULL}, 
+  the identification procedure resorts to \code{\link[base]{svd}} and 
+  a subsequent recovery of the selected \code{S2} restrictions 
+  (see Empting et al. 2026, Appendix A).
+  The solution by \code{\link[base]{svd}} further provides the orthogonal 
+  complement \eqn{Q_{i,2}} for a full identification of \eqn{Q_i = [Q_{i,1} : Q_{i,2}]}, 
+  where \eqn{K_2(K_2-1)/2} additional restrictions are imposed as lower-triangular 
+  blocks \eqn{Q_{i,12}} and \eqn{B_{i,12}} irrespective of the choice of \code{S2}.
 }
 \examples{
 data("PCIT")
@@ -104,12 +118,12 @@ Jentsch, C., and Lunsford, K. G. (2019):
   "The Dynamic Effects of Personal and Corporate Income Tax Changes in the 
   United States: Comment", \emph{American Economic Review}, 109, pp. 2655-2678.
 
-Jentsch, C., and Lunsford, K. G. (2021):
+Jentsch, C., and Lunsford, K. G. (2022):
   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
 
-Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2025): 
-  "Inference in Panel SVARs with Cross-Sectional Dependence of Unknown Form".
+Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
+  "Inference in Panel SVARs with Two-Way Dependence".
 }
 \seealso{
 Other panel identification functions: 

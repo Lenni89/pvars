@@ -16,7 +16,7 @@ that will be \link[=as.varx]{coerced} to '\code{varx}'.}
 
 \item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
-for the normalization of Jentsch and Lunsford (2021) 
+for the normalization of Jentsch and Lunsford (2022) 
 that fixes the size of the impact response.}
 }
 \value{
@@ -47,7 +47,7 @@ Luetkepohl, H. (2005):
   \emph{New Introduction to Multiple Time Series Analysis}, 
   Springer, 2nd ed.
 
-Jentsch, C., and Lunsford, K. G. (2021):
+Jentsch, C., and Lunsford, K. G. (2022):
   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
 }

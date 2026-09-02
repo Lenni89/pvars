@@ -24,7 +24,7 @@
 #'   However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
 #' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 #'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
-#'   for the normalization of Jentsch and Lunsford (2021) 
+#'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response in the IRF.
 #' 
 #' @return A list of class '\code{sboot2}' with elements:
@@ -100,7 +100,7 @@
 #' @references Brueggemann R., Jentsch, C., and Trenkler, C. (2016): 
 #'   "Inference in VARs with Conditional Heteroskedasticity of Unknown Form", 
 #'   \emph{Journal of Econometrics}, 191, pp. 69-85.
-#' @references Jentsch, C., and Lunsford, K. G. (2021): 
+#' @references Jentsch, C., and Lunsford, K. G. (2022): 
 #'   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
 #'   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
 #' @references Kilian, L. (1998): 
@@ -230,9 +230,9 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
       star_B   = aux_sico(star_P %*% star_ICA$W, B.orig=B)
       
     }else if(args_id$method == "Proxy"){
-      # MBB with multiple proxy IV, see Jentsch, Lunsford 2021:9, Ch.4.1
+      # MBB with multiple proxy IV, see Jentsch, Lunsford 2022:9, Ch.4.1
       star_iv = args_id$iv[ , star, drop=FALSE]  # resampled proxies (not centered anymore, see their ft.26)
-      star_B  = aux_idIV(star_var$resid, m=star_iv, S2=args_id$S2, SIGMA_uu=star_var[[args_id$cov_u]], R0=args_id$R0)$B1
+      star_B  = aux_idIV(star_var$resid, m=star_iv, S2=args_id$S2, SIGMA_uu=star_var[[args_id$cov_u]], dim_K1=args_id$dim_K1)$B1
       ### TODO. Confidence intervals for the correlations of ... 
       ### ... proxies, structural shocks, and regression errors, see Lunsford 2015:22, Tab.3
       
@@ -314,7 +314,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   If a list \code{x$L.PSI_bc} of \eqn{N} bias terms are available 
 #'   for the \eqn{N} coefficient matrices \eqn{A_i} (such as in \code{sboot2}), 
 #'   the bias-corrected second-step of the bootstrap-after-bootstrap procedure 
-#'   by Empting et al. (2025) is performed.
+#'   by Empting et al. (2026) is performed.
 #' @param b.dim Vector of two integers. The dimensions \eqn{(b_{(t)}, b_{(i)})} 
 #'   of each residual panel block for temporal and cross-sectional resampling. The default 
 #'   \code{c(1, 1)} specifies an \eqn{i.i.d.} resampling in both dimensions, 
@@ -337,15 +337,16 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
 #' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 #'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
-#'   for the normalization of Jentsch and Lunsford (2021) 
+#'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response in the IRF.
 #' @param w Numeric, logical, or character vector. 
 #'   \eqn{N} numeric elements weighting the individual coefficients, or 
 #'   names or \eqn{N} logical elements selecting a subset from the 
 #'   individuals \eqn{i = 1, \ldots, N} for the MG estimation. If \code{NULL} 
 #'   (the default), all \eqn{N} individuals are included without weights.
-#' @param MG_IRF Logical. If \code{TRUE} (the default), the mean-group of individual 
-#'   IRF is calculated in accordance with Gambacorta et al. (2014). If \code{FALSE}, 
+#' @param MG_IRF Logical. If \code{TRUE}, the mean-group of individual 
+#'   IRF is calculated in accordance with Gambacorta et al. (2014). 
+#'   If \code{FALSE} (the default recommended in Empting et al. 2026), 
 #'   the IRF is calculated for the mean-group of individual VAR estimates.
 #' 
 #' @return A list of class '\code{sboot2}' with elements:
@@ -375,8 +376,8 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #' @references Brueggemann R., Jentsch, C., and Trenkler, C. (2016): 
 #'   "Inference in VARs with Conditional Heteroskedasticity of Unknown Form", 
 #'   \emph{Journal of Econometrics}, 191, pp. 69-85.
-#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2025): 
-#'   "Inference in Panel SVARs with Cross-Sectional Dependence of Unknown Form".
+#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
+#'   "Inference in Panel SVARs with Two-Way Dependence".
 #' @references Kapetanios, G. (2008): 
 #'   "A Bootstrap Procedure for Panel Data Sets with many Cross-sectional Units", 
 #'   \emph{The Econometrics Journal}, 11, pp.377-395.
@@ -418,7 +419,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #' 
 #' @export
 #' 
-sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_beta=TRUE, deltas=cumprod((100:0)/100), normf=NULL, w=NULL, MG_IRF=TRUE){
+sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_beta=TRUE, deltas=cumprod((100:0)/100), normf=NULL, w=NULL, MG_IRF=FALSE){
   # define
   L.PSI_bc = x$L.PSI_bc  # list of individual bias terms
   if( is.null(L.PSI_bc) & inherits(x, "sboot") ){ warning("The bootstrap is performed without bias-correction due to unavailable bias estimates.") }
@@ -590,7 +591,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
         S.iv[[i]][ , idx_t] = L.iv[[star_i[i]]][ , star_t, drop=FALSE]
       }
       S.pid = pid.iv(S.pvarx, iv=S.iv, S2=args_pid$S2, cov_u=args_pid$cov_u, 
-                     R0=args_pid$R0, combine=args_pid$combine)
+                     dim_K1=args_pid$dim_K1, combine=args_pid$combine)
         
     }else{
       stop("Identification method is not available in this bootstrap function!")
@@ -629,7 +630,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
     beta  = t(beta)
   }else{ betas = NULL }
   
-  # first-step bias-correction of VAR coefficients, from Kilian 1998:220 / Empting et al. (2025)
+  # first-step bias-correction of VAR coefficients, from Kilian 1998:220 / Empting et al. (2026)
   if(is.null(L.PSI_bc) & !is.null(deltas)){
     for(i in 1:dim_N){  
       # Step 1a: bias estimate
@@ -641,6 +642,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
       # Step 1b: stationary correction
       R.pvarx$L.varx[[i]]$A = aux_BaB(A_hat=A_hat, dim_p=R.pvarx$L.varx[[i]]$dim_p, PSI=L.PSI_bc[[i]], deltas=deltas)
     }
+    names(L.PSI_bc) = names(R.pvarx$L.varx)
     R.pvarx$A = aux_MG(R.pvarx$L.varx, w=w, idx_par="A")$mean
     R.pvarx$L.PSI_bc = L.PSI_bc
   }
@@ -668,7 +670,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
 #' @title Mean group inference for panel SVAR models
 #' @description Calculates confidence bands for impulse response functions via mean group inference. 
 #'   The function does not perform bootstraps, but coerces the panel VAR object to class '\code{sboot}'
-#'   and, therewith, gives a distributional overview on the parameter heterogeneity.
+#'   and, therewith, gives a distributional overview on the estimated parameter heterogeneity.
 #' @details MG inference presumes the individual estimates to be the empirical variation 
 #'   around a common parameter. In case of heterogeneous lag-orders \eqn{p_i},
 #'   specifically the '\code{summary}' of VAR coefficient matrices fills 
@@ -680,7 +682,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
 #' @param n.ahead Integer. Number of periods to consider after the initial impulse, i.e. the horizon of the IRF.
 #' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 #'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
-#'   for the normalization of Jentsch and Lunsford (2021) 
+#'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response in the IRF.
 #' @param idx_i Logical or character vector. 
 #'   Names or \eqn{N} logical elements selecting a subset from the 

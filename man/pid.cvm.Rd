@@ -59,7 +59,7 @@ List of class '\code{pid}' with elements:
 \item{args_pvarx}{List of characters and integers indicating the estimator and specifications that have been used.}
 }
 \description{
-Given an estimated panel of VAR models, this function applies independence-based identification for 
+Given an estimated panel VAR model, this function applies independence-based identification for 
   the structural impact matrix \eqn{B_i} of the corresponding SVAR model
   \deqn{y_{it} = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + u_{it}}
   \deqn{       = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + B_i \epsilon_{it}.}
