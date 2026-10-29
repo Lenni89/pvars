@@ -38,7 +38,7 @@ For example, \eqn{h=0.15} (the default) specifies the window
 \eqn{[0.15 \cdot T, 0.85 \cdot T]} that is often used 
 as the set of candidates for \eqn{m=1} single period \eqn{\tau_1}.}
 
-\item{type_break}{Character. Whether the \eqn{m} common breaks pertain the 
+\item{type_break}{Character. Whether the \eqn{m} common breaks pertain to the 
 '\code{const}' (the default), the linear '\code{trend}', or '\code{both}'. 
 Adds the period-specific \link[=as.t_D]{deterministic term} activated 
 during \eqn{\tau}.}
@@ -47,8 +47,8 @@ during \eqn{\tau}.}
 impulse dummies activated in \eqn{\tau + (0, \ldots, p-1)} are added to each break.}
 
 \item{n.cores}{Integer. Number of allocated processor cores.
-Note that parallel processing is exclusively activated for the combined 
-determination of lag-order \eqn{p} and break period(s) \eqn{\tau} only.}
+Note that parallel processing is activated only for the combined 
+determination of lag-order \eqn{p} and break period(s) \eqn{\tau}.}
 }
 \value{
 A list of class '\code{speci}', which contains the elements: 
@@ -64,7 +64,7 @@ A list of class '\code{speci}', which contains the elements:
 Determines the lag-order \eqn{p} and break period(s) \eqn{\tau} 
   jointly via information criteria on the OLS-estimated VAR model for a given 
   number of breaks. These \eqn{m} breaks are common to all \eqn{K} equations 
-  of the system and partial, as pertaining the 
+  of the system and partial, pertaining to the 
   \link[=as.t_D]{deterministic term} only.
 }
 \details{
@@ -75,8 +75,8 @@ The literature on structural breaks in time series deals mostly with
   VAR in levels to determine \eqn{m=1} common break period \eqn{\tau_1} 
   and subsequently perform cointegration analysis with \code{\link{coint.SL}} 
   (which actually provides \eqn{p}-values for up to \eqn{m=2}). 
-  Note yet that the lag-order of a VECM is usually determined via 
-  information criteria of a full-rank VAR in levels alike.
+  Note, however, that the lag-order of a VECM is likewise usually determined via 
+  information criteria of a full-rank VAR in levels.
   
   \code{\link{speci.VAR}} combines Bai, Perron (2003) and Approach 3 of Yang (2002)
   into a global minimization of information criteria on the pair \eqn{(p,\tau)}. 
@@ -88,7 +88,7 @@ The literature on structural breaks in time series deals mostly with
   minimum sum of squared residuals from a single-equation model \eqn{(K=1)}. 
   They use dynamic programming to reduce the number of least-squares operations. 
   Although adapting their streamlined set of admissible combinations for \eqn{\tau}, 
-  \code{\link{speci.VAR}} yet resorts to (parallelized brute-force) OLS estimation 
+  \code{\link{speci.VAR}} still resorts to (parallelized brute-force) OLS estimation 
   of all candidate VAR models and therewith circumvents issues of correct 
   initialization and iterative updating for the models with partial breaks.
 }

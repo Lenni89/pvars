@@ -14,7 +14,7 @@
 #'   and therefore preventively checked by \code{\link{as.t_D}}.
 #'   
 #' @param x A list of vectors for \eqn{\tau} to be checked. Since \code{'x'} is
-#'   just checked, Section "Value" explains function-input and -output likewise.
+#'   only checked, Section "Value" describes both input and output.
 #' @param ... Additional arguments to be passed to or from methods.
 #' 
 #' @return A list of class '\code{t_D}' specifying \eqn{\tau}. 
@@ -25,7 +25,7 @@
 #'   shifts in the constant \eqn{d = [\ldots, 0, 0, 1, 1, 1, \ldots}].}
 #' \item{t_impulse}{Vector of integers. The activating periods for 
 #'   single impulses \eqn{d = [\ldots, 0, 0, 1, 0, 0, \ldots}].}
-#' \item{t_blip}{Vector of integers. The activating period for 
+#' \item{t_blip}{Vector of integers. The activating periods for 
 #'   blips \eqn{d = [\ldots, 0, 0, 1, -1, 0, \ldots}].}
 #' \item{n.season}{Integer. The number of seasons.}
 #' 
@@ -108,7 +108,7 @@ as.t_D.default <- function(x, ...){
 #
 # The following functions serve as supporting modules 
 # nested in the calling functions. Notation within 
-# each function origins from the considered packages.
+# each function originates from the considered packages.
 
 
 # check arguments of data matrices
@@ -149,7 +149,7 @@ aux_asDataMatrixTr <- function(x, names_x=NULL){
 
 # check arguments of the panel functions
 aux_check <- function(x, type_arg, dim_N=NULL, names_i=NULL, tr=FALSE){
-  ### This functions checks initial data- and specification-arguments. 
+  ### This function checks initial data- and specification-arguments. 
   ### Higher-level input objects are checked by as.varx() and as.pvarx().
   
   # check data argument "L.data"

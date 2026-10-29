@@ -25,7 +25,7 @@
 #'   In case of \eqn{K_1=1} instrumented shock series, all four choices provide identical results on \eqn{B_1} up to the sign.
 #' @param cov_u Character. Selection of the estimated residual covariance matrix \eqn{\hat{\Sigma}_{u}} 
 #'   to be used in the identification procedure. 
-#'   Either \code{'OMEGA'} (the default) for \eqn{\hat{U} \hat{U}'/T_i} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2022)
+#'   Either \code{'OMEGA'} (the default) for \eqn{\hat{U} \hat{U}'/T} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2022)
 #'   or \code{'SIGMA'} for \eqn{\hat{U}\hat{U}'/(T-n_{z})}, which corrects for the number of regressors \eqn{n_z}. 
 #'   Both character options refer to the name of the respective estimate in the '\code{varx}' object.
 #' @param dim_K1 Integer. Number of shock series instrumented by the \eqn{L \ge K_1} proxy variables. 
@@ -58,7 +58,7 @@
 #'   United States", \emph{American Economic Review}, 103, pp. 1212-1247.
 #' @references Lunsford, K. G. (2015):
 #'   "Identifying Structural VARs with a Proxy Variable and a Test for a Weak Proxy",
-#'   Working Paper, No 15-28, Federal Reserve Bank of Cleveland.
+#'   Working Paper, No. 15-28, Federal Reserve Bank of Cleveland.
 #' @references Jentsch, C., and Lunsford, K. G. (2019):
 #'   "The Dynamic Effects of Personal and Corporate Income Tax Changes in the 
 #'   United States: Comment", \emph{American Economic Review}, 109, pp. 2655-2678.
@@ -102,15 +102,15 @@ id.iv <- function(x, iv, S2=c("MR", "JL", "NQ", "LT"), cov_u="OMEGA", dim_K1=NUL
 #' @param start Vector. The starting values for \eqn{\gamma}, 
 #'   set by \code{\link[stats]{rnorm}} if \code{NULL} (the default).
 #' @param max.iter Integer. The maximum number of iterations.
-#' @param conv.crit Real number. Convergence value of algorithm.
+#' @param conv.crit Real number. Convergence value of the algorithm.
 #' @param maxls Real number. Maximum movement of the parameters between two iterations of the scoring algorithm.
 #' 
 #' @return List of class '\code{\link[=as.varx]{id}}'.
 #' 
-#' @references Amisano, G. and Giannini, C. (1997): 
+#' @references Amisano, G., and Giannini, C. (1997): 
 #'   \emph{Topics in Structural VAR Econometrics}, 
 #'   Springer, 2nd ed.
-#' @references Breitung, J., Brueggemann R., and Luetkepohl, H. (2004): 
+#' @references Breitung, J., Brueggemann, R., and Luetkepohl, H. (2004): 
 #'   "Structural Vector Autoregressive Modeling and Impulse Responses", 
 #'   in \emph{Applied Time Series Econometrics}, 
 #'   ed. by H. Luetkepohl and M. Kraetzig, 

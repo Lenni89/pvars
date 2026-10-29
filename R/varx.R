@@ -24,7 +24,7 @@
 #'   \link[=as.t_D]{deterministic regressors} added to \eqn{d_{1,t}}, 
 #'   which are restricted to the cointegration relations. 
 #'   Unlike '\code{t_D1}', these customized regressors require potential
-#'   accompanying regressors to be manually included in \eqn{d_{2,it}}.
+#'   accompanying regressors to be manually included in \eqn{d_{2,t}}.
 #' @param D2 Matrix. A \eqn{(n_{\bullet} \times (p+T))} data matrix of customized 
 #'   \link[=as.t_D]{deterministic regressors} added to \eqn{d_{2,t}}, 
 #'   which are unrestricted. 
@@ -204,7 +204,7 @@ summary.varx <- function(object, ...){
 #'   if transformed from a rank-restricted VECM.}
 #' \item{SIGMA}{Matrix. The \eqn{(K \times K)} residual covariance matrix estimated by least-squares.}
 #'   The following integers indicate the size of dimensions:
-#' \item{dim_K}{Integer. The number of endogenous variables \eqn{K} in the full-system.}
+#' \item{dim_K}{Integer. The number of endogenous variables \eqn{K} in the full system.}
 #' \item{dim_S}{Integer. The number of identified shocks \eqn{S} in the SVAR model.}
 #' \item{dim_T}{Integer. The number of time periods \eqn{T} without presample.}
 #' \item{dim_p}{Integer. The lag-order \eqn{p} of the VAR model in levels.}
@@ -221,8 +221,8 @@ summary.varx <- function(object, ...){
 #'   and specifications that have been used.} 
 #' \item{args_id}{List of characters and integers indicating the identification 
 #'   methods and specifications that have been used. This element is specific 
-#'   to the child-class '\code{id}' for SVAR models, that inherit from
-#'   parent-class '\code{varx}' for any VAR model.}
+#'   to the child class '\code{id}' for SVAR models, which inherits from
+#'   the parent class '\code{varx}' for any VAR model.}
 #' 
 #' @examples
 #' data("PCIT")
@@ -268,7 +268,7 @@ as.varx.varest <- function(x, ...){
   dim_K = x$K     # number of endogenous variables
   dim_T = x$obs   # number of observations without presample
   dim_p = x$p     # number of lags
-  type  = x$type  # type of the VAR model, e.g 'const'
+  type  = x$type  # type of the VAR model, e.g. 'const'
   
   # matrix of coefficients (K x (n + K*p)) and of deterministic variables (n x T+p)
   A_raw   = vars::Bcoef(x)
@@ -345,7 +345,7 @@ as.varx.svarest <- function(x, ...){
     result$LR = x$LRIM  # structural long-run effects
     args_id   = list(method=x$type, ...)
     
-  ### TODO: }else if(any(x$type == c("A-model", "B-model", "AB-mode"))){
+  ### TODO: }else if(any(x$type == c("A-model", "B-model", "AB-model"))){
     ### args_id = list(method=x$type, ...)
     
   }else{

@@ -72,12 +72,12 @@ accompanying lagged regressors are automatically included in \eqn{d_{2,it}}.}
 for the period-specific \link[=as.t_D]{deterministic regressors} 
 in \eqn{d_{2,it}}, which are unrestricted.}
 
-\item{D1}{List. A single '\code{data.frame}' of common deterministic regressors
+\item{D1}{List. A single '\code{data.frame}' of common deterministic 
 regressors or a list of \eqn{N} '\code{data.frame}' objects of 
 individual \link[=as.t_D]{deterministic regressors} added 
 to \eqn{d_{1,it}}, which are restricted to the cointegration relations.
 Unlike '\code{t_D1}', these customized regressors require potential
-accompanying lagged regressors to be manually included in \eqn{d_{2,it}}}
+accompanying lagged regressors to be manually included in \eqn{d_{2,it}}.}
 
 \item{D2}{List. A single '\code{data.frame}' of common deterministic 
 regressors or a list of \eqn{N} '\code{data.frame}' objects of 
@@ -154,7 +154,7 @@ Luetkepohl, H. (2005):
   \emph{New Introduction to Multiple Time Series Analysis}, 
   Springer, 2nd ed.
 
-Pesaran, M. H., and Smith R. J. (1995): 
+Pesaran, M. H., and Smith, R. J. (1995): 
   "Estimating Long-Run Relationships from Dynamic Heterogeneous Panels",
   \emph{Journal of Econometrics}, 68, pp. 79-113.
 
@@ -163,7 +163,7 @@ Rebucci, A. (2010):
   A Comparison of the Fixed Effect and the Mean Group Estimators",
   \emph{Economic Modelling}, 27, pp. 1183-1198.
 
-Ahn, S. K., and Reinsel (1990): 
+Ahn, S. K., and Reinsel, G. C. (1990): 
   "Estimation for Partially Nonstationary Multivariate Autoregressive Models",
   \emph{Journal of the American Statistical Association}, 85, pp. 813-823.
 
@@ -172,10 +172,10 @@ Breitung, J. (2005):
   \emph{Econometric Reviews}, 24, pp. 151-173.
 
 Johansen, S. (1996): 
-  \emph{Likelihood-based Inference in Cointegrated Vector Autoregressive Models}, 
+  \emph{Likelihood-Based Inference in Cointegrated Vector Autoregressive Models}, 
   Advanced Texts in Econometrics, Oxford University Press, USA.
 
-Pesaran, M. H., Shin, Y, and Smith R. J. (1999): 
+Pesaran, M. H., Shin, Y., and Smith, R. J. (1999): 
   "Pooled Mean Group Estimation of Dynamic Heterogeneous Panels",
   \emph{Journal of the American Statistical Association}, 94, pp. 621-634.
 }

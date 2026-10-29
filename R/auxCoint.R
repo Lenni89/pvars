@@ -55,14 +55,14 @@ aux_stackRRR <- function(y, dim_p, x=NULL, dim_q=0, type=NULL, t_D1=list(), t_D2
     }
     D1 = aux_dummy(dim_T=ncol(y), type=type_D1, dummies=D1, t_break=t_D1$t_break, t_shift=t_D1$t_shift, t_impulse=t_D1$t_impulse)
     D2 = aux_dummy(dim_T=ncol(y), type=type_D2, dummies=D2, t_shift=t2_shift, t_impulse=t2_impulse, t_blip=t_D2$t_blip, n.season=t_D2$n.season, center=TRUE)
-    ### see Saikkonen,Luetkepohl 2001:6, Eq.2.11 / Luetkepohl et al 2007:650 / Trenkler et al 2008:335 with prior-detrending
+    ### see Saikkonen,Luetkepohl 2001:6, Eq.2.11 / Luetkepohl et al 2004:650 / Trenkler et al 2008:335 with prior-detrending
     ### and Johansen et al 2001:219 / Johansen 2016:7, Eq.17 for generalization of the additive and innovative representation
   }
   
   # stack variables for full or partial VECM, from Johansen 1992:393
   Z0 = y_diff[ , idx_t, drop=FALSE]  # regressand matrix, first-differenced and without presample  
   Z1 = rbind(y, x, D1)[ , idx_t, drop=FALSE]  # regressors in levels for the lagged cointegrating term
-  Z2 = aux_stack(y=y_diff, dim_p=dim_p-1, x=x_diff, dim_q=dim_q-1, D=D2[ ,-1, drop=FALSE])  # regressors in fist differences for short-run effects
+  Z2 = aux_stack(y=y_diff, dim_p=dim_p-1, x=x_diff, dim_q=dim_q-1, D=D2[ ,-1, drop=FALSE])  # regressors in first differences for short-run effects
   
   # return result
   rownames(Z1)[1:(dim_K+dim_L)] = paste0(rownames(Z1)[1:(dim_K+dim_L)], ".l1")
@@ -126,7 +126,7 @@ aux_RRR <- function(Z0, Z1, Z2, via_R0_R1=FALSE){
 }
 
 
-# check and stack deterministic regressors for additive and innovate formulation
+# check and stack deterministic regressors for additive and innovative formulation
 aux_stackDtr <- function(type_SL, t_D=NULL, dim_p, dim_T){
   # deterministic regressors for prior ML-RR-Regression (innovative) #
   # deterministic term:    --restricted--   ; --unrestricted-- , see Luetkepohl et al 2004:650
@@ -160,7 +160,7 @@ aux_stackDtr <- function(type_SL, t_D=NULL, dim_p, dim_T){
   
   D1 = aux_dummy(dim_T=dim_T, type=type_D1, t_break=t_D$t_break, t_shift=t1_shift, t_impulse=t1_impulse)
   D2 = aux_dummy(dim_T=dim_T, type=type_D2, t_shift=t2_shift, t_impulse=t2_impulse, t_blip=t_D$t_blip, n.season=t_D$n.season, center=TRUE)
-  ### see Saikkonen,Luetkepohl 2001:6, Eq.2.11 / Luetkepohl et al 2007:650 / Trenkler et al 2008:335 with prior-detrending
+  ### see Saikkonen,Luetkepohl 2001:6, Eq.2.11 / Luetkepohl et al 2004:650 / Trenkler et al 2008:335 with prior-detrending
   ### and Johansen et al 2001:219 / Johansen 2016:7, Eq.17 for generalization of the additive and innovative representation.
   
   # deterministic regressors for GLS-detrending (additive)
@@ -334,7 +334,7 @@ aux_CointMoments <- function(dim_K, dim_L=0, dim_T=NULL, r_H0=0:(dim_K-1), t_D1=
 # cointegration-rank by nested LR-test procedure
 aux_LRrank <- function(lambda, dim_T, dim_K, r_H0=0:(dim_K-1), moments){
   # LR-test statistics
-  LR.stats_ME = sapply(r_H0, FUN=function(k) -dim_T*log(1 - lambda[k+1]))    # max. eigenvalues test, from Johansen 1995:92, Eq.6.18
+  LR.stats_ME = sapply(r_H0, FUN=function(k) -dim_T*log(1 - lambda[k+1]))  # maximum eigenvalue test, from Johansen 1995:92, Eq.6.18
   LR.stats_TR = sapply(r_H0, FUN=function(k) -dim_T*sum(log(1 - lambda[(k+1):dim_K])))  # trace test, from Johansen 1995:92, Eq.6.14
   LR.stats = cbind(TR=LR.stats_TR, ME=LR.stats_ME)
   
@@ -360,7 +360,7 @@ aux_LMrank <- function(R0, R1, Z1=R1, L.alpha_oc, L.beta_oc, moments){
   dim_K = nrow(R0)  # number of endogenous variables
   idx_k = 1:dim_K   # index for the endogenous variables
   r_H0  = sapply(L.alpha_oc, FUN=function(x) dim_K-ncol(x))  # cointegration ranks under H0
-  ### For respecting weakly exogenous variables, see LM-test construction in Lutkepohl 2005:696. 
+  ### For respecting weakly exogenous variables, see LM-test construction in Luetkepohl 2005:696. 
   
   # restricted deterministic term in auxiliary regression, from Breitung 2005:160
   plus = Z1[-idx_k, , drop=FALSE]  # using Z1=R1 (the default), short-run effects Z2 have been concentrated out from deterministic term D1
@@ -438,7 +438,7 @@ aux_beta <- function(V, dim_r, normalize=FALSE){
   }else if(normalize=="natural"){  # "natural" normalization, from Johansen 1995:179, Eq.13.3(I)
     beta = V[ ,1:dim_r, drop=FALSE] %*% solve(V[1:dim_r, 1:dim_r]) # restrict to \beta = [I_r:\beta_1']' with \beta_1 being (K-r x r)
   }
-  ### TODO: argument for normalization where a variable is I(0), i.e cointegrated on its own
+  ### TODO: argument for normalization where a variable is I(0), i.e. cointegrated on its own
 
   # return result
   colnames(beta) = paste0("ect.", 1:dim_r)

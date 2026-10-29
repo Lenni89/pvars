@@ -26,7 +26,7 @@ The data set \code{MERM} consists of
 }
 \references{
 Oersal, D. D. K., and Arsova, A. (2017): 
-  "Meta-Analytic Panel Cointegrating Rank Tests for Dependent Panels", 
+  "Meta-Analytic Cointegrating Rank Tests for Dependent Panels", 
   \emph{Econometrics and Statistics}, 2, pp. 61-72.
 }
 \seealso{

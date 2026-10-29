@@ -50,7 +50,7 @@ Luetkepohl, H. (2005):
   \emph{New Introduction to Multiple Time Series Analysis}, 
   Springer, 2nd ed.
 
-Sims, C. A. (2008): 
+Sims, C. A. (1980): 
   "Macroeconomics and Reality", 
   \emph{Econometrica}, 48, pp. 1-48.
 }

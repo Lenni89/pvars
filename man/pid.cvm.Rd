@@ -66,7 +66,7 @@ Given an estimated panel VAR model, this function applies independence-based ide
   Matrix \eqn{B_i} corresponds to the unique decomposition of the least squares covariance matrix \eqn{\Sigma_{u,i} = B_i B_i'} 
   if the vector of structural shocks \eqn{\epsilon_{it}} contains at most one Gaussian shock (Comon, 1994).
   A nonparametric dependence measure, the Cramer-von Mises distance (Genest and Remillard, 2004), 
-  determines least dependent structural shocks. The minimum is obtained by a two step optimization algorithm 
+  determines the least dependent structural shocks. The minimum is obtained by a two-step optimization algorithm 
   similar to the technique described in Herwartz and Ploedt (2016).
 }
 \examples{
@@ -106,20 +106,20 @@ plot(R.irf, selection=list(1:2, 3:4))
 }
 \references{
 Comon, P. (1994): 
-  "Independent Component Analysis: A new Concept?", 
+  "Independent Component Analysis: A New Concept?", 
   \emph{Signal Processing}, 36, pp. 287-314.
 
 Genest, C., and Remillard, B. (2004): 
-  "Tests of Independence and Randomness based on the Empirical Copula Process", 
-  Test, 13, pp. 335-370.
+  "Tests of Independence and Randomness Based on the Empirical Copula Process", 
+  \emph{Test}, 13, pp. 335-370.
 
 Herwartz, H., and Wang, S. (2024): 
   "Statistical Identification in Panel Structural Vector Autoregressive 
-  Models based on Independence Criteria", 
+  Models Based on Independence Criteria", 
   \emph{Journal of Applied Econometrics}, 39 (4), pp. 620-639.
 
 Herwartz, H. (2018): 
-  "Hodges Lehmann detection of structural shocks - An Analysis of macroeconomic Dynamics in the Euro Area", 
+  "Hodges-Lehmann Detection of Structural Shocks - An Analysis of Macroeconomic Dynamics in the Euro Area", 
   \emph{Oxford Bulletin of Economics and Statistics}, 80, pp. 736-754.
 
 Herwartz, H., and Ploedt, M. (2016): 

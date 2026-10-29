@@ -20,9 +20,9 @@ sboot.pmb(
 \arguments{
 \item{x}{Panel VAR object of class '\code{pid}' or '\code{pvarx}' 
 or a list of VAR objects that will be \link[=as.varx]{coerced} to '\code{varx}'.
-If a list \code{x$L.PSI_bc} of \eqn{N} bias terms are available 
+If a list \code{x$L.PSI_bc} of \eqn{N} bias terms is available 
 for the \eqn{N} coefficient matrices \eqn{A_i} (such as in \code{sboot2}), 
-the bias-corrected second-step of the bootstrap-after-bootstrap procedure 
+the bias-corrected second step of the bootstrap-after-bootstrap procedure 
 by Empting et al. (2026) is performed.}
 
 \item{b.dim}{Vector of two integers. The dimensions \eqn{(b_{(t)}, b_{(i)})} 
@@ -51,8 +51,8 @@ to the iterative correction procedure of Step 1b in Kilian (1998). Choosing
 \code{deltas = 0} inhibits the bias-correction but still returns the bias estimates \eqn{\hat{\Psi}_i}. 
 However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.}
 
-\item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
-into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
+\item{normf}{Function. A given function that normalizes the \eqn{K \times S} input matrix 
+into an output matrix of the same dimension. See the example in \code{\link{id.iv}} 
 for the normalization of Jentsch and Lunsford (2022) 
 that fixes the size of the impact response in the IRF.}
 
@@ -133,7 +133,7 @@ plot(R.bab, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 
 }
 \references{
-Brueggemann R., Jentsch, C., and Trenkler, C. (2016): 
+Brueggemann, R., Jentsch, C., and Trenkler, C. (2016): 
   "Inference in VARs with Conditional Heteroskedasticity of Unknown Form", 
   \emph{Journal of Econometrics}, 191, pp. 69-85.
 
@@ -141,17 +141,17 @@ Empting, L. F. T., Oeztuerk, S., Maxand, S., and Wagner, K. (2026):
   "Inference in Panel SVARs with Two-Way Dependence", arXiv:2610.11898 [econ.EM].
 
 Kapetanios, G. (2008): 
-  "A Bootstrap Procedure for Panel Data Sets with many Cross-sectional Units", 
-  \emph{The Econometrics Journal}, 11, pp.377-395.
+  "A Bootstrap Procedure for Panel Data Sets with Many Cross-Sectional Units", 
+  \emph{The Econometrics Journal}, 11, pp. 377-395.
 
 Kilian, L. (1998): 
   "Small-Sample Confidence Intervals for Impulse Response Functions",
   \emph{Review of Economics and Statistics}, 80, pp. 218-230.
 
-Gambacorta L., Hofmann B., and Peersman G. (2014):
+Gambacorta, L., Hofmann, B., and Peersman, G. (2014):
   "The Effectiveness of Unconventional Monetary Policy at the Zero Lower Bound: A Cross-Country Analysis",
   \emph{Journal of Money, Credit and Banking}, 46, pp. 615-642.
 }
 \seealso{
-For the the individual counterpart see \code{\link{sboot.mb}}.
+For the individual counterpart see \code{\link{sboot.mb}}.
 }

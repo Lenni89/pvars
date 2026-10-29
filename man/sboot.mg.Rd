@@ -12,8 +12,8 @@ or a list of VAR objects that will be \link[=as.varx]{coerced} to '\code{varx}'.
 
 \item{n.ahead}{Integer. Number of periods to consider after the initial impulse, i.e. the horizon of the IRF.}
 
-\item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
-into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
+\item{normf}{Function. A given function that normalizes the \eqn{K \times S} input matrix 
+into an output matrix of the same dimension. See the example in \code{\link{id.iv}} 
 for the normalization of Jentsch and Lunsford (2022) 
 that fixes the size of the impact response in the IRF.}
 
@@ -72,7 +72,7 @@ summary(R.boot, idx_par="beta", level=0.95)
 
 }
 \references{
-Pesaran, M. H., and Smith R. J. (1995):
+Pesaran, M. H., and Smith, R. J. (1995):
   "Estimating Long-Run Relationships from Dynamic Heterogeneous Panels",
   \emph{Journal of Econometrics}, 68, pp. 79-113.
 }

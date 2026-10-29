@@ -21,7 +21,7 @@ A list of class '\code{varx}'. Objects of this class contain the elements:
   if transformed from a rank-restricted VECM.}
 \item{SIGMA}{Matrix. The \eqn{(K \times K)} residual covariance matrix estimated by least-squares.}
   The following integers indicate the size of dimensions:
-\item{dim_K}{Integer. The number of endogenous variables \eqn{K} in the full-system.}
+\item{dim_K}{Integer. The number of endogenous variables \eqn{K} in the full system.}
 \item{dim_S}{Integer. The number of identified shocks \eqn{S} in the SVAR model.}
 \item{dim_T}{Integer. The number of time periods \eqn{T} without presample.}
 \item{dim_p}{Integer. The lag-order \eqn{p} of the VAR model in levels.}
@@ -38,8 +38,8 @@ A list of class '\code{varx}'. Objects of this class contain the elements:
   and specifications that have been used.} 
 \item{args_id}{List of characters and integers indicating the identification 
   methods and specifications that have been used. This element is specific 
-  to the child-class '\code{id}' for SVAR models, that inherit from
-  parent-class '\code{varx}' for any VAR model.}
+  to the child class '\code{id}' for SVAR models, which inherits from
+  the parent class '\code{varx}' for any VAR model.}
 }
 \description{
 Coerce into a '\code{varx}' object. On top of the parent class 

@@ -18,7 +18,7 @@ In case of \eqn{K_1=1} instrumented shock series, all four choices provide ident
 
 \item{cov_u}{Character. Selection of the estimated residual covariance matrix \eqn{\hat{\Sigma}_{u}} 
 to be used in the identification procedure. 
-Either \code{'OMEGA'} (the default) for \eqn{\hat{U} \hat{U}'/T_i} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2022)
+Either \code{'OMEGA'} (the default) for \eqn{\hat{U} \hat{U}'/T} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2022)
 or \code{'SIGMA'} for \eqn{\hat{U}\hat{U}'/(T-n_{z})}, which corrects for the number of regressors \eqn{n_z}. 
 Both character options refer to the name of the respective estimate in the '\code{varx}' object.}
 
@@ -129,7 +129,7 @@ Mertens, K., and Ravn, M. O. (2013):
 
 Lunsford, K. G. (2015):
   "Identifying Structural VARs with a Proxy Variable and a Test for a Weak Proxy",
-  Working Paper, No 15-28, Federal Reserve Bank of Cleveland.
+  Working Paper, No. 15-28, Federal Reserve Bank of Cleveland.
 
 Jentsch, C., and Lunsford, K. G. (2019):
   "The Dynamic Effects of Personal and Corporate Income Tax Changes in the 

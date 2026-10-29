@@ -19,7 +19,7 @@ sboot.mb(
 \item{x}{VAR object of class '\code{id}' or '\code{varx}' or any other 
 that can be \link[=as.varx]{coerced} to '\code{varx}', e.g. '\code{svars}'.
 If a bias term \code{x$PSI_bc} is available for coefficient matrix \eqn{A} (such as in '\code{sboot2}'), 
-the bias-corrected second-step of the bootstrap-after-bootstrap procedure by Kilian (1998) is performed.}
+the bias-corrected second step of the bootstrap-after-bootstrap procedure by Kilian (1998) is performed.}
 
 \item{b.length}{Integer. Length \eqn{b_{(t)}} of each residual time series block, 
 which is often set to \eqn{T/10}.}
@@ -43,8 +43,8 @@ to the iterative correction procedure of Step 1b in Kilian (1998). Choosing
 \code{deltas = 0} inhibits the bias-correction but still returns the bias estimate \eqn{\hat{\Psi}}. 
 However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.}
 
-\item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
-into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
+\item{normf}{Function. A given function that normalizes the \eqn{K \times S} input matrix 
+into an output matrix of the same dimension. See the example in \code{\link{id.iv}} 
 for the normalization of Jentsch and Lunsford (2022) 
 that fixes the size of the impact response in the IRF.}
 }
@@ -119,13 +119,13 @@ plot(R.boot, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 
 }
 \references{
-Breitung, J., Brueggemann R., and Luetkepohl, H. (2004): 
+Breitung, J., Brueggemann, R., and Luetkepohl, H. (2004): 
   "Structural Vector Autoregressive Modeling and Impulse Responses", 
   in \emph{Applied Time Series Econometrics}, 
   ed. by H. Luetkepohl and M. Kraetzig, 
   Cambridge University Press, Cambridge.
 
-Brueggemann R., Jentsch, C., and Trenkler, C. (2016): 
+Brueggemann, R., Jentsch, C., and Trenkler, C. (2016): 
   "Inference in VARs with Conditional Heteroskedasticity of Unknown Form", 
   \emph{Journal of Econometrics}, 191, pp. 69-85.
 

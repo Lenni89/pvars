@@ -5,9 +5,9 @@
 # Roxygen: https://r-pkgs.org/man.html#man-s3
 
 #' @title Coerce into a '\code{pplot}' object 
-#' @description Coerce into a '\code{pplot}' object. This function allows (1) to
-#'   overlay and colorize multiple plots of IRF and confidence bands in a single 
-#'   '\code{ggplot}' object and (2) to overwrite shock and variable names in
+#' @description Coerce into a '\code{pplot}' object. This function allows (1)
+#'   overlaying and colorizing multiple plots of IRF and confidence bands in a single 
+#'   '\code{ggplot}' object and (2) overwriting shock and variable names in
 #'   verbatim LaTeX math mode suitable for the export via \strong{tikzDevice}. 
 #' @details \code{\link{as.pplot}} is used as an intermediary in the '\code{pplot}' 
 #'   functions to achieve compatibility with different classes. Equivalently to 

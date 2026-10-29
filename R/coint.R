@@ -29,7 +29,7 @@
 #' \item{pvals_ME}{\eqn{p}-values of the ME test. 
 #'   \code{NA} if moments of the gamma distribution are not available 
 #'   for the chosen data generating process.}
-#' \item{lambda}{Eigenvalues, the squared canonical correlation coeffcients 
+#' \item{lambda}{Eigenvalues, the squared canonical correlation coefficients 
 #'   (saved only for the Johansen procedure).}
 #' \item{args_coint}{List of characters and integers 
 #'   indicating the cointegration test and specifications that have been used.}
@@ -47,7 +47,7 @@ NULL
 #'   \emph{Journal of Economic Dynamics and Control}, 12, pp. 231-254.
 #' @references Doornik, J. (1998): 
 #'   "Approximations to the Asymptotic Distributions of Cointegration Tests", 
-#'   \emph{Journal of Economic Surveys}, 12, pp. 573-93.
+#'   \emph{Journal of Economic Surveys}, 12, pp. 573-593.
 #' @references Johansen, S., Mosconi, R., and Nielsen, B. (2000): 
 #'   "Cointegration Analysis in the Presence of Structural Breaks in the Deterministic Trend",
 #'   \emph{Econometrics Journal}, 3, pp. 216-249.

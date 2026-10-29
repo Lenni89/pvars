@@ -37,7 +37,7 @@ Deactivated if \code{NULL} (the default).}
 \value{
 A list of class '\code{speci}', which contains the elements:
 \item{eigenvals}{Data frame. The eigenvalues of the PCA, which have been used to calculate the criteria, 
-     and their respective share on the total variance in the data panel.}
+     and their respective share of the total variance in the data panel.}
 \item{Ahn}{Matrix. The eigenvalue ratio  \eqn{ER(k)} and growth rate \eqn{GR(k)} 
      by Ahn, Horenstein (2013) for \eqn{k=0,\ldots,}\code{k_max} factors.}
 \item{Onatski}{Matrix. The calibrated threshold \eqn{\delta} and suggested number of factors \eqn{\hat{r}(\delta)} 
@@ -53,7 +53,7 @@ A list of class '\code{speci}', which contains the elements:
 \item{L.idio}{List of \eqn{N} \code{data.frame} objects each collecting 
       the \eqn{K_i} idiosyncratic series \eqn{\hat{e}_{it}} along the rows \eqn{t=1,\ldots,T}. 
       The series \eqn{\hat{e}_{it}} are given in levels and may contain a deterministic component with 
-      (1) the initial \eqn{\hat{e}_{i1}} being non-zero and (2) re-accumulated means of the the first-differenced series.}
+      (1) the initial \eqn{\hat{e}_{i1}} being non-zero and (2) re-accumulated means of the first-differenced series.}
 \item{args_speci}{List of characters and integers indicating the specifications that have been used.}
 }
 \description{
@@ -87,7 +87,7 @@ lvl = levels(R.fac0$eigenvals$scree)
 F.scree = ggplot(R.fac0$eigenvals[1:20, ]) +
   geom_col(aes(x=n, y=share, fill=scree), color="black", width=0.75) +
   scale_fill_manual(values=pal, breaks=lvl, guide="none") +
-  labs(x="Component number", y="Share on total variance", title=NULL) +
+  labs(x="Component number", y="Share of total variance", title=NULL) +
   theme_bw()
 plot(F.scree)
 
@@ -116,7 +116,7 @@ Bai, J., and Ng, S. (2002):
 
 Bai, J., and Ng, S. (2004): 
   "A PANIC Attack on Unit Roots and Cointegration", 
-  \emph{Econometrica}, 72, pp. 1127-117.
+  \emph{Econometrica}, 72, pp. 1127-1173.
 
 Corona, F., Poncela, P., and Ruiz, E. (2017): 
   "Determining the Number of Factors after Stationary Univariate Transformations", 
@@ -124,7 +124,7 @@ Corona, F., Poncela, P., and Ruiz, E. (2017):
 
 Onatski, A. (2010): 
   "Determining the Number of Factors from Empirical Distribution of Eigenvalues", 
-  \emph{Review of Econometrics and Statistics}, 92, pp. 1004-1016.
+  \emph{Review of Economics and Statistics}, 92, pp. 1004-1016.
 }
 \seealso{
 Other specification functions: 

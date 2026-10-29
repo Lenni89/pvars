@@ -31,7 +31,7 @@ The data set \code{ICAP} consists of annual observations for
   \item the electricity generation capacity \eqn{EGC} in megawatts, 
   \item the number of main phone lines \eqn{mlines}, 
   \item the kilometers of total roads \eqn{troads}, 
-  \item the number of cell phones lines \eqn{cells}, 
+  \item the number of cell phone lines \eqn{cells}, 
   \item the kilometers of paved roads \eqn{proads}, and 
   \item the kilometers of rails \eqn{rails}.
   }

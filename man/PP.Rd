@@ -44,7 +44,7 @@ L.data  = sapply(names_i, FUN=function(i)
   simplify=FALSE)
   
 # estimate VAR for DNK under rank-restriction r=2 #
-dim_r  = 2  # cointegrataion rank
+dim_r  = 2  # cointegration rank
 R.t_D1 = list(t_break=c(23, 49))  # trend breaks
 R.vecm = VECM(y=L.data$DNK, dim_p=2, dim_r=dim_r, type="Case4", t_D1=R.t_D1)
 
@@ -67,9 +67,9 @@ plot(R.ppsy, selection=list(1, c(1,4)))  # dismiss cross-term PP
 
 }
 \references{
-Lee, K., C., Pesaran, M. H. (1993): 
+Lee, K. C., and Pesaran, M. H. (1993): 
   "Persistence Profiles and Business Cycle Fluctuations in a Disaggregated Model of UK Output Growth", 
-  \emph{Richerche Economiche}, 47, pp. 293-322.
+  \emph{Ricerche Economiche}, 47, pp. 293-322.
 
 Pesaran, M. H., and Shin, Y. (1996): 
   "Cointegration and Speed of Convergence to Equilibrium", 

@@ -14,8 +14,8 @@ or a list of VAR objects that will be \link[=as.varx]{coerced} to '\code{varx}'.
 
 \item{n.ahead}{Integer. Number of periods to consider after the initial impulse, i.e. the horizon of the IRF.}
 
-\item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
-into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
+\item{normf}{Function. A given function that normalizes the \eqn{K \times S} input matrix 
+into an output matrix of the same dimension. See the example in \code{\link{id.iv}} 
 for the normalization of Jentsch and Lunsford (2022) 
 that fixes the size of the impact response.}
 
@@ -60,7 +60,7 @@ Luetkepohl, H. (2005):
   \emph{New Introduction to Multiple Time Series Analysis}, 
   Springer, 2nd ed.
 
-Gambacorta L., Hofmann B., and Peersman G. (2014):
+Gambacorta, L., Hofmann, B., and Peersman, G. (2014):
   "The Effectiveness of Unconventional Monetary Policy at the Zero Lower Bound: A Cross-Country Analysis",
   \emph{Journal of Money, Credit and Banking}, 46, pp. 615-642.
 

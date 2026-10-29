@@ -10,7 +10,7 @@
 #' @param ... Currently not used.
 #'
 #' @return A list of class '\code{svarfevd}' holding the forecast error variance decomposition 
-#'   of each variables as a '\code{data.frame}'.
+#'   of each variable as a '\code{data.frame}'.
 #'
 #' @references Luetkepohl, H. (2005):
 #'   \emph{New Introduction to Multiple Time Series Analysis}, 

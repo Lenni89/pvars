@@ -21,7 +21,7 @@
 #' 
 #' @return A list of class '\code{speci}', which contains the elements:
 #' \item{eigenvals}{Data frame. The eigenvalues of the PCA, which have been used to calculate the criteria, 
-#'      and their respective share on the total variance in the data panel.}
+#'      and their respective share of the total variance in the data panel.}
 #' \item{Ahn}{Matrix. The eigenvalue ratio  \eqn{ER(k)} and growth rate \eqn{GR(k)} 
 #'      by Ahn, Horenstein (2013) for \eqn{k=0,\ldots,}\code{k_max} factors.}
 #' \item{Onatski}{Matrix. The calibrated threshold \eqn{\delta} and suggested number of factors \eqn{\hat{r}(\delta)} 
@@ -37,7 +37,7 @@
 #' \item{L.idio}{List of \eqn{N} \code{data.frame} objects each collecting 
 #'       the \eqn{K_i} idiosyncratic series \eqn{\hat{e}_{it}} along the rows \eqn{t=1,\ldots,T}. 
 #'       The series \eqn{\hat{e}_{it}} are given in levels and may contain a deterministic component with 
-#'       (1) the initial \eqn{\hat{e}_{i1}} being non-zero and (2) re-accumulated means of the the first-differenced series.}
+#'       (1) the initial \eqn{\hat{e}_{i1}} being non-zero and (2) re-accumulated means of the first-differenced series.}
 #' \item{args_speci}{List of characters and integers indicating the specifications that have been used.}
 #' 
 #' @details If \code{differenced} is \code{TRUE}, the approximate factor model is estimated as proposed by Bai, Ng (2004).
@@ -55,13 +55,13 @@
 #'   \emph{Econometrica}, 70, pp. 191-221.
 #' @references Bai, J., and Ng, S. (2004): 
 #'   "A PANIC Attack on Unit Roots and Cointegration", 
-#'   \emph{Econometrica}, 72, pp. 1127-117.
+#'   \emph{Econometrica}, 72, pp. 1127-1173.
 #' @references Corona, F., Poncela, P., and Ruiz, E. (2017): 
 #'   "Determining the Number of Factors after Stationary Univariate Transformations", 
 #'   \emph{Empirical Economics}, 53, pp. 351-372.
 #' @references Onatski, A. (2010): 
 #'   "Determining the Number of Factors from Empirical Distribution of Eigenvalues", 
-#'   \emph{Review of Econometrics and Statistics}, 92, pp. 1004-1016.
+#'   \emph{Review of Economics and Statistics}, 92, pp. 1004-1016.
 #' @examples
 #' ### reproduce Oersal,Arsova 2017:67, Ch.5 ###
 #' data("MERM")
@@ -82,7 +82,7 @@
 #' F.scree = ggplot(R.fac0$eigenvals[1:20, ]) +
 #'   geom_col(aes(x=n, y=share, fill=scree), color="black", width=0.75) +
 #'   scale_fill_manual(values=pal, breaks=lvl, guide="none") +
-#'   labs(x="Component number", y="Share on total variance", title=NULL) +
+#'   labs(x="Component number", y="Share of total variance", title=NULL) +
 #'   theme_bw()
 #' plot(F.scree)
 #' 
@@ -175,7 +175,7 @@ speci.factors <- function(L.data, k_max=20, n.iterations=4, differenced=FALSE, c
 #' @description Determines the lag-order \eqn{p} and break period(s) \eqn{\tau} 
 #'   jointly via information criteria on the OLS-estimated VAR model for a given 
 #'   number of breaks. These \eqn{m} breaks are common to all \eqn{K} equations 
-#'   of the system and partial, as pertaining the 
+#'   of the system and partial, pertaining to the 
 #'   \link[=as.t_D]{deterministic term} only.
 #' 
 #' @param x VAR object of class '\code{varx}' or any other 
@@ -197,15 +197,15 @@ speci.factors <- function(L.data, k_max=20, n.iterations=4, differenced=FALSE, c
 #'   For example, \eqn{h=0.15} (the default) specifies the window 
 #'   \eqn{[0.15 \cdot T, 0.85 \cdot T]} that is often used 
 #'   as the set of candidates for \eqn{m=1} single period \eqn{\tau_1}. 
-#' @param type_break Character. Whether the \eqn{m} common breaks pertain the 
+#' @param type_break Character. Whether the \eqn{m} common breaks pertain to the 
 #'   '\code{const}' (the default), the linear '\code{trend}', or '\code{both}'. 
 #'   Adds the period-specific \link[=as.t_D]{deterministic term} activated 
 #'   during \eqn{\tau}.
 #' @param add_dummy Logical. If \code{TRUE} (not the default), accompanying 
 #'   impulse dummies activated in \eqn{\tau + (0, \ldots, p-1)} are added to each break.
 #' @param n.cores Integer. Number of allocated processor cores.
-#'   Note that parallel processing is exclusively activated for the combined 
-#'   determination of lag-order \eqn{p} and break period(s) \eqn{\tau} only.
+#'   Note that parallel processing is activated only for the combined 
+#'   determination of lag-order \eqn{p} and break period(s) \eqn{\tau}.
 #' 
 #' @return A list of class '\code{speci}', which contains the elements: 
 #' \item{df}{A '\code{data.frame}' of \eqn{(1+m) + 4} columns for all admissible 
@@ -223,8 +223,8 @@ speci.factors <- function(L.data, k_max=20, n.iterations=4, differenced=FALSE, c
 #'   VAR in levels to determine \eqn{m=1} common break period \eqn{\tau_1} 
 #'   and subsequently perform cointegration analysis with \code{\link{coint.SL}} 
 #'   (which actually provides \eqn{p}-values for up to \eqn{m=2}). 
-#'   Note yet that the lag-order of a VECM is usually determined via 
-#'   information criteria of a full-rank VAR in levels alike.
+#'   Note, however, that the lag-order of a VECM is likewise usually determined via 
+#'   information criteria of a full-rank VAR in levels.
 #'   
 #'   \code{\link{speci.VAR}} combines Bai, Perron (2003) and Approach 3 of Yang (2002)
 #'   into a global minimization of information criteria on the pair \eqn{(p,\tau)}. 
@@ -236,7 +236,7 @@ speci.factors <- function(L.data, k_max=20, n.iterations=4, differenced=FALSE, c
 #'   minimum sum of squared residuals from a single-equation model \eqn{(K=1)}. 
 #'   They use dynamic programming to reduce the number of least-squares operations. 
 #'   Although adapting their streamlined set of admissible combinations for \eqn{\tau}, 
-#'   \code{\link{speci.VAR}} yet resorts to (parallelized brute-force) OLS estimation 
+#'   \code{\link{speci.VAR}} still resorts to (parallelized brute-force) OLS estimation 
 #'   of all candidate VAR models and therewith circumvents issues of correct 
 #'   initialization and iterative updating for the models with partial breaks.
 #'   
@@ -339,7 +339,7 @@ speci.VAR <- function(x, lag_set=1:10, dim_m=FALSE, trim=0.15, type_break="const
       stop("Minimum sizes of the m+1 sub-samples must, in total, not exceed sample size T.") }
     
     # define admissible combinations of tau, from Bai, Perron 2003:4, Ch.3.1
-    all_combos = combn(1:dim_T, m=dim_m, FUN=NULL)  # all combinations with replacement
+    all_combos = combn(1:dim_T, m=dim_m, FUN=NULL)  # all combinations
     idx_admiss = apply(all_combos, MARGIN=2, FUN=function(combo){
       # ordered first periods of the m+1 sub-samples and the upper bound
       t_starts = c(1, sort(combo), dim_T+1)

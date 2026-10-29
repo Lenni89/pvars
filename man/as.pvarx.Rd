@@ -30,8 +30,8 @@ A list of class '\code{pvarx}'. Objects of this class contain the elements:
   indicating the estimator and specifications that have been used.}
 \item{args_pid}{List of characters and integers 
   indicating the identification methods and specifications that have been used. 
-  This element is specific to the child-class 'pid' for panel SVAR models, 
-  that inherit from parent-class 'pvarx' for any panel VAR model.}
+  This element is specific to the child class 'pid' for panel SVAR models, 
+  which inherits from the parent class 'pvarx' for any panel VAR model.}
 }
 \description{
 Coerce into a '\code{pvarx}' object. On top of the parent class 

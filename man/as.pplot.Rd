@@ -65,9 +65,9 @@ A list of class '\code{pplot}'. Objects of this class contain the elements:
                     specifications used for creating \code{F.plot}.}
 }
 \description{
-Coerce into a '\code{pplot}' object. This function allows (1) to
-  overlay and colorize multiple plots of IRF and confidence bands in a single 
-  '\code{ggplot}' object and (2) to overwrite shock and variable names in
+Coerce into a '\code{pplot}' object. This function allows (1)
+  overlaying and colorizing multiple plots of IRF and confidence bands in a single 
+  '\code{ggplot}' object and (2) overwriting shock and variable names in
   verbatim LaTeX math mode suitable for the export via \strong{tikzDevice}.
 }
 \details{

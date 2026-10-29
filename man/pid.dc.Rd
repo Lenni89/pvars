@@ -57,7 +57,7 @@ Given an estimated panel VAR model, this function applies independence-based ide
   Matrix \eqn{B_i} corresponds to the unique decomposition of the least squares covariance matrix \eqn{\Sigma_{u,i} = B_i B_i'} 
   if the vector of structural shocks \eqn{\epsilon_{it}} contains at most one Gaussian shock (Comon, 1994).
   A nonparametric dependence measure, the distance covariance (Szekely et al., 2007), determines 
-  least dependent structural shocks. The algorithm described in Matteson and Tsay (2013) is applied 
+  the least dependent structural shocks. The algorithm described in Matteson and Tsay (2017) is applied 
   to calculate the matrix \eqn{B_i}.
 }
 \section{Notes on the Reproduction in "Examples"}{
@@ -69,7 +69,7 @@ Given an estimated panel VAR model, this function applies independence-based ide
   the reproduction by \code{\link{pvarx.VAR}} both calculate \eqn{X'(XX')^{-1}} 
   for the multivariate least-squares estimation of \eqn{A_i}. Moreover, 
   both use \code{\link[steadyICA]{steadyICA}} for identification such that the 
-  reproduction result for the pooled rotation matrix \code{Q} is close to HW2024, 
+  reproduction result for the pooled rotation matrix \code{Q} is close to that of HW2024; 
   the mean absolute difference between both 4x4 matrices is less than 0.0032. 
   Note that the single EA-Model is estimated and identified the same way, 
   which can be extracted as a separate '\code{varx}' object from the trivial 
@@ -141,16 +141,16 @@ plot(R.irf)
 }
 \references{
 Calhoun, V. D., Adali, T., Pearlson, G. D., and Pekar, J. J. (2001): 
-  "A Method for Making Group Inferences from Functional MRI Data using Independent Component Analysis",
+  "A Method for Making Group Inferences from Functional MRI Data Using Independent Component Analysis",
   \emph{Human Brain Mapping}, 16, pp. 673-690.
 
 Comon, P. (1994): 
-  "Independent Component Analysis: A new Concept?", 
+  "Independent Component Analysis: A New Concept?", 
   \emph{Signal Processing}, 36, pp. 287-314.
 
 Herwartz, H., and Wang, S. (2024): 
   "Statistical Identification in Panel Structural Vector Autoregressive 
-  Models based on Independence Criteria", 
+  Models Based on Independence Criteria", 
   \emph{Journal of Applied Econometrics}, 39 (4), pp. 620-639.
 
 Matteson, D. S., and Tsay, R. S. (2017): 

@@ -16,7 +16,7 @@ that will be \link[=as.varx]{coerced} to ('\code{id}', '\code{varx}').}
 }
 \value{
 A list of class '\code{svarfevd}' holding the forecast error variance decomposition 
-  of each variables as a '\code{data.frame}'.
+  of each variable as a '\code{data.frame}'.
 }
 \description{
 Calculates the forecast error variance decomposition. Respects SVAR 

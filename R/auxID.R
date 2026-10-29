@@ -94,7 +94,7 @@ aux_sico <- function(B, B.orig=NULL, names_s=NULL){
     return(result)
     
   }else{
-    ### II) minimize Forbenius distance, from Herwartz 2018 online supp.:2
+    ### II) minimize Frobenius distance, from Herwartz 2018 online supp.:2
     ### SOURCE:
     ### https://github.com/cran/steadyICA/blob/master/R/matchfun.R
     # define
@@ -129,7 +129,7 @@ aux_sico <- function(B, B.orig=NULL, names_s=NULL){
     l2.mat1 = sqrt(l2.mat1)
     l2.mat2 = sqrt(l2.mat2)
     
-    #take the min of plus/min l2 distances. This is okay because solve_LSAP is one to one
+    #take the min of plus/minus l2 distances. This is okay because solve_LSAP is one to one
     l2.mat = l2.mat1*(l2.mat1<=l2.mat2) + l2.mat2*(l2.mat2<l2.mat1)
     map = as.vector(clue::solve_LSAP(l2.mat))
     
@@ -146,7 +146,7 @@ aux_sico <- function(B, B.orig=NULL, names_s=NULL){
     dimnames(B.sico) = dimnames(B.orig)
     return(B.sico)
   
-  ### TODO: III) Coherent: minimize Forbenius distance, from Bernoth,Herwartz 2018:9
+  ### TODO: III) Coherent: minimize Frobenius distance, from Bernoth,Herwartz 2018:9
   ### Should be the same for all individuals if "group"?  
   ### perm_i = svars:::frobICA_mod(star_pid$L.varx[[i]]$B, L.B[[i]], standardize=TRUE)$perm
   ### star_pid$L.varx[[i]]$B = aux_sico(star_pid$L.varx[[i]]$B, perm_i)
@@ -194,7 +194,7 @@ aux_idIV <- function(u, m, S2=c("MR", "JL", "LT", "NQ"), SIGMA_uu, dim_K1=NULL){
   # define
   u = aux_asDataMatrix(u, "u")  # named residual matrix is KxT
   m = aux_asDataMatrix(m, "m")  # named proxy matrix is LxT
-  dim_T = ncol(u)  # number of observation without presample
+  dim_T = ncol(u)  # number of observations without presample
   dim_K = nrow(u)  # number of endogenous variables in the VAR
   dim_L = nrow(m)  # number of proxy variables
   dim_S = if( S2 %in% c("MR", "JL") & is.null(dim_K1) ){ dim_L }else{ dim_K }  # number of identified shocks

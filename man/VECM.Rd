@@ -49,7 +49,7 @@ which are unrestricted.}
 \link[=as.t_D]{deterministic regressors} added to \eqn{d_{1,t}}, 
 which are restricted to the cointegration relations. 
 Unlike '\code{t_D1}', these customized regressors require potential
-accompanying regressors to be manually included in \eqn{d_{2,it}}.}
+accompanying regressors to be manually included in \eqn{d_{2,t}}.}
 
 \item{D2}{Matrix. A \eqn{(n_{\bullet} \times (p+T))} data matrix of customized 
 \link[=as.t_D]{deterministic regressors} added to \eqn{d_{2,t}}, 

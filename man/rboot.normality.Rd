@@ -23,7 +23,7 @@ Ignored in case of rank-unrestricted VAR.}
 A list of class '\code{rboot}' with elements:
 \item{sim}{Array of dimension \eqn{(3 \times (1+K) \times} \code{n.boot}) 
   containing the \code{n.boot} iteration results for 
-  \emph{(i)} the JB, skewness and kurtosis test and for
+  \emph{(i)} the JB, skewness and kurtosis tests and for
   \emph{(ii)} the multivariate and each univariate test 
   for the \eqn{K} residual time series.}
 \item{stats}{Matrix of dimension \eqn{(3 \times (1+K))} containing the empirical test statistics.}
@@ -64,14 +64,14 @@ plot(F.density)
 
 }
 \references{
-Jarque, C. M. and Bera, A. K. (1987): 
+Jarque, C. M., and Bera, A. K. (1987): 
   "A Test for Normality of Observations and Regression Residuals", 
   \emph{International Statistical Review}, 55, pp. 163-172.
 
-Kilian, L. and Demiroglu, U. (2000): 
+Kilian, L., and Demiroglu, U. (2000): 
   "Residual-Based Tests for Normality in Autoregressions: 
   Asymptotic Theory and Simulation Evidence", 
-  \emph{Journal of Business and Economic Statistics}, 32, pp. 40-50.
+  \emph{Journal of Business and Economic Statistics}, 18, pp. 40-50.
 }
 \seealso{
 \ldots the \code{\link[vars]{normality.test}} by Pfaff (2008) in \strong{vars},

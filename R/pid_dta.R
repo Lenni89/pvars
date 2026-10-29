@@ -8,7 +8,7 @@
 #'   Matrix \eqn{B_i} corresponds to the unique decomposition of the least squares covariance matrix \eqn{\Sigma_{u,i} = B_i B_i'} 
 #'   if the vector of structural shocks \eqn{\epsilon_{it}} contains at most one Gaussian shock (Comon, 1994).
 #'   A nonparametric dependence measure, the Cramer-von Mises distance (Genest and Remillard, 2004), 
-#'   determines least dependent structural shocks. The minimum is obtained by a two step optimization algorithm 
+#'   determines the least dependent structural shocks. The minimum is obtained by a two-step optimization algorithm 
 #'   similar to the technique described in Herwartz and Ploedt (2016).
 #'
 #' @param x An object of class '\code{pvarx}' or a list of VAR objects 
@@ -48,17 +48,17 @@
 #' \item{args_pvarx}{List of characters and integers indicating the estimator and specifications that have been used.}
 #' 
 #' @references Comon, P. (1994): 
-#'   "Independent Component Analysis: A new Concept?", 
+#'   "Independent Component Analysis: A New Concept?", 
 #'   \emph{Signal Processing}, 36, pp. 287-314.
 #' @references Genest, C., and Remillard, B. (2004): 
-#'   "Tests of Independence and Randomness based on the Empirical Copula Process", 
-#'   Test, 13, pp. 335-370.
+#'   "Tests of Independence and Randomness Based on the Empirical Copula Process", 
+#'   \emph{Test}, 13, pp. 335-370.
 #' @references Herwartz, H., and Wang, S. (2024): 
 #'   "Statistical Identification in Panel Structural Vector Autoregressive 
-#'   Models based on Independence Criteria", 
+#'   Models Based on Independence Criteria", 
 #'   \emph{Journal of Applied Econometrics}, 39 (4), pp. 620-639.
 #' @references Herwartz, H. (2018): 
-#'   "Hodges Lehmann detection of structural shocks - An Analysis of macroeconomic Dynamics in the Euro Area", 
+#'   "Hodges-Lehmann Detection of Structural Shocks - An Analysis of Macroeconomic Dynamics in the Euro Area", 
 #'   \emph{Oxford Bulletin of Economics and Statistics}, 80, pp. 736-754.
 #' @references Herwartz, H., and Ploedt, M. (2016): 
 #'   "The Macroeconomic Effects of Oil Price Shocks: Evidence from a Statistical Identification Approach", 
@@ -249,7 +249,7 @@ pid.cvm <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, dd=N
 #'   Matrix \eqn{B_i} corresponds to the unique decomposition of the least squares covariance matrix \eqn{\Sigma_{u,i} = B_i B_i'} 
 #'   if the vector of structural shocks \eqn{\epsilon_{it}} contains at most one Gaussian shock (Comon, 1994).
 #'   A nonparametric dependence measure, the distance covariance (Szekely et al., 2007), determines 
-#'   least dependent structural shocks. The algorithm described in Matteson and Tsay (2013) is applied 
+#'   the least dependent structural shocks. The algorithm described in Matteson and Tsay (2017) is applied 
 #'   to calculate the matrix \eqn{B_i}.
 #' 
 #' @param x An object of class '\code{pvarx}' or a list of VAR objects 
@@ -284,14 +284,14 @@ pid.cvm <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, dd=N
 #' \item{args_pvarx}{List of characters and integers indicating the estimator and specifications that have been used.}
 #' 
 #' @references Calhoun, V. D., Adali, T., Pearlson, G. D., and Pekar, J. J. (2001): 
-#'   "A Method for Making Group Inferences from Functional MRI Data using Independent Component Analysis",
+#'   "A Method for Making Group Inferences from Functional MRI Data Using Independent Component Analysis",
 #'   \emph{Human Brain Mapping}, 16, pp. 673-690.
 #' @references Comon, P. (1994): 
-#'   "Independent Component Analysis: A new Concept?", 
+#'   "Independent Component Analysis: A New Concept?", 
 #'   \emph{Signal Processing}, 36, pp. 287-314.
 #' @references Herwartz, H., and Wang, S. (2024): 
 #'   "Statistical Identification in Panel Structural Vector Autoregressive 
-#'   Models based on Independence Criteria", 
+#'   Models Based on Independence Criteria", 
 #'   \emph{Journal of Applied Econometrics}, 39 (4), pp. 620-639.
 #' @references Matteson, D. S., and Tsay, R. S. (2017): 
 #'   "Independent Component Analysis via Distance Covariance", 
@@ -311,7 +311,7 @@ pid.cvm <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, dd=N
 #'   the reproduction by \code{\link{pvarx.VAR}} both calculate \eqn{X'(XX')^{-1}} 
 #'   for the multivariate least-squares estimation of \eqn{A_i}. Moreover, 
 #'   both use \code{\link[steadyICA]{steadyICA}} for identification such that the 
-#'   reproduction result for the pooled rotation matrix \code{Q} is close to HW2024, 
+#'   reproduction result for the pooled rotation matrix \code{Q} is close to that of HW2024; 
 #'   the mean absolute difference between both 4x4 matrices is less than 0.0032. 
 #'   Note that the single EA-Model is estimated and identified the same way, 
 #'   which can be extracted as a separate '\code{varx}' object from the trivial 

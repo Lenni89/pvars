@@ -27,7 +27,7 @@ set by \code{\link[stats]{rnorm}} if \code{NULL} (the default).}
 
 \item{max.iter}{Integer. The maximum number of iterations.}
 
-\item{conv.crit}{Real number. Convergence value of algorithm.}
+\item{conv.crit}{Real number. Convergence value of the algorithm.}
 
 \item{maxls}{Real number. Maximum movement of the parameters between two iterations of the scoring algorithm.}
 }
@@ -59,11 +59,11 @@ R.grt  = id.grt(R.vecm, LR=LR, SR=SR)
 
 }
 \references{
-Amisano, G. and Giannini, C. (1997): 
+Amisano, G., and Giannini, C. (1997): 
   \emph{Topics in Structural VAR Econometrics}, 
   Springer, 2nd ed.
 
-Breitung, J., Brueggemann R., and Luetkepohl, H. (2004): 
+Breitung, J., Brueggemann, R., and Luetkepohl, H. (2004): 
   "Structural Vector Autoregressive Modeling and Impulse Responses", 
   in \emph{Applied Time Series Econometrics}, 
   ed. by H. Luetkepohl and M. Kraetzig, 

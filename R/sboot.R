@@ -7,7 +7,7 @@
 #' @param x VAR object of class '\code{id}' or '\code{varx}' or any other 
 #'   that can be \link[=as.varx]{coerced} to '\code{varx}', e.g. '\code{svars}'.
 #'   If a bias term \code{x$PSI_bc} is available for coefficient matrix \eqn{A} (such as in '\code{sboot2}'), 
-#'   the bias-corrected second-step of the bootstrap-after-bootstrap procedure by Kilian (1998) is performed.
+#'   the bias-corrected second step of the bootstrap-after-bootstrap procedure by Kilian (1998) is performed.
 #' @param b.length Integer. Length \eqn{b_{(t)}} of each residual time series block, 
 #'   which is often set to \eqn{T/10}.
 #' @param n.ahead Integer. Number of periods to consider after the initial impulse, i.e. the horizon of the IRF.
@@ -24,8 +24,8 @@
 #'   \code{deltas = 1} inhibits the stationarity correction, and 
 #'   \code{deltas = 0} inhibits the bias-correction but still returns the bias estimate \eqn{\hat{\Psi}}. 
 #'   However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
-#' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
-#'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
+#' @param normf Function. A given function that normalizes the \eqn{K \times S} input matrix 
+#'   into an output matrix of the same dimension. See the example in \code{\link{id.iv}} 
 #'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response in the IRF.
 #' 
@@ -95,12 +95,12 @@
 #' plot(R.boot, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 #' }
 #' 
-#' @references Breitung, J., Brueggemann R., and Luetkepohl, H. (2004): 
+#' @references Breitung, J., Brueggemann, R., and Luetkepohl, H. (2004): 
 #'   "Structural Vector Autoregressive Modeling and Impulse Responses", 
 #'   in \emph{Applied Time Series Econometrics}, 
 #'   ed. by H. Luetkepohl and M. Kraetzig, 
 #'   Cambridge University Press, Cambridge.
-#' @references Brueggemann R., Jentsch, C., and Trenkler, C. (2016): 
+#' @references Brueggemann, R., Jentsch, C., and Trenkler, C. (2016): 
 #'   "Inference in VARs with Conditional Heteroskedasticity of Unknown Form", 
 #'   \emph{Journal of Econometrics}, 191, pp. 69-85.
 #' @references Jentsch, C., and Lunsford, K. G. (2022): 
@@ -222,13 +222,13 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
       
     }else if(args_id$method == "Distance covariances"){
       star_P   = t(chol(star_var$SIGMA))
-      star_eps = solve(star_P) %*% star_var$resid  # pre-whitened shocks form baseline decomposition
+      star_eps = solve(star_P) %*% star_var$resid  # pre-whitened shocks from baseline decomposition
       star_ICA = suppressMessages(steadyICA::steadyICA(t(star_eps), symmetric=TRUE, PIT=args_id$PIT, maxit=args_id$n.iterations))
       star_B   = aux_sico(star_P %*% star_ICA$W, B.orig=B)
       
     }else if(args_id$method == "Cramer-von Mises distance"){
       star_P   = t(chol(star_var$SIGMA))
-      star_eps = solve(star_P) %*% star_var$resid  # pre-whitened shocks form baseline decomposition
+      star_eps = solve(star_P) %*% star_var$resid  # pre-whitened shocks from baseline decomposition
       star_ICA = aux_cvmICA(t(star_eps), dd=args_id$dd, itermax=args_id$itermax, steptol=args_id$steptol, iter2=args_id$iter2)
       star_B   = aux_sico(star_P %*% star_ICA$W, B.orig=B)
       
@@ -283,7 +283,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
   if(is.null(PSI_bc) & !is.null(deltas)){
     # Step 1a: bias estimate
     R.varx$PSI_bc = PSI_bc = apply(Aboot, MARGIN=1:2, mean) - A_hat
-    # Step 1b: stationary correction
+    # Step 1b: stationarity correction
     R.varx$A = aux_BaB(A_hat=A_hat, dim_p=dim_p, PSI=PSI_bc, deltas=deltas)
   }
   
@@ -317,9 +317,9 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   
 #' @param x Panel VAR object of class '\code{pid}' or '\code{pvarx}' 
 #'   or a list of VAR objects that will be \link[=as.varx]{coerced} to '\code{varx}'.
-#'   If a list \code{x$L.PSI_bc} of \eqn{N} bias terms are available 
+#'   If a list \code{x$L.PSI_bc} of \eqn{N} bias terms is available 
 #'   for the \eqn{N} coefficient matrices \eqn{A_i} (such as in \code{sboot2}), 
-#'   the bias-corrected second-step of the bootstrap-after-bootstrap procedure 
+#'   the bias-corrected second step of the bootstrap-after-bootstrap procedure 
 #'   by Empting et al. (2026) is performed.
 #' @param b.dim Vector of two integers. The dimensions \eqn{(b_{(t)}, b_{(i)})} 
 #'   of each residual panel block for temporal and cross-sectional resampling. The default 
@@ -341,8 +341,8 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   \code{deltas = 1} (used in Empting et al. 2026) inhibits the stationarity correction, and 
 #'   \code{deltas = 0} inhibits the bias-correction but still returns the bias estimates \eqn{\hat{\Psi}_i}. 
 #'   However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
-#' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
-#'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
+#' @param normf Function. A given function that normalizes the \eqn{K \times S} input matrix 
+#'   into an output matrix of the same dimension. See the example in \code{\link{id.iv}} 
 #'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response in the IRF.
 #' @param w Numeric, logical, or character vector. 
@@ -378,20 +378,20 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #' \item{stars_i}{Matrix of (\eqn{N \times }\code{n.boot}) integers containing 
 #'   the \eqn{N} cross-sectional resampling draws from each bootstrap iteration.}
 #' 
-#' @seealso For the the individual counterpart see \code{\link{sboot.mb}}.
+#' @seealso For the individual counterpart see \code{\link{sboot.mb}}.
 #' 
-#' @references Brueggemann R., Jentsch, C., and Trenkler, C. (2016): 
+#' @references Brueggemann, R., Jentsch, C., and Trenkler, C. (2016): 
 #'   "Inference in VARs with Conditional Heteroskedasticity of Unknown Form", 
 #'   \emph{Journal of Econometrics}, 191, pp. 69-85.
 #' @references Empting, L. F. T., Oeztuerk, S., Maxand, S., and Wagner, K. (2026): 
 #'   "Inference in Panel SVARs with Two-Way Dependence", arXiv:2610.11898 [econ.EM].
 #' @references Kapetanios, G. (2008): 
-#'   "A Bootstrap Procedure for Panel Data Sets with many Cross-sectional Units", 
-#'   \emph{The Econometrics Journal}, 11, pp.377-395.
+#'   "A Bootstrap Procedure for Panel Data Sets with Many Cross-Sectional Units", 
+#'   \emph{The Econometrics Journal}, 11, pp. 377-395.
 #' @references Kilian, L. (1998): 
 #'   "Small-Sample Confidence Intervals for Impulse Response Functions",
 #'   \emph{Review of Economics and Statistics}, 80, pp. 218-230.
-#' @references Gambacorta L., Hofmann B., and Peersman G. (2014):
+#' @references Gambacorta, L., Hofmann, B., and Peersman, G. (2014):
 #'   "The Effectiveness of Unconventional Monetary Policy at the Zero Lower Bound: A Cross-Country Analysis",
 #'   \emph{Journal of Money, Credit and Banking}, 46, pp. 615-642.
 #' 
@@ -646,7 +646,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
       for(j in 1:n.boot){ A_sim[,, j] = L.boot[[j]][[5]][[i]] }
       R.pvarx$L.varx[[i]]$PSI_bc = L.PSI_bc[[i]] = apply(A_sim, MARGIN=1:2, mean) - A_hat
       
-      # Step 1b: stationary correction
+      # Step 1b: stationarity correction
       R.pvarx$L.varx[[i]]$A = aux_BaB(A_hat=A_hat, dim_p=R.pvarx$L.varx[[i]]$dim_p, PSI=L.PSI_bc[[i]], deltas=deltas)
     }
     names(L.PSI_bc) = names(R.pvarx$L.varx)
@@ -687,8 +687,8 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
 #' @param x Panel VAR object of class '\code{pid}' or '\code{pvarx}' 
 #'   or a list of VAR objects that will be \link[=as.varx]{coerced} to '\code{varx}'.
 #' @param n.ahead Integer. Number of periods to consider after the initial impulse, i.e. the horizon of the IRF.
-#' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
-#'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
+#' @param normf Function. A given function that normalizes the \eqn{K \times S} input matrix 
+#'   into an output matrix of the same dimension. See the example in \code{\link{id.iv}} 
 #'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response in the IRF.
 #' @param idx_i Logical or character vector. 
@@ -711,7 +711,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
 #' 
 #' @seealso For an actual panel bootstrap procedure see \code{\link{sboot.pmb}}.
 #' 
-#' @references Pesaran, M. H., and Smith R. J. (1995):
+#' @references Pesaran, M. H., and Smith, R. J. (1995):
 #'   "Estimating Long-Run Relationships from Dynamic Heterogeneous Panels",
 #'   \emph{Journal of Econometrics}, 68, pp. 79-113.
 #' 

@@ -26,7 +26,7 @@
 #' @references Luetkepohl, H. (2005): 
 #'   \emph{New Introduction to Multiple Time Series Analysis}, 
 #'   Springer, 2nd ed.
-#' @references Sims, C. A. (2008): 
+#' @references Sims, C. A. (1980): 
 #'   "Macroeconomics and Reality", 
 #'   \emph{Econometrica}, 48, pp. 1-48.
 #' 
@@ -71,7 +71,7 @@ pid.chol <- function(x, order_k=NULL){
     # define
     SIGMA = x$SIGMA  # OLS covariance matrix of residuals
     
-    # Choleski decomposition
+    # Cholesky decomposition
     psig = tperm %*% SIGMA %*% perm  # permute in accordance with recursive causality
     P    = t(chol(psig))
     B    = perm %*% P %*% tperm  # repermute via inverse
@@ -112,12 +112,12 @@ pid.chol <- function(x, order_k=NULL){
 #' @param start Vector. The starting values for \eqn{\gamma}, 
 #'   set by \code{\link[stats]{rnorm}} if \code{NULL} (the default).
 #' @param max.iter Integer. The maximum number of iterations.
-#' @param conv.crit Real number. Convergence value of algorithm.
+#' @param conv.crit Real number. Convergence value of the algorithm.
 #' @param maxls Real number. Maximum movement of the parameters between two iterations of the scoring algorithm.
 #' 
 #' @return List of class '\code{pid}' with elements:
 #' \item{A}{Matrix. The lined-up coefficient matrices \eqn{A_j, j=1,\ldots,p} 
-#'    or the lagged variables in the panel VAR.}
+#'    for the lagged variables in the panel VAR.}
 #' \item{B}{Matrix. Mean group of the estimated structural impact matrices \eqn{B_i}, 
 #'    i.e. the unique decomposition of the covariance matrices of reduced-form errors.}
 #' \item{L.varx}{List of '\code{varx}' objects for the individual estimation results
@@ -125,10 +125,10 @@ pid.chol <- function(x, order_k=NULL){
 #' \item{args_pid}{List of characters and integers indicating the identification methods and specifications that have been used.}
 #' \item{args_pvarx}{List of characters and integers indicating the estimator and specifications that have been used.}
 #' 
-#' @references Amisano, G. and Giannini, C. (1997): 
+#' @references Amisano, G., and Giannini, C. (1997): 
 #'   \emph{Topics in Structural VAR Econometrics}, 
 #'   Springer, 2nd ed.
-#' @references Breitung, J., Brueggemann R., and Luetkepohl, H. (2004): 
+#' @references Breitung, J., Brueggemann, R., and Luetkepohl, H. (2004): 
 #'   "Structural Vector Autoregressive Modeling and Impulse Responses", 
 #'   in \emph{Applied Time Series Econometrics}, 
 #'   ed. by H. Luetkepohl and M. Kraetzig, 

@@ -15,7 +15,7 @@
 #' @return A list of class '\code{rboot}' with elements:
 #' \item{sim}{Array of dimension \eqn{(3 \times (1+K) \times} \code{n.boot}) 
 #'   containing the \code{n.boot} iteration results for 
-#'   \emph{(i)} the JB, skewness and kurtosis test and for
+#'   \emph{(i)} the JB, skewness and kurtosis tests and for
 #'   \emph{(ii)} the multivariate and each univariate test 
 #'   for the \eqn{K} residual time series.}
 #' \item{stats}{Matrix of dimension \eqn{(3 \times (1+K))} containing the empirical test statistics.}
@@ -50,13 +50,13 @@
 #' plot(F.density)
 #' }
 #' 
-#' @references Jarque, C. M. and Bera, A. K. (1987): 
+#' @references Jarque, C. M., and Bera, A. K. (1987): 
 #'   "A Test for Normality of Observations and Regression Residuals", 
 #'   \emph{International Statistical Review}, 55, pp. 163-172.
-#' @references Kilian, L. and Demiroglu, U. (2000): 
+#' @references Kilian, L., and Demiroglu, U. (2000): 
 #'   "Residual-Based Tests for Normality in Autoregressions: 
 #'   Asymptotic Theory and Simulation Evidence", 
-#'   \emph{Journal of Business and Economic Statistics}, 32, pp. 40-50.
+#'   \emph{Journal of Business and Economic Statistics}, 18, pp. 40-50.
 #' @seealso \ldots the \code{\link[vars]{normality.test}} by Pfaff (2008) in \strong{vars},
 #'   which relies on theoretical distributions. Just as this asymptotic version,
 #'   the bootstrapped version is computed by using the residuals that are 
@@ -236,7 +236,7 @@ test.serial <- function(u, lag.h, x){
   # Edgerton,Shukur (1999) F-test, from Pfaff (2008) / Luetkepohl,Kraetzig (2004)
   m = dim_K*lag.h       # number of additional regressors in the auxiliary system
   r = ((dim_K^2 * m^2 - 4) / (dim_K^2 + m^2 - 5))^0.5
-  if(dim_K==1){r = 1}  # according to Doornik(1996), avoids 0/0=NaN
+  if(dim_K==1){r = 1}  # according to Doornik (1996), avoids 0/0=NaN
   q = 0.5*dim_K*m-1
   n = nrow(x)       # number of regressors in the original system
   N = dim_T - n - m - 0.5*(dim_K-m+1)

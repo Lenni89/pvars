@@ -41,7 +41,7 @@ The data set \code{EURO} is a list of 15 '\code{data.frame}' objects,
 \references{
 Herwartz, H., and Wang, S. (2024): 
   "Statistical Identification in Panel Structural Vector Autoregressive 
-  Models based on Independence Criteria", 
+  Models Based on Independence Criteria", 
   \emph{Journal of Applied Econometrics}, 39 (4), pp. 620-639.
 }
 \seealso{

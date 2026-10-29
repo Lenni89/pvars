@@ -68,7 +68,7 @@ NULL
 #'   These customized regressors correspond to '\code{exogen}' in \strong{vars}' 
 #'   \code{\link[vars]{VAR}}, which is fixed over bootstrap iterations. 
 #' 
-#' @references Pesaran, M. H., and Smith R. J. (1995): 
+#' @references Pesaran, M. H., and Smith, R. J. (1995): 
 #'   "Estimating Long-Run Relationships from Dynamic Heterogeneous Panels",
 #'   \emph{Journal of Econometrics}, 68, pp. 79-113.
 #' @references Rebucci, A. (2010): 
@@ -122,12 +122,12 @@ pvarx.VAR <- function(L.data, lags, type=c("const", "trend", "both", "none"),
 #' @param t_D2 List of vectors. The activating break periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} 
 #'   in \eqn{d_{2,it}}, which are unrestricted.
-#' @param D1 List. A single '\code{data.frame}' of common deterministic regressors  
+#' @param D1 List. A single '\code{data.frame}' of common deterministic 
 #'   regressors or a list of \eqn{N} '\code{data.frame}' objects of 
 #'   individual \link[=as.t_D]{deterministic regressors} added 
 #'   to \eqn{d_{1,it}}, which are restricted to the cointegration relations.
 #'   Unlike '\code{t_D1}', these customized regressors require potential
-#'   accompanying lagged regressors to be manually included in \eqn{d_{2,it}}
+#'   accompanying lagged regressors to be manually included in \eqn{d_{2,it}}.
 #' @param D2 List. A single '\code{data.frame}' of common deterministic 
 #'   regressors or a list of \eqn{N} '\code{data.frame}' objects of 
 #'   individual \link[=as.t_D]{deterministic regressors} added 
@@ -142,16 +142,16 @@ pvarx.VAR <- function(L.data, lags, type=c("const", "trend", "both", "none"),
 #'   by Ahn and Reinsel (1990) if exclusively in the interval \eqn{[0,...,r]}. 
 #'   Deactivated if \code{NULL} (the default). 
 #' 
-#' @references Ahn, S. K., and Reinsel (1990): 
+#' @references Ahn, S. K., and Reinsel, G. C. (1990): 
 #'   "Estimation for Partially Nonstationary Multivariate Autoregressive Models",
 #'   \emph{Journal of the American Statistical Association}, 85, pp. 813-823.
 #' @references Breitung, J. (2005): 
 #'   "A Parametric Approach to the Estimation of Cointegration Vectors in Panel Data",
 #'   \emph{Econometric Reviews}, 24, pp. 151-173.
 #' @references Johansen, S. (1996): 
-#'   \emph{Likelihood-based Inference in Cointegrated Vector Autoregressive Models}, 
+#'   \emph{Likelihood-Based Inference in Cointegrated Vector Autoregressive Models}, 
 #'   Advanced Texts in Econometrics, Oxford University Press, USA.
-#' @references Pesaran, M. H., Shin, Y, and Smith R. J. (1999): 
+#' @references Pesaran, M. H., Shin, Y., and Smith, R. J. (1999): 
 #'   "Pooled Mean Group Estimation of Dynamic Heterogeneous Panels",
 #'   \emph{Journal of the American Statistical Association}, 94, pp. 621-634.
 #' 
@@ -314,8 +314,8 @@ summary.pvarx <- function(object, ..., modulus=TRUE, digits=3){
 #'   indicating the estimator and specifications that have been used.}
 #' \item{args_pid}{List of characters and integers 
 #'   indicating the identification methods and specifications that have been used. 
-#'   This element is specific to the child-class 'pid' for panel SVAR models, 
-#'   that inherit from parent-class 'pvarx' for any panel VAR model.}
+#'   This element is specific to the child class 'pid' for panel SVAR models, 
+#'   which inherits from the parent class 'pvarx' for any panel VAR model.}
 #' 
 #' @examples
 #' data("PCAP")

@@ -26,7 +26,7 @@ NULL
 #' panel vector autoregressive (panel VAR) models, and (3) identification methods 
 #' for panel structural vector autoregressive (panel SVAR) models as described 
 #' in the accompanying vignette. 
-#' The implemented functions allow to account for cross-sectional dependence 
+#' The implemented functions allow users to account for cross-sectional dependence 
 #' and for structural breaks in the deterministic terms of the VAR processes. 
 #' @details
 #' \bold{(1)} The panel functions to determine the cointegration rank are:
@@ -73,7 +73,7 @@ NULL
 #' @family data sets
 #' @references Herwartz, H., and Wang, S. (2024): 
 #'   "Statistical Identification in Panel Structural Vector Autoregressive 
-#'   Models based on Independence Criteria", 
+#'   Models Based on Independence Criteria", 
 #'   \emph{Journal of Applied Econometrics}, 39 (4), pp. 620-639.
 #' @source The prepared \emph{Eurostat} data set is directly obtainable from the 
 #'   \emph{ZBW Journal Data Archive}: \doi{10.15456/jae.2024044.1425287131}.
@@ -109,7 +109,7 @@ NULL
 #' @family data sets
 #' @references Herwartz, H., and Wang, S. (2024): 
 #'   "Statistical Identification in Panel Structural Vector Autoregressive 
-#'   Models based on Independence Criteria", 
+#'   Models Based on Independence Criteria", 
 #'   \emph{Journal of Applied Econometrics}, 39 (4), pp. 620-639.
 #' @source The prepared \emph{Eurostat} data set is directly obtainable from the 
 #'   \emph{ZBW Journal Data Archive}: \doi{10.15456/jae.2024044.1425287131}. 
@@ -165,7 +165,7 @@ NULL
 #'   \item the electricity generation capacity \eqn{EGC} in megawatts, 
 #'   \item the number of main phone lines \eqn{mlines}, 
 #'   \item the kilometers of total roads \eqn{troads}, 
-#'   \item the number of cell phones lines \eqn{cells}, 
+#'   \item the number of cell phone lines \eqn{cells}, 
 #'   \item the kilometers of paved roads \eqn{proads}, and 
 #'   \item the kilometers of rails \eqn{rails}.
 #'   }
@@ -196,20 +196,20 @@ NULL
 #'   where the columns \code{id_i} and \code{id_t} 
 #'   indicate the country and year respectively.
 #' @family data sets
-#' @references Carrion-i-Silvestre, J. L., and Surdeanu L. (2011): 
+#' @references Carrion-i-Silvestre, J. L., and Surdeanu, L. (2011): 
 #'   "Panel Cointegration Rank Testing with Cross-Section Dependence", 
 #'   \emph{Studies in Nonlinear Dynamics & Econometrics}, 15 (4), pp. 1-43.
 #' @references Mark, N. C., and Sul, D. (1999): 
 #'   "A Computationally Simple Cointegration Vector Estimator for Panel Data",
 #'   Working Paper, Department of Economics, Ohio State University.
 #' @references Mark, N. C., and Sul, D. (2003): 
-#'   "Cointegration Vector Estimation by Panel DOLS and Long-Run Money Demand," 
+#'   "Cointegration Vector Estimation by Panel DOLS and Long-Run Money Demand", 
 #'   \emph{Oxford Bulletin of Economics and Statistics}, 65, pp. 655-680.
 #' @source The prepared data is sourced from OECD and IMF's 
 #'   \href{https://legacydata.imf.org/?sk=4c514d48-b6ba-49ed-8ab9-52b0c1a0179b}{\emph{International Financial Statistics}}
 #'    of the year 1998, see the open 
 #'   \href{https://www.imf.org/en/About/copyright-and-terms#data}{terms of use}. 
-#'   Employed by Carrion-i-Silvestre and Surdeanu (2011:24, Ch.6.1), it has been 
+#'   Employed by Carrion-i-Silvestre and Surdeanu (2011:24, Ch.6.1), it was 
 #'   originally compiled and described in the unpublished appendix of Mark and 
 #'   Sul (2003). See the related working paper of Mark and Sul (1999, Appendix B).
 "MDEM"
@@ -230,7 +230,7 @@ NULL
 #' @family data sets
 #' @references 
 #'   Oersal, D. D. K., and Arsova, A. (2017): 
-#'   "Meta-Analytic Panel Cointegrating Rank Tests for Dependent Panels", 
+#'   "Meta-Analytic Cointegrating Rank Tests for Dependent Panels", 
 #'   \emph{Econometrics and Statistics}, 2, pp. 61-72.
 #  @references Mark, N.C., and Sul, D. (2001): 
 #    "Nominal exchange rates and monetary fundamentals: evidence from a small post-Bretton woods panel,"

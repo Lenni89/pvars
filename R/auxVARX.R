@@ -125,7 +125,7 @@ aux_stack <- function(y=NULL, dim_p=0, x=NULL, dim_q=0, D=NULL, Dt.first=TRUE, Z
   
   # deterministic regressors
   if(!is.null(D)){
-    D = aux_asDataMatrix(D, "d.d")  # named matrix x is nxT regardless of input
+    D = aux_asDataMatrix(D, "d.d")  # named matrix D is nxT regardless of input
     idx_td = seq.int(to=ncol(D), length.out=dim_T)
     D = D[ , idx_td, drop=FALSE]  # remove potential presample, i.e. last observation is reference period across time series!
     Z = if(Dt.first){ rbind(D, Z) }else{ rbind(Z, D) }
@@ -244,9 +244,9 @@ aux_VECM <- function(beta, RRR){
   S10 = RRR$S10
   S11 = RRR$S11
   
-  Z0 = RRR$Z0  # regressand matrix, fist-differenced and without presample
+  Z0 = RRR$Z0  # regressand matrix, first-differenced and without presample
   Z1 = RRR$Z1  # regressor matrix in levels for the cointegrating term
-  Z2 = RRR$Z2  # regressor matrix in fist differences for short-run effects
+  Z2 = RRR$Z2  # regressor matrix in first differences for short-run effects
   
   dim_r   = ncol(beta)  # cointegration rank
   dim_T   = ncol(Z0)  # number of observations without presample
@@ -372,7 +372,7 @@ aux_accum <- function(coef, dim_p){
   dim_K   = nrow(coef)  # number of endogenous variables
   dim_Kpn = ncol(coef)  # number of coefficients per equation
   
-  # collect slope coefficients matrices in array and accumulate
+  # collect slope coefficient matrices in array and accumulate
   if(dim_p==0){ 
     result = diag(dim_K)
   }else{ 
@@ -408,7 +408,7 @@ aux_vec2vma <- function(GAMMA, alpha_oc, beta_oc, dim_p, B=diag(dim_K), n.ahead=
   ### ?use aux_var2vma() for transforming the transitory dynamics of the GRT?
   
   # multiplier matrix of the deterministic term, from Johansen,Nielsen (2018)
-  ### TODO for IRF in consequence of a impulse in a dummy
+  ### TODO for IRF in consequence of an impulse in a dummy
   
   # structural multiplier matrices, from Hansen 2005:26, Rm.1
   UPSILON = XI %*% B  # long-run

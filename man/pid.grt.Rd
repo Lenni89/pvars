@@ -28,14 +28,14 @@ set by \code{\link[stats]{rnorm}} if \code{NULL} (the default).}
 
 \item{max.iter}{Integer. The maximum number of iterations.}
 
-\item{conv.crit}{Real number. Convergence value of algorithm.}
+\item{conv.crit}{Real number. Convergence value of the algorithm.}
 
 \item{maxls}{Real number. Maximum movement of the parameters between two iterations of the scoring algorithm.}
 }
 \value{
 List of class '\code{pid}' with elements:
 \item{A}{Matrix. The lined-up coefficient matrices \eqn{A_j, j=1,\ldots,p} 
-   or the lagged variables in the panel VAR.}
+   for the lagged variables in the panel VAR.}
 \item{B}{Matrix. Mean group of the estimated structural impact matrices \eqn{B_i}, 
    i.e. the unique decomposition of the covariance matrices of reduced-form errors.}
 \item{L.varx}{List of '\code{varx}' objects for the individual estimation results
@@ -70,11 +70,11 @@ R.pid  = pid.grt(R.pvec, LR=LR, SR=SR)
 
 }
 \references{
-Amisano, G. and Giannini, C. (1997): 
+Amisano, G., and Giannini, C. (1997): 
   \emph{Topics in Structural VAR Econometrics}, 
   Springer, 2nd ed.
 
-Breitung, J., Brueggemann R., and Luetkepohl, H. (2004): 
+Breitung, J., Brueggemann, R., and Luetkepohl, H. (2004): 
   "Structural Vector Autoregressive Modeling and Impulse Responses", 
   in \emph{Applied Time Series Econometrics}, 
   ed. by H. Luetkepohl and M. Kraetzig, 

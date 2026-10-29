@@ -6,8 +6,8 @@
 #'   or a list of VAR objects that will be \link[=as.varx]{coerced} to '\code{varx}'.
 #' @param ... Currently not used.
 #' @param n.ahead Integer. Number of periods to consider after the initial impulse, i.e. the horizon of the IRF.
-#' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
-#'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
+#' @param normf Function. A given function that normalizes the \eqn{K \times S} input matrix 
+#'   into an output matrix of the same dimension. See the example in \code{\link{id.iv}} 
 #'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response.
 #' @param w Numeric, logical, or character vector. 
@@ -25,7 +25,7 @@
 #' @references Luetkepohl, H. (2005): 
 #'   \emph{New Introduction to Multiple Time Series Analysis}, 
 #'   Springer, 2nd ed.
-#' @references Gambacorta L., Hofmann B., and Peersman G. (2014):
+#' @references Gambacorta, L., Hofmann, B., and Peersman, G. (2014):
 #'   "The Effectiveness of Unconventional Monetary Policy at the Zero Lower Bound: A Cross-Country Analysis",
 #'   \emph{Journal of Money, Credit and Banking}, 46, pp. 615-642.
 #' @references Jentsch, C., and Lunsford, K. G. (2022):
@@ -92,8 +92,8 @@ irf.pvarx <- function(x, ..., n.ahead=20, normf=NULL, w=NULL, MG_IRF=FALSE){
 #'   that will be \link[=as.varx]{coerced} to '\code{varx}'.
 #' @param ... Currently not used.
 #' @param n.ahead Integer. Number of periods to consider after the initial impulse, i.e. the horizon of the IRF.
-#' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
-#'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
+#' @param normf Function. A given function that normalizes the \eqn{K \times S} input matrix 
+#'   into an output matrix of the same dimension. See the example in \code{\link{id.iv}} 
 #'   for the normalization of Jentsch and Lunsford (2022) 
 #'   that fixes the size of the impact response.
 #' 
@@ -157,9 +157,9 @@ irf.varx <- function(x, ..., n.ahead=20, normf=NULL){
 #' 
 #' @return A list of class '\code{svarirf}' holding the persistence profiles as a '\code{data.frame}'.
 #' 
-#' @references Lee, K., C., Pesaran, M. H. (1993): 
+#' @references Lee, K. C., and Pesaran, M. H. (1993): 
 #'   "Persistence Profiles and Business Cycle Fluctuations in a Disaggregated Model of UK Output Growth", 
-#'   \emph{Richerche Economiche}, 47, pp. 293-322.
+#'   \emph{Ricerche Economiche}, 47, pp. 293-322.
 #' @references Pesaran, M. H., and Shin, Y. (1996): 
 #'   "Cointegration and Speed of Convergence to Equilibrium", 
 #'   \emph{Journal of Econometrics}, 71, pp. 117-143.
@@ -173,7 +173,7 @@ irf.varx <- function(x, ..., n.ahead=20, normf=NULL){
 #'   simplify=FALSE)
 #'   
 #' # estimate VAR for DNK under rank-restriction r=2 #
-#' dim_r  = 2  # cointegrataion rank
+#' dim_r  = 2  # cointegration rank
 #' R.t_D1 = list(t_break=c(23, 49))  # trend breaks
 #' R.vecm = VECM(y=L.data$DNK, dim_p=2, dim_r=dim_r, type="Case4", t_D1=R.t_D1)
 #' 
@@ -260,7 +260,7 @@ PP.variable <- function(x, n.ahead=20, shock=NULL){
   # find mixing matrix
   if( identical(unname(x$B), diag(dim_K)) ){
     U.cov = x$SIGMA  # OLS covariance matrix of residuals
-    U.P   = t(chol(U.cov))  # lower triangular, Choleski-decomposed covariance matrix
+    U.P   = t(chol(U.cov))  # lower triangular, Cholesky-decomposed covariance matrix
     names_k = if( !is.null(rownames(A)) ){ rownames(A) }else{ paste0("y", idx_k) }  # variable names
     names_s = paste0("epsilon[ ", names_k, " ]")
   }else{

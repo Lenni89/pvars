@@ -10,7 +10,7 @@ This package implements (1) panel cointegration rank tests, (2) estimators for
 panel vector autoregressive (panel VAR) models, and (3) identification methods 
 for panel structural vector autoregressive (panel SVAR) models as described 
 in the accompanying vignette. 
-The implemented functions allow to account for cross-sectional dependence 
+The implemented functions allow users to account for cross-sectional dependence 
 and for structural breaks in the deterministic terms of the VAR processes.
 }
 \details{

@@ -74,12 +74,12 @@ A list of class '\code{pcoint}' with elements:
 \item{individual}{List for the individual test results, 
   which contains one matrix for the test statistics and one for the \eqn{p}-values.}
 \item{CSD}{List of measures for cross-sectional dependency. 
-  \code{NULL} if a first generation test has been used.}
+  \code{NULL} if a first-generation test has been used.}
 \item{args_pcoint}{List of characters and integers 
   indicating the panel cointegration test and specifications that have been used.}
 \item{beta_H0}{List of matrices, 
   which comprise the pooled cointegrating vectors for each rank \eqn{r_{H0}}. 
-\code{NULL} if any other test than \code{BR} has been used.}
+\code{NULL} if a test other than \code{BR} has been used.}
 }
 \description{
 Performs test procedures for the rank of cointegration in a panel of VAR models. 

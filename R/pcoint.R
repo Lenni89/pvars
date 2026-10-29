@@ -38,12 +38,12 @@
 #' \item{individual}{List for the individual test results, 
 #'   which contains one matrix for the test statistics and one for the \eqn{p}-values.}
 #' \item{CSD}{List of measures for cross-sectional dependency. 
-#'   \code{NULL} if a first generation test has been used.}
+#'   \code{NULL} if a first-generation test has been used.}
 #' \item{args_pcoint}{List of characters and integers 
 #'   indicating the panel cointegration test and specifications that have been used.}
 #' \item{beta_H0}{List of matrices, 
 #'   which comprise the pooled cointegrating vectors for each rank \eqn{r_{H0}}. 
-#' \code{NULL} if any other test than \code{BR} has been used.}
+#' \code{NULL} if a test other than \code{BR} has been used.}
 #' 
 #' @family panel cointegration rank tests
 #' @name pcoint
@@ -86,7 +86,7 @@ pcoint.JO <- function(L.data, lags, type=c("Case1", "Case2", "Case3", "Case4"),
   # defactor the time series for PANIC in Johansen procedure, according to Arsova,Oersal 2018:1036
   if(n.factors>0){
     trend = switch(type, "Case1"=FALSE, "Case2"=FALSE, "Case3"=TRUE, "Case4"=TRUE, "Case5"=TRUE)
-    Ycd = do.call("cbind", L.y)  # data matrix of dimension (T x K*N), which include common and deterministic components
+    Ycd = do.call("cbind", L.y)  # data matrix of dimension (T x K*N), which includes common and deterministic components
     PCA = aux_ComFact(X=Ycd, trend=trend, n.factors=n.factors, D=c(t_D1, t_D2))  # PANIC (2004) decomposition
     Xit = PCA$eit   # panel of idiosyncratic components without deterministic term
     L.y = lapply(1:dim_N, FUN=function(i) Xit[ ,dim_K*(i-1) + 1:dim_K])  # overwrite for subsequent VECM estimation
@@ -243,7 +243,7 @@ pcoint.SL <- function(L.data, lags, type="SL_trend", t_D=NULL, n.factors=FALSE){
   # defactor the time series for PANIC in SL procedure, according to Arsova,Oersal 2018:1038
   if(n.factors>0){
     trend = switch(type, "SL_mean"=FALSE, "SL_trend"=TRUE)
-    Ycd = do.call("cbind", L.y)  # data matrix of dimension (T x K*N), which include common and deterministic components
+    Ycd = do.call("cbind", L.y)  # data matrix of dimension (T x K*N), which includes common and deterministic components
     PCA = aux_ComFact(X=Ycd, trend=trend, n.factors=n.factors, D=t_D)  # PANIC (2004) decomposition
     Y.star = PCA$eit2  # panel of idiosyncratic components with deterministic term
     L.y = lapply(1:dim_N, FUN=function(i) Y.star[ ,dim_K*(i-1) + 1:dim_K])  # overwrite for subsequent VECM estimation

@@ -8,7 +8,7 @@ as.t_D(x, ...)
 }
 \arguments{
 \item{x}{A list of vectors for \eqn{\tau} to be checked. Since \code{'x'} is
-just checked, Section "Value" explains function-input and -output likewise.}
+only checked, Section "Value" describes both input and output.}
 
 \item{...}{Additional arguments to be passed to or from methods.}
 }
@@ -21,7 +21,7 @@ A list of class '\code{t_D}' specifying \eqn{\tau}.
   shifts in the constant \eqn{d = [\ldots, 0, 0, 1, 1, 1, \ldots}].}
 \item{t_impulse}{Vector of integers. The activating periods for 
   single impulses \eqn{d = [\ldots, 0, 0, 1, 0, 0, \ldots}].}
-\item{t_blip}{Vector of integers. The activating period for 
+\item{t_blip}{Vector of integers. The activating periods for 
   blips \eqn{d = [\ldots, 0, 0, 1, -1, 0, \ldots}].}
 \item{n.season}{Integer. The number of seasons.}
 }
