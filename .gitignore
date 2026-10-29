@@ -8,6 +8,8 @@
 vignettes/*.aux
 vignettes/*.bbl
 vignettes/*.blg
+vignettes/*.fdb_latexmk
+vignettes/*.fls
 vignettes/*.log
 vignettes/*.out
 vignettes/*.pdf

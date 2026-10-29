@@ -237,7 +237,7 @@ aux_idIV <- function(u, m, S2=c("MR", "JL", "LT", "NQ"), SIGMA_uu, dim_K1=NULL){
     F_stats  = ((dim_T - dim_K)/dim_K) * (SIGMA_mm - SIGMA_ee) / SIGMA_ee  # statistic, from Lunsford 2016:15
     
   }else if( S2=="MR" ){
-    # ... from Mertens, Raven 2013:1244, see Jentsch,Lunsford 2019:2659
+    # ... from Mertens, Ravn 2013:1244, see Jentsch,Lunsford 2019:2659
     SIGMA_mm = tcrossprod(m)/dim_T
     SIGMA_um = tcrossprod(u, m)/dim_T
     SIGMA_mu = t(SIGMA_um)
@@ -278,7 +278,7 @@ aux_idIV <- function(u, m, S2=c("MR", "JL", "LT", "NQ"), SIGMA_uu, dim_K1=NULL){
 aux_idSVD <- function(eps_u, eps_m, S2=c("MR", "JL", "LT", "NQ"), dim_K1){
   # define
   eps_u = aux_asDataMatrix(eps_u, "y")  # named matrix of whitened residuals is KxT
-  eps_m = aux_asDataMatrix(eps_m, "m")  # named matrix of whitened proxies is LxT
+  eps_m = aux_asDataMatrix(eps_m, "m")  # named matrix of proxies is LxT
   dim_T = ncol(eps_u)
   dim_K = nrow(eps_u)
   dim_L = nrow(eps_m)
@@ -307,8 +307,10 @@ aux_idSVD <- function(eps_u, eps_m, S2=c("MR", "JL", "LT", "NQ"), dim_K1){
     v11 = R.udv$v[idx_k1, idx_k1, drop=FALSE]
     D1  = diag(R.udv$d[idx_k1], nrow=dim_K1)
     w11 = aux_signLQ(v11 %*% D1)
-  }else{  # S2=="MR" for example
-    w11 = diag(nrow=dim_K1)
+  }else if( S2=="MR" ){
+    w11 = diag(nrow=dim_K1)  # Restrictions on B are imposed outside this function.
+  }else{
+    stop("Please select the S2-identification 'MR', 'JL', 'LT', or 'NQ'.")
   }
   
   # impose n_K2 zero-restrictions by "LT", signed on the main diagonal of Q
@@ -324,7 +326,7 @@ aux_idSVD <- function(eps_u, eps_m, S2=c("MR", "JL", "LT", "NQ"), dim_K1){
 }
 
 
-# impose restrictions of Mertens, Raven (2013) on Q=UV, from Empting et al. (2026), Appendix A
+# impose restrictions of Mertens, Ravn (2013) on Q=UV, from Empting et al. (2026), Appendix A
 aux_NQ2MR <- function(B, dim_K1){
   # define the blocks of B
   idx_k1 = 0:dim_K1

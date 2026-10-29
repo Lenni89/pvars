@@ -17,7 +17,7 @@
 #'   (the default), all \eqn{N} individuals are included without weights.
 #' @param MG_IRF Logical. If \code{TRUE}, the mean-group of individual 
 #'   IRF is calculated in accordance with Gambacorta et al. (2014). 
-#'   If \code{FALSE} (the default recommended in Empting et al. 2026), 
+#'   If \code{FALSE} (the default, recommended in Empting et al. 2026), 
 #'   the IRF is calculated for the mean-group of individual VAR estimates.
 #' 
 #' @return A list of class '\code{svarirf}' holding the impulse response functions as a '\code{data.frame}'.
@@ -31,8 +31,8 @@
 #' @references Jentsch, C., and Lunsford, K. G. (2022):
 #'   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
 #'   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
-#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
-#'   "Inference in Panel SVARs with Two-Way Dependence".
+#' @references Empting, L. F. T., Oeztuerk, S., Maxand, S., and Wagner, K. (2026): 
+#'   "Inference in Panel SVARs with Two-Way Dependence", arXiv:2610.11898 [econ.EM].
 #' 
 #' @examples
 #' data("PCAP")

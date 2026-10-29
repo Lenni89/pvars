@@ -2,6 +2,8 @@
 
 #' @title Bootstrap with residual moving blocks for individual SVAR models
 #' @description Calculates confidence bands for impulse response functions via recursive-design bootstrap.
+#'   Bias-adjusted estimates are calculated if a bias term for the VAR coefficients is included.
+#'   For a bootstrap-after-bootstrap, this bias term can be obtained from a first-step run of \code{sboot.mb}.
 #' @param x VAR object of class '\code{id}' or '\code{varx}' or any other 
 #'   that can be \link[=as.varx]{coerced} to '\code{varx}', e.g. '\code{svars}'.
 #'   If a bias term \code{x$PSI_bc} is available for coefficient matrix \eqn{A} (such as in '\code{sboot2}'), 
@@ -20,7 +22,7 @@
 #'   The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 #'   to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
 #'   \code{deltas = 1} inhibits the stationarity correction, and 
-#'   \code{deltas = 0} inhibits the bias-correction but still returns a bias estimate. 
+#'   \code{deltas = 0} inhibits the bias-correction but still returns the bias estimate \eqn{\hat{\Psi}}. 
 #'   However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
 #' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 #'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
@@ -37,7 +39,8 @@
 #'   the matrix of point estimates '\code{par}' and 
 #'   the array of bootstrap results '\code{sim}'.}
 #' \item{PSI_bc}{Matrix of the estimated bias term \eqn{\hat{\Psi}} 
-#'   for the VAR coefficients \eqn{\hat{A}} according to Kilian (1998).}
+#'   for the VAR coefficients \eqn{\hat{A}} according to Kilian (1998).
+#'   \code{NULL} if deactivated in both steps by \code{deltas = NULL}.}
 #' \item{varx}{Input VAR object of class '\code{varx}' 
 #'   that has been subjected to the first-step bias-correction.}
 #' \item{nboot}{Number of correct bootstrap iterations.}
@@ -65,7 +68,7 @@
 #' summary(R.boot, idx_par="A", level=0.9)  # VAR coefficients with 90%-confidence intervals 
 #' plot(R.boot, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 #' 
-#' # second step of bootstrap-after-bootstrap #
+#' # second step of bootstrap-after-bootstrap (default stationarity correction in both steps) #
 #' R.bab = sboot.mb(R.boot, b.length=1, n.boot=n.boot, n.ahead=30, n.cores=1)
 #' summary(R.bab, idx_par="A", level=0.9)  # VAR coefficients with 90%-confidence intervals 
 #' plot(R.bab, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
@@ -233,8 +236,9 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
       # MBB with multiple proxy IV, see Jentsch, Lunsford 2022:9, Ch.4.1
       star_iv = args_id$iv[ , star, drop=FALSE]  # resampled proxies (not centered anymore, see their ft.26)
       star_B  = aux_idIV(star_var$resid, m=star_iv, S2=args_id$S2, SIGMA_uu=star_var[[args_id$cov_u]], dim_K1=args_id$dim_K1)$B1
-      ### TODO. Confidence intervals for the correlations of ... 
-      ### ... proxies, structural shocks, and regression errors, see Lunsford 2015:22, Tab.3
+      ### TODO. Confidence intervals for the ... 
+      ### ... correlations of proxies, structural shocks, and regression errors, see Lunsford 2015:22, Tab.3
+      ### ... reliabilities (eigenvalues), see Mertens, Ravn 2013:1229, Tab.1
       
     }else{
       stop("Identification method is not available in this bootstrap function!")
@@ -304,6 +308,8 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 
 #' @title Bootstrap with residual panel blocks for panel SVAR models
 #' @description Calculates confidence bands for impulse response functions via recursive-design bootstrap. 
+#'   Bias-adjusted estimates are calculated if bias terms for the VAR coefficients are included.
+#'   For a bootstrap-after-bootstrap, these bias terms can be obtained from a first-step run of \code{sboot.pmb}.
 #' @details In case of heterogeneous lag-orders \eqn{p_i} or sample sizes \eqn{T_i},
 #'   the initial periods are fixed in accordance with the usage of presamples. 
 #'   Only the \eqn{(K \times T_{min} \times N)} array of the \eqn{T_{min} = min(T_1,\ldots,T_N)} 
@@ -332,8 +338,8 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   multiplied to each bias estimate \eqn{\hat{\Psi}_i} for a stationarity correction. 
 #'   The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 #'   to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
-#'   \code{deltas = 1} inhibits the stationarity correction, and 
-#'   \code{deltas = 0} inhibits the bias-correction but still returns a bias estimate. 
+#'   \code{deltas = 1} (used in Empting et al. 2026) inhibits the stationarity correction, and 
+#'   \code{deltas = 0} inhibits the bias-correction but still returns the bias estimates \eqn{\hat{\Psi}_i}. 
 #'   However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.
 #' @param normf Function. A given function that normalizes the \eqn{K \times S} input-matrix 
 #'   into an output matrix of same dimension. See the example in \code{\link{id.iv}} 
@@ -346,7 +352,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   (the default), all \eqn{N} individuals are included without weights.
 #' @param MG_IRF Logical. If \code{TRUE}, the mean-group of individual 
 #'   IRF is calculated in accordance with Gambacorta et al. (2014). 
-#'   If \code{FALSE} (the default recommended in Empting et al. 2026), 
+#'   If \code{FALSE} (the default, recommended in Empting et al. 2026), 
 #'   the IRF is calculated for the mean-group of individual VAR estimates.
 #' 
 #' @return A list of class '\code{sboot2}' with elements:
@@ -359,7 +365,8 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   the matrix of point estimates '\code{par}' and 
 #'   the array of bootstrap results '\code{sim}'.}
 #' \item{L.PSI_bc}{List of the \eqn{N} estimated bias terms \eqn{\hat{\Psi}_i} 
-#'   for the individual VAR coefficients \eqn{\hat{A}_i} according to Kilian (1998).}
+#'   for the individual VAR coefficients \eqn{\hat{A}_i} according to Empting et al. (2026).
+#'   \code{NULL} if deactivated in both steps by \code{deltas = NULL}.}
 #' \item{pvarx}{Input panel VAR object of class '\code{pvarx}' 
 #'   that has been subjected to the first-step bias-correction.}
 #' \item{b.dim}{Dimensions of each block.}
@@ -376,8 +383,8 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #' @references Brueggemann R., Jentsch, C., and Trenkler, C. (2016): 
 #'   "Inference in VARs with Conditional Heteroskedasticity of Unknown Form", 
 #'   \emph{Journal of Econometrics}, 191, pp. 69-85.
-#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
-#'   "Inference in Panel SVARs with Two-Way Dependence".
+#' @references Empting, L. F. T., Oeztuerk, S., Maxand, S., and Wagner, K. (2026): 
+#'   "Inference in Panel SVARs with Two-Way Dependence", arXiv:2610.11898 [econ.EM].
 #' @references Kapetanios, G. (2008): 
 #'   "A Bootstrap Procedure for Panel Data Sets with many Cross-sectional Units", 
 #'   \emph{The Econometrics Journal}, 11, pp.377-395.
@@ -411,7 +418,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #' summary(R.boot, idx_par="A", level=0.95)  # VAR coefficients with 95%-confidence intervals
 #' plot(R.boot, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 #' 
-#' # second step of bootstrap-after-bootstrap #
+#' # second step of bootstrap-after-bootstrap (default stationarity correction in both steps) #
 #' R.bab = sboot.pmb(R.boot, n.boot=n.boot)
 #' summary(R.bab, idx_par="A", level=0.95)  # VAR coefficients with 95%-confidence intervals
 #' plot(R.bab, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))

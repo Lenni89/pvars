@@ -40,7 +40,7 @@ multiplied to the bias estimate \eqn{\hat{\Psi}} for a stationarity correction.
 The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
 \code{deltas = 1} inhibits the stationarity correction, and 
-\code{deltas = 0} inhibits the bias-correction but still returns a bias estimate. 
+\code{deltas = 0} inhibits the bias-correction but still returns the bias estimate \eqn{\hat{\Psi}}. 
 However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.}
 
 \item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
@@ -59,7 +59,8 @@ A list of class '\code{sboot2}' with elements:
   the matrix of point estimates '\code{par}' and 
   the array of bootstrap results '\code{sim}'.}
 \item{PSI_bc}{Matrix of the estimated bias term \eqn{\hat{\Psi}} 
-  for the VAR coefficients \eqn{\hat{A}} according to Kilian (1998).}
+  for the VAR coefficients \eqn{\hat{A}} according to Kilian (1998).
+  \code{NULL} if deactivated in both steps by \code{deltas = NULL}.}
 \item{varx}{Input VAR object of class '\code{varx}' 
   that has been subjected to the first-step bias-correction.}
 \item{nboot}{Number of correct bootstrap iterations.}
@@ -71,6 +72,8 @@ A list of class '\code{sboot2}' with elements:
 }
 \description{
 Calculates confidence bands for impulse response functions via recursive-design bootstrap.
+  Bias-adjusted estimates are calculated if a bias term for the VAR coefficients is included.
+  For a bootstrap-after-bootstrap, this bias term can be obtained from a first-step run of \code{sboot.mb}.
 }
 \examples{
 \donttest{
@@ -87,7 +90,7 @@ R.boot = sboot.mb(R.svar, b.length=1, n.boot=n.boot, n.ahead=30, n.cores=1)
 summary(R.boot, idx_par="A", level=0.9)  # VAR coefficients with 90\%-confidence intervals 
 plot(R.boot, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 
-# second step of bootstrap-after-bootstrap #
+# second step of bootstrap-after-bootstrap (default stationarity correction in both steps) #
 R.bab = sboot.mb(R.boot, b.length=1, n.boot=n.boot, n.ahead=30, n.cores=1)
 summary(R.bab, idx_par="A", level=0.9)  # VAR coefficients with 90\%-confidence intervals 
 plot(R.bab, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))

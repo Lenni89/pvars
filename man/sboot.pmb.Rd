@@ -47,8 +47,8 @@ but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.}
 multiplied to each bias estimate \eqn{\hat{\Psi}_i} for a stationarity correction. 
 The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
-\code{deltas = 1} inhibits the stationarity correction, and 
-\code{deltas = 0} inhibits the bias-correction but still returns a bias estimate. 
+\code{deltas = 1} (used in Empting et al. 2026) inhibits the stationarity correction, and 
+\code{deltas = 0} inhibits the bias-correction but still returns the bias estimates \eqn{\hat{\Psi}_i}. 
 However, \code{deltas = NULL} deactivates the bootstrap-after-bootstrap procedure.}
 
 \item{normf}{Function. A given function that normalizes the \eqn{K \times S} input-matrix 
@@ -64,7 +64,7 @@ individuals \eqn{i = 1, \ldots, N} for the MG estimation. If \code{NULL}
 
 \item{MG_IRF}{Logical. If \code{TRUE}, the mean-group of individual 
 IRF is calculated in accordance with Gambacorta et al. (2014). 
-If \code{FALSE} (the default recommended in Empting et al. 2026), 
+If \code{FALSE} (the default, recommended in Empting et al. 2026), 
 the IRF is calculated for the mean-group of individual VAR estimates.}
 }
 \value{
@@ -78,7 +78,8 @@ A list of class '\code{sboot2}' with elements:
   the matrix of point estimates '\code{par}' and 
   the array of bootstrap results '\code{sim}'.}
 \item{L.PSI_bc}{List of the \eqn{N} estimated bias terms \eqn{\hat{\Psi}_i} 
-  for the individual VAR coefficients \eqn{\hat{A}_i} according to Kilian (1998).}
+  for the individual VAR coefficients \eqn{\hat{A}_i} according to Empting et al. (2026).
+  \code{NULL} if deactivated in both steps by \code{deltas = NULL}.}
 \item{pvarx}{Input panel VAR object of class '\code{pvarx}' 
   that has been subjected to the first-step bias-correction.}
 \item{b.dim}{Dimensions of each block.}
@@ -91,7 +92,9 @@ A list of class '\code{sboot2}' with elements:
   the \eqn{N} cross-sectional resampling draws from each bootstrap iteration.}
 }
 \description{
-Calculates confidence bands for impulse response functions via recursive-design bootstrap.
+Calculates confidence bands for impulse response functions via recursive-design bootstrap. 
+  Bias-adjusted estimates are calculated if bias terms for the VAR coefficients are included.
+  For a bootstrap-after-bootstrap, these bias terms can be obtained from a first-step run of \code{sboot.pmb}.
 }
 \details{
 In case of heterogeneous lag-orders \eqn{p_i} or sample sizes \eqn{T_i},
@@ -122,7 +125,7 @@ R.boot = sboot.pmb(R.pid, n.boot=n.boot)
 summary(R.boot, idx_par="A", level=0.95)  # VAR coefficients with 95\%-confidence intervals
 plot(R.boot, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 
-# second step of bootstrap-after-bootstrap #
+# second step of bootstrap-after-bootstrap (default stationarity correction in both steps) #
 R.bab = sboot.pmb(R.boot, n.boot=n.boot)
 summary(R.bab, idx_par="A", level=0.95)  # VAR coefficients with 95\%-confidence intervals
 plot(R.bab, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
@@ -134,8 +137,8 @@ Brueggemann R., Jentsch, C., and Trenkler, C. (2016):
   "Inference in VARs with Conditional Heteroskedasticity of Unknown Form", 
   \emph{Journal of Econometrics}, 191, pp. 69-85.
 
-Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
-  "Inference in Panel SVARs with Two-Way Dependence".
+Empting, L. F. T., Oeztuerk, S., Maxand, S., and Wagner, K. (2026): 
+  "Inference in Panel SVARs with Two-Way Dependence", arXiv:2610.11898 [econ.EM].
 
 Kapetanios, G. (2008): 
   "A Bootstrap Procedure for Panel Data Sets with many Cross-sectional Units", 

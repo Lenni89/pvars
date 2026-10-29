@@ -166,12 +166,12 @@ test_that("aux_idSVD() can recover 'MR' and 'JL' from 'NQ' respectively", {
   R.vars  = vars::VAR(PCIT[ , names_k], p=dim_p, type="const")
   
   # identify under "MR" and check #
-  R.idMR = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="MR", cov_u="OMEGA")
+  R.idMR = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="MR", cov_u="OMEGA")  # dim_K1=NULL by default
   R.idNQ = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="MR", cov_u="OMEGA", dim_K1=dim_K1)
   expect_equal(R.idMR$B, R.idNQ$B[ , 1:dim_K1])
   
   # identify under "JL" and check #
-  R.idJL = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="JL", cov_u="OMEGA")
+  R.idJL = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="JL", cov_u="OMEGA")  # dim_K1=NULL by default
   R.idNQ = id.iv(R.vars, iv=PCIT[-(1:dim_p), names_l], S2="JL", cov_u="OMEGA", dim_K1=dim_K1)
   expect_equal(R.idJL$B, R.idNQ$B[ , 1:dim_K1])
 })

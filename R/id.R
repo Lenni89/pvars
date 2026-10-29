@@ -65,8 +65,8 @@
 #' @references Jentsch, C., and Lunsford, K. G. (2022):
 #'   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
 #'   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
-#' @references Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
-#'   "Inference in Panel SVARs with Two-Way Dependence".
+#' @references Empting, L. F. T., Oeztuerk, S., Maxand, S., and Wagner, K. (2026): 
+#'   "Inference in Panel SVARs with Two-Way Dependence", arXiv:2610.11898 [econ.EM].
 #' @seealso \ldots the individual identification approaches 
 #'   by Lange et al. (2021) in \strong{svars}.
 #' @family identification functions

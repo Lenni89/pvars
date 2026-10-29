@@ -27,7 +27,7 @@ individuals \eqn{i = 1, \ldots, N} for the MG estimation. If \code{NULL}
 
 \item{MG_IRF}{Logical. If \code{TRUE}, the mean-group of individual 
 IRF is calculated in accordance with Gambacorta et al. (2014). 
-If \code{FALSE} (the default recommended in Empting et al. 2026), 
+If \code{FALSE} (the default, recommended in Empting et al. 2026), 
 the IRF is calculated for the mean-group of individual VAR estimates.}
 }
 \value{
@@ -68,6 +68,6 @@ Jentsch, C., and Lunsford, K. G. (2022):
   "Asymptotically Valid Bootstrap Inference for Proxy SVARs",
   \emph{Journal of Business and Economic Statistics}, 40, pp. 1876-1891.
 
-Empting, L. F. T., Maxand, S., Oeztuerk, S., and Wagner, K. (2026): 
-  "Inference in Panel SVARs with Two-Way Dependence".
+Empting, L. F. T., Oeztuerk, S., Maxand, S., and Wagner, K. (2026): 
+  "Inference in Panel SVARs with Two-Way Dependence", arXiv:2610.11898 [econ.EM].
 }
