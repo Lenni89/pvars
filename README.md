@@ -79,7 +79,7 @@ L.data = sapply(names_i, FUN=function(i)
 ```
 
 
-**Approximate factor model.** To determine the number of common factors in the non-stationary panel, you can select the specification function `speci.factors` of the `speci` module. Among various decision criteria (see `?speci.factors`), the *edge distribution* by Onatski (2010) suggests 8 factors. These are now imposed when estimating the model $y_{it} = \Lambda_i'F_t + y_{it}^{id}$ of PANIC (Bai and Ng 2004) by PCA of the first-differenced, centered, and scaled time series $y_{it}$.
+**Approximate factor model.** To determine the number of common factors in the nonstationary panel, you can select the specification function `speci.factors` of the `speci` module. Among various decision criteria (see `?speci.factors`), the *edge distribution* by Onatski (2010) suggests 8 factors. These are now imposed when estimating the model $y_{it} = \Lambda_i'F_t + y_{it}^{id}$ of PANIC (Bai and Ng 2004) by PCA of the first-differenced, centered, and scaled time series $y_{it}$.
 
 ``` r
 R.fac1 = speci.factors(L.data, k_max=20, n.iterations=4)

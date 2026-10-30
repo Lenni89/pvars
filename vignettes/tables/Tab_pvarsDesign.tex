@@ -11,8 +11,8 @@
 		 & \code{pcoint.JO}   & \code{pcoint} & \code{coint.JO}  & \quad \code{print}, & & Panel \citeauthor{Johansen1988} tests & \citet{LarssonEtAl2001}, \citet{Choi2001} \\
 		 & \code{pcoint.BR}   & \code{pcoint} & \code{coint.JO}  & \quad \code{summary}, & & Panel test with pooled $ \beta $  & \citet{Breitung2005} \\
 		 & \code{pcoint.SL}   & \code{pcoint} & \code{coint.SL}  & \quad \code{toLatex} & & Panel SL-tests & Örsal, Droge \citeyearpar{OersalDroge2014} \\
-		 & \code{pcoint.CAIN} & \code{pcoint} & \code{coint.SL}  &  & & Correlation augmented tests & Arsova, Örsal \citeyearpar{ArsovaOersal2020}, \citet{Hartung1999} \\
-		 %& \code{pcoint.MSB}  & \code{pcoint} & \code{coint.MSB} & & & Panel MSB-test & Carrion-i Silvestre, Surdeanu \citeyearpar{SilvestreSurdeanu2011} \\
+		 & \code{pcoint.CAIN} & \code{pcoint} & \code{coint.SL}  &  & & Correlation-augmented tests & Arsova, Örsal \citeyearpar{ArsovaOersal2020}, \citet{Hartung1999} \\
+		 %& \code{pcoint.MSB}  & \code{pcoint} & \code{coint.MSB} & & & Panel MSB-test & Carrion-i-Silvestre, Surdeanu \citeyearpar{SilvestreSurdeanu2011} \\
 		 \hline
 		 
 		 \multicolumn{4}{l|}{ \textbf{\ref{sec:pvarx}} Estimating VAR models } & & &  & \\ 
@@ -25,13 +25,13 @@
 		 & \code{pid.grt} & \code{pid} & \code{id.grt}\tnote{c)} & \quad \code{print}, & & Long- \& short-run restrictions & \cite{BreitungEtAl2004} \\
 		 & \code{pid.iv} & \code{pid} & \code{id.iv} & \quad \code{summary}, & & Proxy SVAR & Empting et al.~\citeyearpar{EmptingEtAl2024} \\
 		 & \code{pid.dc} & \code{pid} & \code{id.dc}\tnote{a)} & \quad \code{toLatex} & & ICA by distance covariance & \quad \citet{CalhounEtAl2002} and \\
-		 & \code{pid.cvm} & \code{pid} & \code{id.cvm}\tnote{a)} & & & ICA by Cramér-von-Mises dist. & \quad Herwartz, Wang \citeyearpar{Herwartz2017} \\
+		 & \code{pid.cvm} & \code{pid} & \code{id.cvm}\tnote{a)} & & & ICA by Cramér-von Mises dist. & \quad Herwartz, Wang \citeyearpar{Herwartz2017} \\
 		 \hline
 		 
 		 \multicolumn{4}{l|}{ \textbf{\ref{sec:supp}} Supporting tools } & & & &  \\
-		 &  \code{speci.factors} & \code{speci} & \qquad --- & \code{print} &  & Criteria for number of factors & Bai, Ng \citeyearpar{BaiNg2002,BaiNg2004}, \citet{Onatski2010} \\
+		 &  \code{speci.factors} & \code{speci} & \qquad --- & \code{print} &  & Criteria for the number of factors & Bai, Ng \citeyearpar{BaiNg2002,BaiNg2004}, \citet{Onatski2010} \\
 		 &  \code{speci.VAR} & \code{speci} & \qquad --- & \code{print} &  & Criteria for lags $ p $ and periods $ \boldsymbol{\tau} $ & Bai, Perron \citeyearpar{BaiPerron1998,BaiPerron2003}, \citet{Yang2002} \\
-		 & \code{irf\textcolor{gray}{.pvarx}} & \code{svarirf}\tnote{b)} & \code{irf\textcolor{gray}{.varx}} & \code{plot}, \code{print} & & Mean-Group IRF \textcolor{gray}{\small \textbf{[S3-METHOD]}} & \citet{Sims1980}, Gambacorta et al.~\citeyearpar{GambacortaEtAl2014} \\
+		 & \code{irf\textcolor{gray}{.pvarx}} & \code{svarirf}\tnote{b)} & \code{irf\textcolor{gray}{.varx}} & \code{plot}, \code{print} & & Mean-group IRF \textcolor{gray}{\small \textbf{[S3-METHOD]}} & \citet{Sims1980}, Gambacorta et al.~\citeyearpar{GambacortaEtAl2014} \\
 		 & \code{PP.system}   & \code{svarirf}\tnote{b)} & \qquad --- & \code{plot}, \code{print} & & Persistence profiles  & \quad Lee, Pesaran \citeyearpar{LeePesaran1993} and \\
 		 & \code{PP.variable} & \code{svarirf}\tnote{b)} & \qquad --- & \code{plot}, \code{print} & & (Structural) persistence profiles & \quad Pesaran, Shin \citeyearpar{PesaranShin1996} \\
 		 & \code{sboot.mg} & \code{sboot}\tnote{b)} & \qquad --- &  \quad\code{print}, \code{summary}, & & Mean-group inference & Pesaran, Smith \citeyearpar{PesaranSmith1995} \\
