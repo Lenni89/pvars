@@ -88,7 +88,7 @@ coint.JO <- function(y, dim_p, x=NULL, dim_q=dim_p,
   is_break = !is.null(c(t_D1$t_break, t_D1$t_shift))
   type_mom = if(is_break){ if(dim_L != 0){ paste0("KN_", type) }else{ paste0("JMN_", type) }}else{ type }
   
-  # LR-tests, from Johansen 1995:92
+  # LR-tests, from Johansen 1996:92
   moments = aux_CointMoments(dim_K=dim_K, dim_L=dim_L, dim_T=dim_T+dim_p, t_D1=t_D1, r_H0=0:(dim_K-1), type=type_mom)
   RRR     = aux_RRR(Z0=R.def$Z0, Z1=R.def$Z1, Z2=R.def$Z2)
   result  = aux_LRrank(lambda=RRR$lambda, dim_T=dim_T, dim_K=dim_K, r_H0=0:(dim_K-1), moments=moments)

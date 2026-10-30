@@ -9,7 +9,7 @@
 # function mostly corresponds to the cited literature.
 
 
-# check, define and stack matrices for RRR, from Johansen 1995:90, ch.6
+# check, define and stack matrices for RRR, from Johansen 1996:90, ch.6
 aux_stackRRR <- function(y, dim_p, x=NULL, dim_q=0, type=NULL, t_D1=list(), t_D2=list(), D1=NULL, D2=NULL){
   ### see also Juselius 2007:115, ch.7 / Luetkepohl,Kraetzig 2004:93, ch.3.3.2 / Luetkepohl 2005:294, ch.7.2.3 (ch.10.3.2 for conditional VECM)
   # endogenous variables
@@ -33,7 +33,7 @@ aux_stackRRR <- function(y, dim_p, x=NULL, dim_q=0, type=NULL, t_D1=list(), t_D2
   
   # deterministic term
   if(!is.null(type)){
-    # determin. term:  --restricted--   ; --unrestricted-- , from Johansen 1995:96, ch.6.2 / Juselius 2007, ch.6.3
+    # determin. term:  --restricted--   ; --unrestricted-- , from Johansen 1996:96, ch.6.2 / Juselius 2007, ch.6.3
     if(type=="Case1"){ type_D1 = "none" ; type_D2 = "none"  }else
     if(type=="Case2"){ type_D1 = "const"; type_D2 = "none"  }else
     if(type=="Case3"){ type_D1 = "none" ; type_D2 = "const" }else
@@ -72,47 +72,47 @@ aux_stackRRR <- function(y, dim_p, x=NULL, dim_q=0, type=NULL, t_D1=list(), t_D2
 }
 
 
-# reduced rank ML-estimation, from Johansen 1995:90, ch.6
+# reduced rank ML-estimation, from Johansen 1996:90, ch.6
 aux_RRR <- function(Z0, Z1, Z2, via_R0_R1=FALSE){
   # define
   dim_T = ncol(Z0) # number of observations without presample
   
-  # product moment matrices, from Johansen 1995:90, Eq.6.4
+  # product moment matrices, from Johansen 1996:90, Eq.6.4
   M00 = tcrossprod(Z0) / dim_T  # = Z0%*%t(Z0)/dim_T
   M11 = tcrossprod(Z1) / dim_T
   M22 = tcrossprod(Z2) / dim_T
   M01 = tcrossprod(Z0, Z1) / dim_T
   M02 = tcrossprod(Z0, Z2) / dim_T
   M12 = tcrossprod(Z1, Z2) / dim_T
-  M10 = t(M01)  # use transpose instead of Z1%*%t(Z0)/dim_T, from Johansen 1995:90, Eq.6.4(II)
+  M10 = t(M01)  # use transpose instead of Z1%*%t(Z0)/dim_T, from Johansen 1996:90, Eq.6.4(II)
   M20 = t(M02)
   M21 = t(M12)
   if(nrow(M22)==0){ M22inv = M22 }else{  # if matrix Z2 is 0xT (i.e. VECM has neither first-differenced regressors nor unrestricted deterministic term)
     M22inv = solve(M22)
   }
   
-  # concentrate out short-run effects by multivariate OLS-annihilator matrix, from Johansen 1995:90, Eq.6.6 and Eq.6.7
+  # concentrate out short-run effects by multivariate OLS-annihilator matrix, from Johansen 1996:90, Eq.6.6 and Eq.6.7
   if(via_R0_R1){
     R0 = Z0 - M02 %*% M22inv %*% Z2  # I(0)-residuals using first differences Z0 as regressand
     R1 = Z1 - M12 %*% M22inv %*% Z2  # I(1)-residuals using lagged levels Z1 as regressand
   }else{ R0 = R1 = NULL }
   
-  # product moment matrices for reduced rank regression, from Johansen 1995:90, Eq.6.10
+  # product moment matrices for reduced rank regression, from Johansen 1996:90, Eq.6.10
   S00 = M00 - M02 %*% M22inv %*% M20  # = tcrossprod(R0, R0) / dim_T
   S01 = M01 - M02 %*% M22inv %*% M21  # = tcrossprod(R0, R1) / dim_T
   S10 = t(S01)  # = M10 - M12 %*% M22inv %*% M20  # = tcrossprod(R1, R0) / dim_T
   S11 = M11 - M12 %*% M22inv %*% M21  # = tcrossprod(R1, R1) / dim_T
   S00inv = solve(S00)
   
-  # decompose S11 for solving the generalized eigenvalue problem, from Pfaff 2008:81 / Johansen 1995:95
+  # decompose S11 for solving the generalized eigenvalue problem, from Pfaff 2008:81 / Johansen 1996:95
   Ctemp <- chol(S11, pivot = TRUE)
   pivot <- attr(Ctemp, "pivot")
   oo <- order(pivot)
   C <- t(Ctemp[, oo])
   Cinv <- solve(C)
   
-  # eigenvectors as cointegrating vectors, from Johansen 1995:92,95
-  cc_eigen = eigen(Cinv %*% S10 %*% S00inv %*% S01 %*% t(Cinv), symmetric=TRUE) # eigenvalue problem, from Pfaff 2008:81, Eq.4.13 / Johansen 1995:95
+  # eigenvectors as cointegrating vectors, from Johansen 1996:92,95
+  cc_eigen = eigen(Cinv %*% S10 %*% S00inv %*% S01 %*% t(Cinv), symmetric=TRUE) # eigenvalue problem, from Pfaff 2008:81, Eq.4.13 / Johansen 1996:95
   lambda = cc_eigen$values  # squared canonical correlation coefficients, see Juselius 2007:132
   e = cc_eigen$vector  # orthonormal eigenvectors, see Luetkepohl 2005:295 ### unit vectors with length of sqrt(colSums(e^2)) = sqrt(rowSums(e^2)) = (1,...,1) 
   V = t(Cinv) %*% e  # retransformed eigenvectors as cointegrating vectors ### already normalized to V'S_{11}V=I due to mathematical convention of e'Ie=I
@@ -334,8 +334,8 @@ aux_CointMoments <- function(dim_K, dim_L=0, dim_T=NULL, r_H0=0:(dim_K-1), t_D1=
 # cointegration-rank by nested LR-test procedure
 aux_LRrank <- function(lambda, dim_T, dim_K, r_H0=0:(dim_K-1), moments){
   # LR-test statistics
-  LR.stats_ME = sapply(r_H0, FUN=function(k) -dim_T*log(1 - lambda[k+1]))  # maximum eigenvalue test, from Johansen 1995:92, Eq.6.18
-  LR.stats_TR = sapply(r_H0, FUN=function(k) -dim_T*sum(log(1 - lambda[(k+1):dim_K])))  # trace test, from Johansen 1995:92, Eq.6.14
+  LR.stats_ME = sapply(r_H0, FUN=function(k) -dim_T*log(1 - lambda[k+1]))  # maximum eigenvalue test, from Johansen 1996:92, Eq.6.18
+  LR.stats_TR = sapply(r_H0, FUN=function(k) -dim_T*sum(log(1 - lambda[(k+1):dim_K])))  # trace test, from Johansen 1996:92, Eq.6.14
   LR.stats = cbind(TR=LR.stats_TR, ME=LR.stats_ME)
   
   # approximated p-values from Gamma distribution, from Doornik 1998:576, Eq.4 / Trenkler 2008:26, Eq.3.1
@@ -401,7 +401,7 @@ aux_oc <- function(M){
 }
 
 
-# test restriction of weak exogeneity, from Johansen 1995:126
+# test restriction of weak exogeneity, from Johansen 1996:126
 aux_LRrest <- function(lambda, lambda_rest, dim_r, dim_T, dim_L){
   ### see also Johansen 1990:199 / Juselius 2007:195
   # define
@@ -416,7 +416,7 @@ aux_LRrest <- function(lambda, lambda_rest, dim_r, dim_T, dim_L){
   ### beta and alpha jointly
   
   # LR-test statistics and p-values
-  LR.stats = dim_T*sum(log((1 - lambda_rest[1:dim_r])/(1 - lambda[1:dim_r])))  # from Johansen 1995:126, Eq.8.17
+  LR.stats = dim_T*sum(log((1 - lambda_rest[1:dim_r])/(1 - lambda[1:dim_r])))  # from Johansen 1996:126, Eq.8.17
   LR.pvals = 1-pchisq(LR.stats, df=dim_r*dim_L)
   
   # return result
@@ -432,10 +432,10 @@ aux_beta <- function(V, dim_r, normalize=FALSE){
     beta = V[ ,0, drop=FALSE] # matrix(0, ncol=ncol(V), nrow=nrow(V))
     return(beta)
   }else if(normalize==FALSE){  # preserve normalization such that \beta'S_{11}\beta=I
-    beta = V[ ,1:dim_r, drop=FALSE]  # cointegrating matrix with restricted rank, from Johansen 1995:93, Eq.6.16
+    beta = V[ ,1:dim_r, drop=FALSE]  # cointegrating matrix with restricted rank, from Johansen 1996:93, Eq.6.16
   }else if(normalize=="first element"){  # normalize each eigenvector to its first element, see Juselius 2007:122
     beta = apply(V[ ,1:dim_r, drop=FALSE], MARGIN=2, FUN=function(v_k) v_k/v_k[1])
-  }else if(normalize=="natural"){  # "natural" normalization, from Johansen 1995:179, Eq.13.3(I)
+  }else if(normalize=="natural"){  # "natural" normalization, from Johansen 1996:179, Eq.13.3(I)
     beta = V[ ,1:dim_r, drop=FALSE] %*% solve(V[1:dim_r, 1:dim_r]) # restrict to \beta = [I_r:\beta_1']' with \beta_1 being (K-r x r)
   }
   ### TODO: argument for normalization where a variable is I(0), i.e. cointegrated on its own

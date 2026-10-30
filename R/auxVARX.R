@@ -257,11 +257,11 @@ aux_VECM <- function(beta, RRR){
     C = solve(t(beta) %*% S11 %*% beta) }      # ... out from Johansen's formulas, see Pfaff 2008:82
   
   # calculate coefficient matrices
-  # ... from Johansen 1995:93 (after Eq.6.17): For given \hat{\beta}, the remaining estimators are just OLS-estimators.
-  alpha = S01 %*% beta %*% C  # matrix of loading weights, from Johansen 1995:91, Eq.6.11
-  PI    = alpha %*% t(beta)  # coefficient matrix of the lagged variables in levels, from Johansen 1995:96, Eq. 6.23
-  GAMMA = M02 %*% M22inv - PI %*% M12 %*% M22inv  # short-run effects coefficient matrix, PSI from Johansen 1995:90, Eq.6.5
-  OMEGA = S00 - PI %*% S10  # MLE covariance matrix of residuals, from Johansen 1995:91, Eq.6.12 with PI = S01 %*% beta %*% C %*% t(beta)
+  # ... from Johansen 1996:93 (after Eq.6.17): For given \hat{\beta}, the remaining estimators are just OLS-estimators.
+  alpha = S01 %*% beta %*% C  # matrix of loading weights, from Johansen 1996:91, Eq.6.11
+  PI    = alpha %*% t(beta)  # coefficient matrix of the lagged variables in levels, from Johansen 1996:96, Eq. 6.23
+  GAMMA = M02 %*% M22inv - PI %*% M12 %*% M22inv  # short-run effects coefficient matrix, PSI from Johansen 1996:90, Eq.6.5
+  OMEGA = S00 - PI %*% S10  # MLE covariance matrix of residuals, from Johansen 1996:91, Eq.6.12 with PI = S01 %*% beta %*% C %*% t(beta)
   SIGMA = OMEGA * (dim_T/(dim_T-dim_Kpn))  # OLS covariance matrix of residuals
   resid = Z0 - PI%*%Z1 - GAMMA%*%Z2  # residuals
   
@@ -271,7 +271,7 @@ aux_VECM <- function(beta, RRR){
 }
 
 
-# transform conditional VECM into full-system VECM, from Johansen 1995:122
+# transform conditional VECM into full-system VECM, from Johansen 1996:122
 aux_con2vec <- function(beta, VECM_c, dim_p, VECM_x, dim_q){
   ### see also Jacobs,Wallis 2010:109, Eq.6 / Kurita,Nielsen 2019:4, Eq.3/4
   ### restrictions and stacking operations also used by Banerjee et al 2017:1075, Eq.23/24
@@ -333,9 +333,9 @@ aux_con2vec <- function(beta, VECM_c, dim_p, VECM_x, dim_q){
   
   # transform using partial and marginal model
   LAMBDA  = GAMMA_c[ , idx_x.l0, drop=FALSE]  # coefficient matrix (KxL) for instantaneous effects from x to y
-  GAMMA_y = GAMMA_y + LAMBDA %*% GAMMA_x  # transform short-run and deterministic effects, see Johansen 1995:122, Th.8.3
+  GAMMA_y = GAMMA_y + LAMBDA %*% GAMMA_x  # transform short-run and deterministic effects, see Johansen 1996:122, Th.8.3
   resid_y = resid_c + LAMBDA %*% resid_x[ , idx_tx, drop=FALSE]
-  alpha_x = matrix(0, nrow=dim_L, ncol=dim_r, dimnames=list(rownames(resid_x), NULL)) # under weak exogeneity, see Johansen 1995:122, Th.8.1
+  alpha_x = matrix(0, nrow=dim_L, ncol=dim_r, dimnames=list(rownames(resid_x), NULL)) # under weak exogeneity, see Johansen 1996:122, Th.8.1
   # alpha_y = alpha_c + LAMBDA %*% alpha_x
   
   OMEGA_yx = LAMBDA %*% OMEGA_xx

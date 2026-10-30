@@ -11,7 +11,7 @@ Maintainer: Lennart Empting <lennart.empting@vwl.uni-due.de>
 Description: Implements (1) panel cointegration rank tests, (2) estimators for panel
     vector autoregressive (panel VAR) models, and (3) identification methods for panel
     structural vector autoregressive (panel SVAR) models as described in the accompanying
-    vignette. The implemented functions allow to account for cross-sectional dependence
+    vignette. The implemented functions allow users to account for cross-sectional dependence
     and for structural breaks in the deterministic terms of the VAR processes.
     Among the large set of functions, particularly noteworthy are those that implement
     (1) the correlation-augmented inverse normal test on the cointegration rank

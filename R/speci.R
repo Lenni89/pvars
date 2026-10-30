@@ -212,7 +212,7 @@ speci.factors <- function(L.data, k_max=20, n.iterations=4, differenced=FALSE, c
 #'   combinations of candidate \eqn{(p, \tau)} and their values of 
 #'   \eqn{AIC(p, \tau)}, \eqn{HQC(p, \tau)}, \eqn{SIC(p, \tau)}, and \eqn{FPE(p, \tau)}.}
 #' \item{selection}{A \eqn{(1+m) \times 4} matrix of the specification pairs 
-#'   \eqn{(p^*, \tau^*)} suggested by the global minimum of the AIC (Akaike 1969), 
+#'   \eqn{(p^*, \tau^*)} suggested by the global minimum of the AIC (Akaike 1973), 
 #'   HQC (Hannan, Quinn 1979), SIC (Schwarz 1978), and FPE respectively.}
 #' \item{args_speci}{List of characters and integers indicating the specifications that have been used.}
 #' 

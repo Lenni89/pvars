@@ -563,7 +563,7 @@ aux_PIC <- function(X, k, Vk0, Vkmax0, Vk1=Vk0, Vkmax1=Vkmax0){
 # simulated moments for the asymptotic distribution Z_d of the trace statistic and MSB-test statistic distributions
 coint_moments = list(
   # moments from Larsson et al. 2001:114, Tab.1 
-  # ... (they do not state the number of replications and time periods; Johansen 1995:212 uses 100,000 replications with T=400)
+  # ... (they do not state the number of replications and time periods; Johansen 1996:212 uses 100,000 replications with T=400)
   # ... as used in the panel tests by Larsson et al. (2001) and Breitung (2005) 
   Case1 = cbind(
     TR_EZ=c(1.137,  6.086, 14.955, 27.729, 44.392,  64.960,  89.360, 117.519, 149.441, 185.082, 224.450, 267.708),

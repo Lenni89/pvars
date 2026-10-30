@@ -99,7 +99,7 @@ pcoint.JO <- function(L.data, lags, type=c("Case1", "Case2", "Case3", "Case4"),
     type_mom = type
   }
   
-  # apply Johansen (1995) procedure to each individual
+  # apply Johansen (1996) procedure to each individual
   moments  = aux_CointMoments(dim_K=dim_K, r_H0=0:(dim_K-1), type=type_mom)
   L.define = lapply(1:dim_N,  FUN=function(i) aux_stackRRR(L.y[[i]], dim_p=L.dim_p[i], type=type_JO, t_D1=L.t_D1[[i]], t_D2=L.t_D2[[i]]))
   L.lambda = lapply(L.define, FUN=function(x) aux_RRR(x$Z0, x$Z1, x$Z2)$lambda)

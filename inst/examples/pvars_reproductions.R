@@ -42,7 +42,7 @@ lvl = levels(R.fac0$eigenvals$scree)
 F.scree = ggplot(R.fac0$eigenvals[1:20, ]) +
   geom_col(aes(x=n, y=share, fill=scree), color="black", width=0.75) +
   scale_fill_manual(values=pal, breaks=lvl, guide="none") +
-  labs(x="Component number", y="Share on total variance", title=NULL) +
+  labs(x="Component number", y="Share of total variance", title=NULL) +
   theme_bw()
 
 tikz(file=paste0(path_fig, "Fig_Scree.tex"), width=textwidth, height=0.35*textwidth)
