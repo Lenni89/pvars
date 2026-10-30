@@ -128,7 +128,7 @@ The method \code{toLatex()} prints the \code{pcoint} results as a \code{tabular}
 The table reports the individual and panel results for each hypothesis $ r_{H0} = 0, \ldots, K-1 $, which refer to Table~5 in \citet[p.~68]{ArsovaOersal2017}. All four combination approaches under the independence assumption of the idiosyncratic VAR processes have been used. Comparing the $p$-values to a significance level of $ \alpha = 5 \% $, all sequential panel test procedures reject the hypotheses up to $ r_{H0} = 1 $ and thus confirm the presence of a single cointegration relation in $ \boldsymbol{{y}}^{i \! d}_{it} $.
 
 
-\textbf{Cointegration rank of the factors.} Having determined the idiosyncratic cointegration rank, the PANIC turns then to the cointegration within the eight common factors $ \boldsymbol{F}_{t} $. The \code{\$CSD}-slot of the \code{pcoint} object contains the estimates for the cross-sectional dependence and is identical for the PANIC analysis of any \code{pcoint} function. Therein, the eigenvalues of the PCA are stored in the vector \code{eigenvals} and the cumulated common factors in the matrix \code{Ft} of dimension \code{dim\_T} $ \times $ \code{n.factors}. These multivariate time series shall be plotted firstly to get an overview as in Figur~4 of \citet[p.~71]{ArsovaOersal2017}. For this, we define the factor matrix \code{Ft} as a \code{ts} object with the same specifications as the observed time series and use the related plotting method via \code{autoplot()}. The package \pkg{ggfortify} \citep{TangEtAl2016} provides a comprehensive set of unified methods for \pkg{ggplot2} graphics.
+\textbf{Cointegration rank of the factors.} Having determined the idiosyncratic cointegration rank, the PANIC turns then to the cointegration within the eight common factors $ \boldsymbol{F}_{t} $. The \code{\$CSD}-slot of the \code{pcoint} object contains the estimates for the cross-sectional dependence and is identical for the PANIC analysis of any \code{pcoint} function. Therein, the eigenvalues of the PCA are stored in the vector \code{eigenvals} and the cumulated common factors in the matrix \code{Ft} of dimension \code{dim\_T} $ \times $ \code{n.factors}. These multivariate time series shall be plotted firstly to get an overview as in Figure~4 of \citet[p.~71]{ArsovaOersal2017}. For this, we define the factor matrix \code{Ft} as a \code{ts} object with the same specifications as the observed time series and use the related plotting method via \code{autoplot()}. The package \pkg{ggfortify} \citep{TangEtAl2016} provides a comprehensive set of unified methods for \pkg{ggplot2} graphics.
 \begin{CodeChunk}
 \begin{CodeInput}
 R> library("ggfortify")
@@ -157,7 +157,7 @@ In order to determine the cointegration rank within $ \boldsymbol{F}_{t} $, we e
 %2      1      1      2 
 %\end{CodeOutput}
 %\end{CodeChunk}
-We perform both procedures, \citet{Johansen1996} and SL \citeyearpar{SaikkonenLutkepohl2000c}, using an unrestricted intercept and a linear trend restricted to the coingreation (\textit{Case 4}, see Table~\ref{tab:DetTerm}) and the corresponding intercept and linear trend in the additive \eqref{eq:addDGP} (\textit{SL\_trend}).
+We perform both procedures, \citet{Johansen1996} and SL \citeyearpar{SaikkonenLutkepohl2000c}, using an unrestricted intercept and a linear trend restricted to the cointegration relations (\textit{Case 4}, see Table~\ref{tab:DetTerm}) and the corresponding intercept and linear trend in the additive \eqref{eq:addDGP} (\textit{SL\_trend}).
 \begin{CodeChunk}
 \begin{CodeInput}
 R> R.Ftsl = coint.SL(R.pcsl$CSD$Ft, dim_p=2, type_SL="SL_trend")
@@ -253,6 +253,6 @@ R> toLatex(R.cain)
 		\input{tables/Tab_ERPT.tex}}	
 	\label{tab:ERPT}
 \end{table}
-As in Section~\ref{sec:MERM}, the \code{pcoint} object is printed by \code{toLatex()} and encapsulated in Latex' \code{table} environment. Table~\ref{tab:ERPT} displays the individual and panel results for each hypothesis $ r_{H0} = 0, \ldots, K-1 $, which \citet[p.~22]{ArsovaOersal2016} report in Table~7 and 8 for the industry of \textit{``5: Chemicals and related products''}, too. Comparing the $p$-values to a significance level of $ \alpha = 5 \% $, the sequential testing procure of CAIN rejects the hypotheses up to $ r_{H0} = 2 $ and thus suggests the presence of overall two cointegration relations.
+As in Section~\ref{sec:MERM}, the \code{pcoint} object is printed by \code{toLatex()} and encapsulated in Latex' \code{table} environment. Table~\ref{tab:ERPT} displays the individual and panel results for each hypothesis $ r_{H0} = 0, \ldots, K-1 $, which \citet[p.~22]{ArsovaOersal2016} report in Table~7 and 8 for the industry of \textit{``5: Chemicals and related products''}, too. Comparing the $p$-values to a significance level of $ \alpha = 5 \% $, the sequential testing procedure of CAIN rejects the hypotheses up to $ r_{H0} = 2 $ and thus suggests the presence of overall two cointegration relations.
 
 
