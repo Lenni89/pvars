@@ -35,8 +35,8 @@ are fixed over all bootstrap iterations. Ignored in case of rank-unrestricted VA
 Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in \code{vars:::.bootsvec}, 
 but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.}
 
-\item{deltas}{Vector. Numeric weights \eqn{\delta_j} that are successively 
-multiplied to the bias estimate \eqn{\hat{\Psi}} for a stationarity correction. 
+\item{deltas}{Vector. Numeric weights \eqn{\delta_j} that are successively multiplied 
+to the bias estimate \eqn{\hat{\Psi}} for the stationarity correction in this step. 
 The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
 \code{deltas = 1} inhibits the stationarity correction, and 
@@ -60,9 +60,10 @@ A list of class '\code{sboot2}' with elements:
   the array of bootstrap results '\code{sim}'.}
 \item{PSI_bc}{Matrix of the estimated bias term \eqn{\hat{\Psi}} 
   for the VAR coefficients \eqn{\hat{A}} according to Kilian (1998).
-  \code{NULL} if deactivated in both steps by \code{deltas = NULL}.}
+  \code{NULL} if \code{deltas = NULL} and \code{is.null(x$PSI_bc)}.}
 \item{varx}{Input VAR object of class '\code{varx}' 
-  that has been subjected to the first-step bias-correction.}
+  that has been subjected to the first-step bias-correction
+  and that contains matrix '\code{PSI_bc}', too.}
 \item{nboot}{Number of correct bootstrap iterations.}
 \item{b_length}{Length of each block.}
 \item{design}{Character indicating that the recursive design bootstrap has been performed.}
@@ -90,7 +91,7 @@ R.boot = sboot.mb(R.svar, b.length=1, n.boot=n.boot, n.ahead=30, n.cores=1)
 summary(R.boot, idx_par="A", level=0.9)  # VAR coefficients with 90\%-confidence intervals 
 plot(R.boot, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 
-# second step of bootstrap-after-bootstrap (default stationarity correction in both steps) #
+# second step of bootstrap-after-bootstrap (same default deltas in both steps) #
 R.bab = sboot.mb(R.boot, b.length=1, n.boot=n.boot, n.ahead=30, n.cores=1)
 summary(R.bab, idx_par="A", level=0.9)  # VAR coefficients with 90\%-confidence intervals 
 plot(R.bab, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))

@@ -31,6 +31,8 @@
 #'   of the SL-procedure. 
 #'   The accompanying lagged regressors are automatically included in \eqn{d_{it}}. 
 #'   The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples.
+#'   See \code{\link{speci.VAR}} for the individual procedure of Luetkepohl et al. (2004)
+#'   that determines the break periods \eqn{\tau_i} prior to the cointegration analysis.
 #' 
 #' @return A list of class '\code{pcoint}' with elements: 
 #' \item{panel}{List for the panel test results, 
@@ -329,6 +331,9 @@ pcoint.SL <- function(L.data, lags, type="SL_trend", t_D=NULL, n.factors=FALSE){
 #' @references Hartung, J. (1999):
 #'   "A Note on Combining Dependent Tests of Significance",
 #'   \emph{Biometrical Journal}, 41, pp. 849-855.
+#' @references Luetkepohl, H., Saikkonen, P., and Trenkler, C. (2004): 
+#'   "Testing for the Cointegrating Rank of a VAR Process with Level Shift at Unknown Time", 
+#'   \emph{Econometrica}, 72, pp. 647-662.
 #' @references Arsova, A., and Oersal, D. D. K. (2021): 
 #'   "A Panel Cointegrating Rank Test with Structural Breaks and Cross-Sectional Dependence", 
 #'   \emph{Econometrics and Statistics}, 17, pp. 107-129.

@@ -108,9 +108,14 @@ coint.JO <- function(y, dim_p, x=NULL, dim_q=dim_p,
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{t}} of the SL-procedure. 
 #'   The accompanying lagged regressors are automatically included in \eqn{d_{t}}. 
 #'   The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples. 
+#'   See the example in \code{\link{speci.VAR}} for the procedure of Luetkepohl et al. (2004)
+#'   that determines the break period \eqn{\tau} prior to the cointegration analysis.
 #' @references Saikkonen, P., and Luetkepohl, H. (2000):
 #'   "Trend Adjustment Prior to Testing for the Cointegrating Rank of a Vector Autoregressive Process",
 #'   \emph{Journal of Time Series Analysis}, 21, pp. 435-456.
+#' @references Luetkepohl, H., Saikkonen, P., and Trenkler, C. (2004): 
+#'   "Testing for the Cointegrating Rank of a VAR Process with Level Shift at Unknown Time", 
+#'   \emph{Econometrica}, 72, pp. 647-662.
 #' @references Trenkler, C. (2008): 
 #'   "Determining \eqn{p}-Values for Systems Cointegration Tests with a Prior Adjustment for Deterministic Terms", 
 #'   \emph{Computational Statistics}, 23, pp. 19-39.

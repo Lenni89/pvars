@@ -17,8 +17,8 @@
 #'   are fixed over all bootstrap iterations. Ignored in case of rank-unrestricted VAR. 
 #'   Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in \code{vars:::.bootsvec}, 
 #'   but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.
-#' @param deltas Vector. Numeric weights \eqn{\delta_j} that are successively 
-#'   multiplied to the bias estimate \eqn{\hat{\Psi}} for a stationarity correction. 
+#' @param deltas Vector. Numeric weights \eqn{\delta_j} that are successively multiplied 
+#'   to the bias estimate \eqn{\hat{\Psi}} for the stationarity correction in this step. 
 #'   The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 #'   to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
 #'   \code{deltas = 1} inhibits the stationarity correction, and 
@@ -40,9 +40,10 @@
 #'   the array of bootstrap results '\code{sim}'.}
 #' \item{PSI_bc}{Matrix of the estimated bias term \eqn{\hat{\Psi}} 
 #'   for the VAR coefficients \eqn{\hat{A}} according to Kilian (1998).
-#'   \code{NULL} if deactivated in both steps by \code{deltas = NULL}.}
+#'   \code{NULL} if \code{deltas = NULL} and \code{is.null(x$PSI_bc)}.}
 #' \item{varx}{Input VAR object of class '\code{varx}' 
-#'   that has been subjected to the first-step bias-correction.}
+#'   that has been subjected to the first-step bias-correction
+#'   and that contains matrix '\code{PSI_bc}', too.}
 #' \item{nboot}{Number of correct bootstrap iterations.}
 #' \item{b_length}{Length of each block.}
 #' \item{design}{Character indicating that the recursive design bootstrap has been performed.}
@@ -68,7 +69,7 @@
 #' summary(R.boot, idx_par="A", level=0.9)  # VAR coefficients with 90%-confidence intervals 
 #' plot(R.boot, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 #' 
-#' # second step of bootstrap-after-bootstrap (default stationarity correction in both steps) #
+#' # second step of bootstrap-after-bootstrap (same default deltas in both steps) #
 #' R.bab = sboot.mb(R.boot, b.length=1, n.boot=n.boot, n.ahead=30, n.cores=1)
 #' summary(R.bab, idx_par="A", level=0.9)  # VAR coefficients with 90%-confidence intervals 
 #' plot(R.bab, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
@@ -334,8 +335,8 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   are fixed over all bootstrap iterations. Ignored in case of rank-unrestricted VAR. 
 #'   Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in \code{vars:::.bootsvec}, 
 #'   but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.
-#' @param deltas Vector. Numeric weights \eqn{\delta_j} that are successively 
-#'   multiplied to each bias estimate \eqn{\hat{\Psi}_i} for a stationarity correction. 
+#' @param deltas Vector. Numeric weights \eqn{\delta_j} that are successively multiplied 
+#'   to each bias estimate \eqn{\hat{\Psi}_i} for the stationarity correction in this step. 
 #'   The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 #'   to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
 #'   \code{deltas = 1} (used in Empting et al. 2026) inhibits the stationarity correction, and 
@@ -366,9 +367,10 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   the array of bootstrap results '\code{sim}'.}
 #' \item{L.PSI_bc}{List of the \eqn{N} estimated bias terms \eqn{\hat{\Psi}_i} 
 #'   for the individual VAR coefficients \eqn{\hat{A}_i} according to Empting et al. (2026).
-#'   \code{NULL} if deactivated in both steps by \code{deltas = NULL}.}
+#'   \code{NULL} if \code{deltas = NULL} and \code{is.null(x$L.PSI_bc)}.}
 #' \item{pvarx}{Input panel VAR object of class '\code{pvarx}' 
-#'   that has been subjected to the first-step bias-correction.}
+#'   that has been subjected to the first-step bias-correction
+#'   and that contains list '\code{L.PSI_bc}', too.}
 #' \item{b.dim}{Dimensions of each block.}
 #' \item{nboot}{Number of correct bootstrap iterations.}
 #' \item{design}{Character indicating that the recursive design bootstrap has been performed.}
@@ -418,8 +420,8 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #' summary(R.boot, idx_par="A", level=0.95)  # VAR coefficients with 95%-confidence intervals
 #' plot(R.boot, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 #' 
-#' # second step of bootstrap-after-bootstrap (default stationarity correction in both steps) #
-#' R.bab = sboot.pmb(R.boot, n.boot=n.boot)
+#' # second step of bootstrap-after-bootstrap #
+#' R.bab = sboot.pmb(R.boot, n.boot=n.boot) # uses the same default deltas as in first step
 #' summary(R.bab, idx_par="A", level=0.95)  # VAR coefficients with 95%-confidence intervals
 #' plot(R.bab, lowerq = c(0.05, 0.1, 0.16), upperq = c(0.95, 0.9, 0.84))
 #' }

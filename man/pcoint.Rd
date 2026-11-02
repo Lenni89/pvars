@@ -65,7 +65,9 @@ pooled estimation of the cointegrating vectors.}
 for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{it}} 
 of the SL-procedure. 
 The accompanying lagged regressors are automatically included in \eqn{d_{it}}. 
-The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples.}
+The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples.
+See \code{\link{speci.VAR}} for the individual procedure of Luetkepohl et al. (2004)
+that determines the break periods \eqn{\tau_i} prior to the cointegration analysis.}
 }
 \value{
 A list of class '\code{pcoint}' with elements: 
@@ -173,6 +175,10 @@ Arsova, A., and Oersal, D. D. K. (2018):
 Hartung, J. (1999):
   "A Note on Combining Dependent Tests of Significance",
   \emph{Biometrical Journal}, 41, pp. 849-855.
+
+Luetkepohl, H., Saikkonen, P., and Trenkler, C. (2004): 
+  "Testing for the Cointegrating Rank of a VAR Process with Level Shift at Unknown Time", 
+  \emph{Econometrica}, 72, pp. 647-662.
 
 Arsova, A., and Oersal, D. D. K. (2021): 
   "A Panel Cointegrating Rank Test with Structural Breaks and Cross-Sectional Dependence", 
