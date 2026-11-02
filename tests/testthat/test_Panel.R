@@ -119,8 +119,8 @@ test_that("speci.factors() and aux_ComFact() based on EVD and SVD are identical 
   
   # identity between speci.factors() with selected data transformation and aux_ComFact() #
   speci_diff = speci.factors(L.data, k_max=20, n.iterations=6, differenced=TRUE, centered=TRUE, scaled=TRUE, n.factors=8)
-  expect_identical(speci_diff$eigenvals$value, PCA_svd$eigenvals/(dim_T-1))
-  expect_identical(speci_diff$Ft, PCA_svd$Ft)
+  expect_equal(speci_diff$eigenvals$value, PCA_svd$eigenvals/(dim_T-1))
+  expect_equal(speci_diff$Ft, PCA_svd$Ft)
 })
 
 

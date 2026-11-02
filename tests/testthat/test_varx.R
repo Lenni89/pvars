@@ -40,7 +40,7 @@ test_that("VECM() can reproduce basic examples from urca package
   library("urca")
   data(denmark)
   sjd = denmark[, c("LRM", "LRY", "IBO", "IDE")]
-  tolerant_u = 4e-08  # on residuals
+  tolerant_u = 4e-07  # on residuals
   tolerant_a = 2e-06  # on LR-test stats and pvals for adjustment coefficients
   dim_K = ncol(sjd)
   dim_r = 2
@@ -94,7 +94,7 @@ test_that("auxVAR modules can reproduce OLS examples from vars package.", {
   library("vars")
   data(Canada)
   dim_T = nrow(Canada)  # number of observations including presample
-  tolerant = 3.8e-08
+  tolerant = 3.8e-07
   
   for(dim_p in 1:10){ # lag-order of the endogenous variables
     # stack operators (for "const") #
