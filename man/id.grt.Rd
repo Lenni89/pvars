@@ -2,7 +2,7 @@
 % Please edit documentation in R/id.R
 \name{id.grt}
 \alias{id.grt}
-\title{Identification of SVEC models by imposing long- and short-run restrictions}
+\title{Identification of SVEC Models by Imposing Long- and Short-Run Restrictions}
 \usage{
 id.grt(
   x,
@@ -41,7 +41,7 @@ Identifies an SVEC model by utilizing a scoring algorithm
 }
 \examples{
 ### reproduce basic example in "vars" ###
-library(vars)
+library("vars")
 data("Canada")
 names_k = c("prod", "e", "U", "rw")  # variable names
 names_s = NULL  # optional shock names

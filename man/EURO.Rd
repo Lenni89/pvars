@@ -3,7 +3,7 @@
 \docType{data}
 \name{EURO}
 \alias{EURO}
-\title{Data set on the \emph{Euro Monetary Policy Transmission}}
+\title{Data Set on the \emph{Euro Monetary Policy Transmission}}
 \format{
 A list-format data panel of class '\code{list}' 
   containing 15 '\code{data.frame}' objects with named time series.
@@ -35,7 +35,7 @@ The data set \code{EURO} is a list of 15 '\code{data.frame}' objects,
   \item the government spending in percentage of GDP \eqn{ge}. 
   }
   The data covers the period Q1 2001 to Q1 2020 \eqn{(T=77)} for 
-  the aggregate of the Euro area (EA, first element in list) and 
+  the aggregate of the euro area (EA, first element in list) and 
   \eqn{N=14} of its member countries (subsequent 14 elements in list).
 }
 \references{

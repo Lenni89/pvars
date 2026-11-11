@@ -3,7 +3,7 @@
 \docType{data}
 \name{PCIT}
 \alias{PCIT}
-\title{Data set on \emph{Personal and Corporate Income Tax}}
+\title{Data Set on \emph{Personal and Corporate Income Tax}}
 \format{
 A time series data set of class '\code{data.frame}', 
   where the column \code{id_t} indicates the quarter of the year.

@@ -8,7 +8,7 @@
 	\node[draw, align=left] (ICA) at ([xshift=30mm]0,0) {
 		\textbf{Independent Component Analysis} \\
 		\textit{A1)} $ \boldsymbol{\epsilon}_{t} \sim \mathsf{S}(0,I_K) $,  \\
-		\textit{A2)} $ \epsilon_{t}^{(k)} $, $ k = 1,...,K $, are \\
+		\textit{A2)} $ \epsilon_{kt} $, $ k = 1, \ldots, K $, are \\
 		\hspace{6mm} mutually independent, and \\
 		\textit{A3)} at most one marginal distribution \\
 		\hspace{6mm} in $ \mathsf{S} $ is Gaussian.};
@@ -18,20 +18,20 @@
 		$ \text{Cov}[\boldsymbol{u}_{it}] = \mathsf{B}_i^{\ } \mathsf{B}_i^\top =: \Sigma_{u,i} $ for structural shocks $ \ \boldsymbol{\epsilon}_{it} = \mathsf{B}^{-1}_i \boldsymbol{u}_{it} $ \\
 		
 		\nodepart{two}
-		$ \ \Omega_{u,i} := \mathsf{B}_{\sigma i}^{-1} \Sigma_{u,i} \mathsf{B}_{\sigma i}^{-1} = \textsf{B}_{\Omega i}^{\ } \textsf{B}_{\Omega i}^\top $ \\
+		$ \ \Omega_{u,i} := \mathsf{B}_{\sigma i}^{-1} \Sigma_{u,i} \mathsf{B}_{\sigma i}^{-1} = \mathsf{B}_{\Omega i}^{\ } \mathsf{B}_{\Omega i}^\top $ \\
 		\textbf{where} for each cross-section $ i $ \\
 		$ \ \Omega_{u,i}  $ is the correlation matrix of $ \boldsymbol{u}_{it} $, \\
 		$ \ \mathsf{B}_{\sigma i} $ the diagonal matrix of residual standard deviations $ \sigma_{u,ki} $, \\
-		$ \ \textsf{B}_{\Omega i} $ a lower triangular matrix for baseline decomposition and \\
+		$ \ \mathsf{B}_{\Omega i} $ a lower triangular matrix for baseline decomposition and \\
 		$ \ \mathsf{Q} \left( \boldsymbol{\theta} \right) $ is a common rotation matrix with rotation angles $ \boldsymbol{\theta} $.\\
 		
 		\nodepart{three}
 		\textbf{Candidates of whitened shocks}\\
-		$ \ \boldsymbol{\epsilon_\theta}_{it} = \textsf{B}_i(\boldsymbol{\theta})^{-1} \boldsymbol{u}_{it} = \mathsf{Q} \left( \boldsymbol{\theta} \right)^{-1} \textsf{B}_{\Omega i}^{-1} \mathsf{B}_{\sigma i}^{-1} \boldsymbol{u}_{it} = \mathsf{Q} \left( \boldsymbol{\theta} \right)^\top \boldsymbol{\epsilon_0}_{it} $};
+		$ \ \boldsymbol{\epsilon_\theta}_{it} = \mathsf{B}_i(\boldsymbol{\theta})^{-1} \boldsymbol{u}_{it} = \mathsf{Q} \left( \boldsymbol{\theta} \right)^{-1} \mathsf{B}_{\Omega i}^{-1} \mathsf{B}_{\sigma i}^{-1} \boldsymbol{u}_{it} = \mathsf{Q} \left( \boldsymbol{\theta} \right)^\top \boldsymbol{\epsilon_0}_{it} $};
 	
 	\node[draw, align=left, text width=0.9\textwidth, shape=rectangle split, rectangle split parts=3] (HLE) at (0,-12) {
 		\textbf{Identification} of $ \mathsf{B}_i $ unique up to column signs and ordering: \\
-		Find $ \boldsymbol{\widehat{\theta}} $ for the structural impact matrix $ \widehat{\mathsf{B}}_i = \mathsf{B}_i \left( \boldsymbol{\widehat{\theta}} \right) = \widehat{\mathsf{B}}_{\sigma i} \widehat{\textsf{B}}_{\Omega i} \mathsf{Q} \left( \boldsymbol{\widehat{\theta}} \right)  $ \\ %\citet[Eq.9]{Herwartz2017}
+		Find $ \boldsymbol{\widehat{\theta}} $ for the structural impact matrix $ \widehat{\mathsf{B}}_i = \mathsf{B}_i \left( \boldsymbol{\widehat{\theta}} \right) = \widehat{\mathsf{B}}_{\sigma i} \widehat{\mathsf{B}}_{\Omega i} \mathsf{Q} \left( \boldsymbol{\widehat{\theta}} \right)  $ \\ %\citet[Eq.9]{Herwartz2017}
 		
 		\nodepart{two}
 		by \textbf{Hodges-Lehmann \citeyearpar{HodgesLehmann1963} estimation} \\

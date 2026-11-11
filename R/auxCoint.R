@@ -48,7 +48,7 @@ aux_stackRRR <- function(y, dim_p, x=NULL, dim_q=0, type=NULL, t_D1=list(), t_D2
     ### lagged shift dummies for t_break are passed to the impulse dummies instead, see Trenkler et al 2008:335
     t2_impulse = c(t_D1$t_break, t_D1$t_shift)
     if(!is.null(t2_impulse)){
-      t2_impulse = sapply(t2_impulse, FUN=function(t) t + 0:(dim_pq-1))  # sacrifice degrees-of-freedom against non-linear LS estimation
+      t2_impulse = sapply(t2_impulse, FUN=function(t) t + 0:(dim_pq-1))  # sacrifice degrees-of-freedom against nonlinear LS estimation
       t2_impulse = unique(sort( c(t2_impulse, t_D2$t_impulse) ))  # prevent duplicated dummies, which would lead to perfect multicollinearity
     }else{
       t2_impulse = unique(sort( t_D2$t_impulse ))
@@ -72,7 +72,7 @@ aux_stackRRR <- function(y, dim_p, x=NULL, dim_q=0, type=NULL, t_D1=list(), t_D2
 }
 
 
-# reduced rank ML-estimation, from Johansen 1996:90, ch.6
+# reduced rank ML estimation, from Johansen 1996:90, ch.6
 aux_RRR <- function(Z0, Z1, Z2, via_R0_R1=FALSE){
   # define
   dim_T = ncol(Z0) # number of observations without presample
@@ -138,7 +138,7 @@ aux_stackDtr <- function(type_SL, t_D=NULL, dim_p, dim_T){
   # lagged shift dummies for t_break are passed to the impulse dummies instead, see Trenkler et al 2008:335
   t2_impulse = c(t_D$t_break, t_D$t_shift)
   if(!is.null(t2_impulse)){
-    t2_impulse = sapply(t2_impulse, FUN=function(t) t + 0:(dim_p-1))  # sacrifice degrees-of-freedom against non-linear LS estimation
+    t2_impulse = sapply(t2_impulse, FUN=function(t) t + 0:(dim_p-1))  # sacrifice degrees-of-freedom against nonlinear LS estimation
     t2_impulse = unique(sort( c(t2_impulse, t_D$t_impulse) ))
   }else{
     t2_impulse = unique(sort( t_D$t_impulse ))
@@ -170,7 +170,7 @@ aux_stackDtr <- function(type_SL, t_D=NULL, dim_p, dim_T){
     t_shift = unique(sort( t_shift ))  # prevent duplicated dummies, which would cause perfect multicollinearity
   }
   D = aux_dummy(dim_T=dim_T, t_break=t_D$t_break, t_shift=t_shift, t_impulse=t_D$t_impulse, n.season=t_D$n.season, type=type)
-  ### lagged impulse dummies controlling for non-linearities do not enter the VAR in additive det.term formulation, from Trenkler et al 2008:336, Eq.8
+  ### lagged impulse dummies controlling for nonlinearities do not enter the VAR in additive det.term formulation, from Trenkler et al 2008:336, Eq.8
   
   # return result
   result = list(D=D, D1=D1, D2=D2)

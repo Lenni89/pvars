@@ -2,7 +2,7 @@
 % Please edit documentation in R/speci.R
 \name{speci.VAR}
 \alias{speci.VAR}
-\title{Criteria on the lag-order and break period(s)}
+\title{Criteria on the Lag Order and Break Period(s)}
 \usage{
 speci.VAR(
   x,
@@ -89,7 +89,7 @@ The literature on structural breaks in time series deals mostly with
   They use dynamic programming to reduce the number of least-squares operations. 
   Although adapting their streamlined set of admissible combinations for \eqn{\tau}, 
   \code{\link{speci.VAR}} still resorts to (parallelized brute-force) OLS estimation 
-  of all candidate VAR models and therewith circumvents issues of correct 
+  of all candidate VAR models and thereby circumvents issues of correct 
   initialization and iterative updating for the models with partial breaks.
 }
 \examples{

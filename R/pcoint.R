@@ -1,6 +1,6 @@
 
 
-#' @title Panel cointegration rank tests
+#' @title Panel Cointegration Rank Tests
 #' @description Performs test procedures for the rank of cointegration in a panel of VAR models. 
 #'   First, the chosen individual procedure is applied over 
 #'   all \eqn{N} individual entities for \eqn{r_{H0}=0,\ldots,K-1}. 
@@ -18,15 +18,15 @@
 #'   In the vector, \eqn{p_i} must have the same succession 
 #'   \eqn{i = 1,\ldots,N} as argument \code{L.data}.
 #' @param type Character. The conventional case of the \link[=as.t_D]{deterministic term}.
-#' @param t_D1 List of vectors. The activating break periods \eqn{\tau} 
+#' @param t_D1 List of vectors. The activating periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{1,it}}, 
 #'   which are restricted to the cointegration relations. 
 #'   The accompanying lagged regressors are automatically included in \eqn{d_{2,it}}. 
 #'   The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples.
-#' @param t_D2 List of vectors. The activating break periods \eqn{\tau} 
+#' @param t_D2 List of vectors. The activating periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{2,it}}, 
 #'   which are unrestricted.
-#' @param t_D  List of vectors. The activating break periods \eqn{\tau} 
+#' @param t_D  List of vectors. The activating periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{it}} 
 #'   of the SL-procedure. 
 #'   The accompanying lagged regressors are automatically included in \eqn{d_{it}}. 
@@ -39,7 +39,7 @@
 #'   which contains one matrix for the test statistics and one for the \eqn{p}-values.}
 #' \item{individual}{List for the individual test results, 
 #'   which contains one matrix for the test statistics and one for the \eqn{p}-values.}
-#' \item{CSD}{List of measures for cross-sectional dependency. 
+#' \item{CSD}{List of measures for cross-sectional dependence. 
 #'   \code{NULL} if a first-generation test has been used.}
 #' \item{args_pcoint}{List of characters and integers 
 #'   indicating the panel cointegration test and specifications that have been used.}
@@ -56,7 +56,7 @@ NULL
 #' @param n.factors Integer. Number of common factors to be subtracted 
 #'   for the PANIC by Arsova and Oersal (2017, 2018). 
 #'   Deactivated if \code{FALSE} (the default).
-#' @references Larsson, R., Lyhagen, J., and Lothgren, M. (2001): 
+#' @references Larsson, R., Lyhagen, J., and Loethgren, M. (2001): 
 #'   "Likelihood-based Cointegration Tests in Heterogeneous Panels",
 #'   \emph{Econometrics Journal}, 4, pp. 109-142.
 #' @references Choi, I. (2001): 

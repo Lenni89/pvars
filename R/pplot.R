@@ -4,7 +4,7 @@
 # CRAN manual: https://cran.r-project.org/doc/manuals/R-exts.html#Generic-functions-and-methods
 # Roxygen: https://r-pkgs.org/man.html#man-s3
 
-#' @title Coerce into a '\code{pplot}' object 
+#' @title Coerce into a '\code{pplot}' Object 
 #' @description Coerce into a '\code{pplot}' object. This function allows (1)
 #'   overlaying and colorizing multiple plots of IRF and confidence bands in a single 
 #'   '\code{ggplot}' object and (2) overwriting shock and variable names in

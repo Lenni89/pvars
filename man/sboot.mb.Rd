@@ -2,7 +2,7 @@
 % Please edit documentation in R/sboot.R
 \name{sboot.mb}
 \alias{sboot.mb}
-\title{Bootstrap with residual moving blocks for individual SVAR models}
+\title{Bootstrap with Residual Moving Blocks for Individual SVAR Models}
 \usage{
 sboot.mb(
   x,
@@ -36,7 +36,7 @@ Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in
 but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.}
 
 \item{deltas}{Vector. Numeric weights \eqn{\delta_j} that are successively multiplied 
-to the bias estimate \eqn{\hat{\Psi}} for the stationarity correction in this step. 
+by the bias estimate \eqn{\hat{\Psi}} for the stationarity correction in this step. 
 The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
 \code{deltas = 1} inhibits the stationarity correction, and 
@@ -64,7 +64,7 @@ A list of class '\code{sboot2}' with elements:
 \item{varx}{Input VAR object of class '\code{varx}' 
   that has been subjected to the first-step bias-correction
   and that contains matrix '\code{PSI_bc}', too.}
-\item{nboot}{Number of correct bootstrap iterations.}
+\item{nboot}{Number of valid bootstrap iterations.}
 \item{b_length}{Length of each block.}
 \item{design}{Character indicating that the recursive design bootstrap has been performed.}
 \item{method}{Used bootstrap method.}

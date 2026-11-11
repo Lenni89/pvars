@@ -3,7 +3,7 @@
 \docType{data}
 \name{ERPT}
 \alias{ERPT}
-\title{Data set on the \emph{Exchange Rate Pass-Through}}
+\title{Data Set on the \emph{Exchange Rate Pass-Through}}
 \format{
 A long-format data panel of class '\code{data.frame}', 
   where the columns \code{id_i} and \code{id_t} 
@@ -19,8 +19,8 @@ data("ERPT")
 }
 \description{
 The data set \code{ERPT} consists of 
-  monthly observations for the logarithm of import prices \eqn{lm^*}, 
-  foreign prices \eqn{lf^*}, and the exchange rate against the US dollar \eqn{llcusd}.
+  monthly observations for the logarithm of import prices \eqn{lpm^*}, 
+  foreign prices \eqn{lfp^*}, and the exchange rate against the US dollar \eqn{llcusd}.
   It covers the period January 1995 to March 2005 \eqn{(T=123)} for \eqn{N=7} countries. 
   The asterisk denotes the industry of the variables and can take values from 0 to 8:
   \itemize{

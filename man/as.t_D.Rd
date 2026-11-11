@@ -2,7 +2,7 @@
 % Please edit documentation in R/auxSupp.R
 \name{as.t_D}
 \alias{as.t_D}
-\title{Deterministic regressors in \strong{pvars}}
+\title{Deterministic Regressors in \strong{pvars}}
 \usage{
 as.t_D(x, ...)
 }

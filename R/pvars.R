@@ -40,7 +40,7 @@ NULL
 #' 
 #' \bold{(2)} The panel functions to estimate the VAR models are:
 #' \itemize{
-#' \item \code{\link{pvarx.VAR}} mean-group of a panel of VAR models,
+#' \item \code{\link{pvarx.VAR}} mean-group estimation of a panel VAR model,
 #' \item \code{\link{pvarx.VEC}} pooled cointegrating vectors in a panel VECM.
 #' }
 #' 
@@ -49,8 +49,8 @@ NULL
 #' \item \code{\link{pid.chol}} identification of panel SVAR models using Cholesky decomposition to impose recursive causality,
 #' \item \code{\link{pid.grt}}  identification of panel SVEC models by imposing long- and short-run restrictions,
 #' \item \code{\link{pid.iv}}   identification of panel SVAR models by means of proxy variables,
-#' \item \code{\link{pid.dc}}   independence-based identification of panel SVAR models using distance covariance (DC) statistic,
-#' \item \code{\link{pid.cvm}}  independence-based identification of panel SVAR models using Cramer-von Mises (CVM) distance.
+#' \item \code{\link{pid.dc}}   independence-based identification of panel SVAR models using the distance covariance (DC) statistic,
+#' \item \code{\link{pid.cvm}}  independence-based identification of panel SVAR models using Cramer-von Mises (CvM) distance.
 #' }
 #' 
 #' Supporting tools, such as the specification functions (\code{\link{speci.VAR}}, 
@@ -65,7 +65,7 @@ NULL
 #' Weights for the \emph{Euro Monetary Policy Transmission}
 #' @docType data
 #' @description The data set \code{EU_w} is a vector of 14 elements.
-#'   These are weights for \eqn{N=14} member countries of the Euro area, 
+#'   These are weights for \eqn{N=14} member countries of the euro area, 
 #'   constructed as the average share of their respective real GDP 
 #'   over the sample period in Herwartz, Wang (2024).
 #' @usage data("EU_w")
@@ -82,7 +82,7 @@ NULL
 "EU_w"
 
 
-#' Data set on the \emph{Euro Monetary Policy Transmission}
+#' Data Set on the \emph{Euro Monetary Policy Transmission}
 #' @docType data
 #' @description The data set \code{EURO} is a list of 15 '\code{data.frame}' objects,
 #'   each consisting of quarterly observations for 
@@ -101,7 +101,7 @@ NULL
 #'   \item the government spending in percentage of GDP \eqn{ge}. 
 #'   }
 #'   The data covers the period Q1 2001 to Q1 2020 \eqn{(T=77)} for 
-#'   the aggregate of the Euro area (EA, first element in list) and 
+#'   the aggregate of the euro area (EA, first element in list) and 
 #'   \eqn{N=14} of its member countries (subsequent 14 elements in list).
 #' @usage data("EURO")
 #' @format A list-format data panel of class '\code{list}' 
@@ -118,11 +118,11 @@ NULL
 "EURO"
 
 
-#' Data set on the \emph{Exchange Rate Pass-Through}
+#' Data Set on the \emph{Exchange Rate Pass-Through}
 #' @docType data
 #' @description The data set \code{ERPT} consists of 
-#'   monthly observations for the logarithm of import prices \eqn{lm^*}, 
-#'   foreign prices \eqn{lf^*}, and the exchange rate against the US dollar \eqn{llcusd}.
+#'   monthly observations for the logarithm of import prices \eqn{lpm^*}, 
+#'   foreign prices \eqn{lfp^*}, and the exchange rate against the US dollar \eqn{llcusd}.
 #'   It covers the period January 1995 to March 2005 \eqn{(T=123)} for \eqn{N=7} countries. 
 #'   The asterisk denotes the industry of the variables and can take values from 0 to 8:
 #'   \itemize{
@@ -150,14 +150,14 @@ NULL
 "ERPT"
 
 
-#' Data set on \emph{Infrastructure Capital Stocks}
+#' Data Set on \emph{Infrastructure Capital Stocks}
 #' @docType data
 #' @description The data set \code{ICAP} consists of annual observations for
 #'   \itemize{
 #'   \item the real GDP \eqn{Y} in US dollars, 
 #'   \item the physical capital stocks \eqn{K} in US dollars,
 #'   \item the physical capital stocks \eqn{KBC30} via "backcasting" in US dollars, 
-#'   \item the number of workers \eqn{LWDI} providing the total labor force, and 
+#'   \item the total labor force \eqn{LWDI} in number of workers, and 
 #'   \item the average years of secondary education \eqn{secondary} of the population. 
 #'   }
 #'   It further reports physical measures of infrastructure given by
@@ -170,7 +170,7 @@ NULL
 #'   \item the kilometers of rails \eqn{rails}.
 #'   }
 #'   It covers the period 1960 to 2000 \eqn{(T=41)} for \eqn{N=97} countries.
-#'   The monetary values are given in US-Dollars at 2000 prices, i.e. constant PPP.
+#'   The monetary values are given in US dollars at 2000 prices, i.e. constant PPP.
 #' @usage data("ICAP")
 #' @format A long-format data panel of class '\code{data.frame}', 
 #'   where the columns \code{id_i} and \code{id_t} indicate the country and year 
@@ -185,7 +185,7 @@ NULL
 "ICAP"
 
 
-#' Data set for the \emph{Monetary Demand Model}
+#' Data Set for the \emph{Monetary Demand Model}
 #' @docType data
 #' @description The data set \code{MDEM} consists of 
 #'   annual observations for the nominal short-term interest rate \eqn{R} and 
@@ -215,7 +215,7 @@ NULL
 "MDEM"
 
 
-#' Data set for the \emph{Monetary Exchange Rate Model}
+#' Data Set for the \emph{Monetary Exchange Rate Model}
 #' @docType data
 #' @description The data set \code{MERM} consists of 
 #'   monthly observations for the log-ratios of 
@@ -241,7 +241,7 @@ NULL
 "MERM"
 
 
-#' Data set on \emph{Public Capital Stocks}
+#' Data Set on \emph{Public Capital Stocks}
 #' @docType data
 #' @description The data set \code{PCAP} consists of annual observations for
 #'   \itemize{
@@ -258,7 +258,7 @@ NULL
 #'   \item the persons employed \eqn{ET} and hours worked per person \eqn{HRS}.
 #'   }
 #'   It covers the period 1960 to 2019 \eqn{(T=60)} for \eqn{N=23} OECD countries.
-#'   All monetary values are given in US-Dollars at 2005 prices, i.e. constant PPP.
+#'   All monetary values are given in US dollars at 2005 prices, i.e. constant PPP.
 #' @usage data("PCAP")
 #' @format A long-format data panel of class '\code{data.frame}', 
 #'   where the columns \code{id_i} and \code{id_t} 
@@ -280,7 +280,7 @@ NULL
 "PCAP"
 
 
-#' Data set on \emph{Personal and Corporate Income Tax}
+#' Data Set on \emph{Personal and Corporate Income Tax}
 #' @docType data
 #' @description The data set \code{PCIT} consists of quarterly observations for
 #'   \itemize{

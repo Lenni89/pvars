@@ -2,7 +2,7 @@
 % Please edit documentation in R/pvarx.R
 \name{as.pvarx}
 \alias{as.pvarx}
-\title{Coerce into a '\code{pvarx}' object}
+\title{Coerce into a '\code{pvarx}' Object}
 \usage{
 as.pvarx(x, w = NULL, ...)
 }

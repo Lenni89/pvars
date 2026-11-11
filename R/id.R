@@ -1,6 +1,6 @@
 
 
-#' @title Identification of SVAR models by means of proxy variables
+#' @title Identification of SVAR Models by Means of Proxy Variables
 #' @description Given an estimated VAR model, this function uses proxy variables
 #'   to identify the structural impact matrix \eqn{B} 
 #'   of the corresponding SVAR model
@@ -10,7 +10,7 @@
 #'   column ordering, scale, and sign. For a unique solution, \code{id.iv} 
 #'   follows the literature on proxy SVAR. 
 #'   The \eqn{K_1} columns in \eqn{B = [B_1 : B_2]} of the instrumented 
-#'   shocks \eqn{\epsilon_{tk}, k=1,\ldots,K_1,} are ordered first, and their 
+#'   shocks \eqn{\epsilon_{kt}, k=1,\ldots,K_1,} are ordered first, and their 
 #'   variances \eqn{\sigma^2_{\epsilon,k} = 1} are normalized to unity 
 #'   (see e.g. Mertens, Ravn 2013:1215 and Lunsford 2015:6, Eq. 9). 
 #'   A normalization of the impulsed shock that may fix the size of the impact 
@@ -91,7 +91,7 @@ id.iv <- function(x, iv, S2=c("MR", "JL", "NQ", "LT"), cov_u="OMEGA", dim_K1=NUL
 }
 
 
-#' @title Identification of SVEC models by imposing long- and short-run restrictions
+#' @title Identification of SVEC Models by Imposing Long- and Short-Run Restrictions
 #' @description Identifies an SVEC model by utilizing a scoring algorithm 
 #'   to impose long- and short-run restrictions. 
 #'   See the details of \code{\link[vars]{SVEC}} in \strong{vars}.
@@ -131,7 +131,7 @@ id.iv <- function(x, iv, S2=c("MR", "JL", "NQ", "LT"), cov_u="OMEGA", dim_K1=NUL
 #' 
 #' @examples
 #' ### reproduce basic example in "vars" ###
-#' library(vars)
+#' library("vars")
 #' data("Canada")
 #' names_k = c("prod", "e", "U", "rw")  # variable names
 #' names_s = NULL  # optional shock names

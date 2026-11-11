@@ -2,7 +2,7 @@
 % Please edit documentation in R/rboot.R
 \name{rboot.normality}
 \alias{rboot.normality}
-\title{Bootstrap for JB normality test}
+\title{Bootstrap for JB Normality Test}
 \usage{
 rboot.normality(x, n.boot = 1000, n.cores = 1, fix_beta = FALSE)
 }
@@ -23,7 +23,7 @@ Ignored in case of rank-unrestricted VAR.}
 A list of class '\code{rboot}' with elements:
 \item{sim}{Array of dimension \eqn{(3 \times (1+K) \times} \code{n.boot}) 
   containing the \code{n.boot} iteration results for 
-  \emph{(i)} the JB, skewness and kurtosis tests and for
+  \emph{(i)} the JB, skewness, and kurtosis tests and for
   \emph{(ii)} the multivariate and each univariate test 
   for the \eqn{K} residual time series.}
 \item{stats}{Matrix of dimension \eqn{(3 \times (1+K))} containing the empirical test statistics.}

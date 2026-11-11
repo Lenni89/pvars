@@ -2,7 +2,7 @@
 % Please edit documentation in R/id.R
 \name{id.iv}
 \alias{id.iv}
-\title{Identification of SVAR models by means of proxy variables}
+\title{Identification of SVAR Models by Means of Proxy Variables}
 \usage{
 id.iv(x, iv, S2 = c("MR", "JL", "NQ", "LT"), cov_u = "OMEGA", dim_K1 = NULL)
 }
@@ -38,7 +38,7 @@ Given an estimated VAR model, this function uses proxy variables
   column ordering, scale, and sign. For a unique solution, \code{id.iv} 
   follows the literature on proxy SVAR. 
   The \eqn{K_1} columns in \eqn{B = [B_1 : B_2]} of the instrumented 
-  shocks \eqn{\epsilon_{tk}, k=1,\ldots,K_1,} are ordered first, and their 
+  shocks \eqn{\epsilon_{kt}, k=1,\ldots,K_1,} are ordered first, and their 
   variances \eqn{\sigma^2_{\epsilon,k} = 1} are normalized to unity 
   (see e.g. Mertens, Ravn 2013:1215 and Lunsford 2015:6, Eq. 9). 
   A normalization of the impulsed shock that may fix the size of the impact 

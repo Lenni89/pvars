@@ -456,7 +456,7 @@ aux_ComFact <- function(X, trend=TRUE, scaled=TRUE, SVD=TRUE, n.factors, D=NULL)
   
   # estimate factors and loadings
   ft = sqrt(dim_T-1) * eigenvecs  # common factors as (T-1 x n.factors) matrix
-  Ft = apply(rbind(0, ft),  MARGIN=2, FUN=function(x) cumsum(x))  # cumulate first-differences into levels (without trend if x_it has zero mean)
+  Ft = apply(rbind(0, ft),  MARGIN=2, FUN=function(x) cumsum(x))  # cumulate first differences into levels (without trend if x_it has zero mean)
   LAMBDA = t(xit)%*%ft / (dim_T-1)  # individual loadings as (K*N x n.factors) matrix; by multivariate OLS and normalization ft'ft/(T-1)=ev'ev=I
   
   # estimate idiosyncratic components

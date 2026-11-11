@@ -2,7 +2,7 @@
 % Please edit documentation in R/svarirf.R
 \name{irf.pvarx}
 \alias{irf.pvarx}
-\title{Impulse Response Functions for panel SVAR models}
+\title{Impulse Response Functions for Panel SVAR Models}
 \usage{
 \method{irf}{pvarx}(x, ..., n.ahead = 20, normf = NULL, w = NULL, MG_IRF = FALSE)
 }
@@ -25,10 +25,10 @@ names or \eqn{N} logical elements selecting a subset from the
 individuals \eqn{i = 1, \ldots, N} for the MG estimation. If \code{NULL} 
 (the default), all \eqn{N} individuals are included without weights.}
 
-\item{MG_IRF}{Logical. If \code{TRUE}, the mean-group of individual 
+\item{MG_IRF}{Logical. If \code{TRUE}, the mean group of individual 
 IRF is calculated in accordance with Gambacorta et al. (2014). 
 If \code{FALSE} (the default, recommended in Empting et al. 2026), 
-the IRF is calculated for the mean-group of individual VAR estimates.}
+the IRF is calculated for the mean group of individual VAR estimates.}
 }
 \value{
 A list of class '\code{svarirf}' holding the impulse response functions as a '\code{data.frame}'.

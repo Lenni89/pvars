@@ -2,7 +2,7 @@
 % Please edit documentation in R/varx.R
 \name{as.varx}
 \alias{as.varx}
-\title{Coerce into a '\code{varx}' object}
+\title{Coerce into a '\code{varx}' Object}
 \usage{
 as.varx(x, ...)
 }

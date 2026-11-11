@@ -137,7 +137,7 @@ aux_sico <- function(B, B.orig=NULL, names_s=NULL){
     l2.1 = diag(l2.mat1[,map])
     l2.2 = diag(l2.mat2[,map])
     
-    #sign.change is for re-ordered matrix 2
+    #sign.change is for reordered matrix 2
     sign.change = -1*(l2.2<l2.1) + 1*(l2.1<=l2.2) 
     
     # return result

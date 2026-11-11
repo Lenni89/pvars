@@ -3,7 +3,7 @@
 \docType{data}
 \name{MERM}
 \alias{MERM}
-\title{Data set for the \emph{Monetary Exchange Rate Model}}
+\title{Data Set for the \emph{Monetary Exchange Rate Model}}
 \format{
 A long-format data panel of class '\code{data.frame}', 
   where the columns \code{id_i} and \code{id_t} 

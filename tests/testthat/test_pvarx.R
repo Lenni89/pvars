@@ -132,7 +132,7 @@ test_that("as.pvarx() stops in case of heterogeneous arguments", {
   expect_error(as.pvarx(L.vars_K),
                "The number of variables 'K' must be the same for all individuals.")
   expect_error(as.pvarx(L.vars_r),
-               "The cointegration rank-restriction 'r' must be the same for all individuals.")
+               "The cointegration rank restriction 'r' must be the same for all individuals.")
   expect_error(as.pvarx(L.svars),
                "The identification procedure must be the same for all individuals.")
 })

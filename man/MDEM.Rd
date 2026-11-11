@@ -3,7 +3,7 @@
 \docType{data}
 \name{MDEM}
 \alias{MDEM}
-\title{Data set for the \emph{Monetary Demand Model}}
+\title{Data Set for the \emph{Monetary Demand Model}}
 \format{
 A long-format data panel of class '\code{data.frame}', 
   where the columns \code{id_i} and \code{id_t} 

@@ -4,7 +4,7 @@
 \alias{pvarx}
 \alias{pvarx.VAR}
 \alias{pvarx.VEC}
-\title{Estimation of VAR models for heterogeneous panels}
+\title{Estimation of VAR Models for Heterogeneous Panels}
 \usage{
 pvarx.VAR(
   L.data,
@@ -44,7 +44,7 @@ In the vector, \eqn{p_i} must have the same succession
 
 \item{type}{Character. The conventional case of the \link[=as.t_D]{deterministic term}.}
 
-\item{t_D}{List of vectors. The activating break periods \eqn{\tau} 
+\item{t_D}{List of vectors. The activating periods \eqn{\tau} 
 for the period-specific \link[=as.t_D]{deterministic regressors} 
 in \eqn{d_{it}} of the VAR model in levels.}
 
@@ -62,13 +62,13 @@ for the estimation of SUR resp. the pooled cointegrating vectors.}
 
 \item{dim_r}{Integer. Common cointegration-rank \eqn{r} of the VECM.}
 
-\item{t_D1}{List of vectors. The activating break periods \eqn{\tau} 
+\item{t_D1}{List of vectors. The activating periods \eqn{\tau} 
 for the period-specific \link[=as.t_D]{deterministic regressors} 
 in \eqn{d_{1,it}}, which are restricted to the cointegration relations. 
 Just as in \code{\link{pcoint}}, the 
 accompanying lagged regressors are automatically included in \eqn{d_{2,it}}.}
 
-\item{t_D2}{List of vectors. The activating break periods \eqn{\tau} 
+\item{t_D2}{List of vectors. The activating periods \eqn{\tau} 
 for the period-specific \link[=as.t_D]{deterministic regressors} 
 in \eqn{d_{2,it}}, which are unrestricted.}
 
@@ -86,7 +86,7 @@ to \eqn{d_{2,it}}, which are unrestricted.
 These customized regressors correspond to '\code{dumvar}' in \strong{urca}'s 
 \code{\link[urca]{ca.jo}}, which is fixed over bootstrap iterations.}
 
-\item{idx_pool}{Vector. Position \eqn{k = 1,...,K+n_1} of each variable 
+\item{idx_pool}{Vector. Position \eqn{k = 1,...,K+n_{d1}} of each variable 
 to be pooled using the two-step estimator by Breitung (2005). 
 The integer vector specifies throughout heterogeneous coefficients up to 
 the uniform upper block \eqn{I_{r}} estimated with the individual estimator 
@@ -96,13 +96,13 @@ Deactivated if \code{NULL} (the default).}
 \value{
 A list of class '\code{\link[=as.pvarx]{pvarx}}' with the elements: 
 \item{A}{Matrix. The lined-up coefficient matrices \eqn{A_j, j=1,\ldots,p} 
-        for the lagged variables in the panel VAR estimated by mean-group.}
+        for the lagged variables in the panel VAR estimated by mean group.}
 \item{B}{Matrix. Placeholder for the structural impact matrix.}
 \item{beta}{Matrix. The \eqn{((K+n_{d1}) \times r)} cointegrating matrix
   of the VAR model if transformed from a rank-restricted VECM.}
 \item{L.varx}{List of '\code{varx}' objects for the individual estimation results.}
 \item{L.data}{List of '\code{data.frame}' objects for each individual.}
-\item{CSD}{List of measures for cross-sectional dependency. 
+\item{CSD}{List of measures for cross-sectional dependence. 
   \code{NULL} if the individual VAR models have been estimated under independence.}
 \item{args_pvarx}{List of characters and integers 
   indicating the estimator and specifications that have been used.}
@@ -114,9 +114,9 @@ Performs the (pooled) mean-group estimation of a panel VAR model.
 }
 \section{Functions}{
 \itemize{
-\item \code{pvarx.VAR()}: Mean Group (MG) of VAR models in levels.
+\item \code{pvarx.VAR()}: Mean group (MG) of VAR models in levels.
 
-\item \code{pvarx.VEC()}: (Pooled) Mean Group (PMG) of VECM.
+\item \code{pvarx.VEC()}: (Pooled) mean group (PMG) of VECM.
 
 }}
 \examples{

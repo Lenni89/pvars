@@ -6,7 +6,7 @@
 \alias{pcoint.BR}
 \alias{pcoint.SL}
 \alias{pcoint.CAIN}
-\title{Panel cointegration rank tests}
+\title{Panel Cointegration Rank Tests}
 \usage{
 pcoint.JO(
   L.data,
@@ -44,13 +44,13 @@ In the vector, \eqn{p_i} must have the same succession
 
 \item{type}{Character. The conventional case of the \link[=as.t_D]{deterministic term}.}
 
-\item{t_D1}{List of vectors. The activating break periods \eqn{\tau} 
+\item{t_D1}{List of vectors. The activating periods \eqn{\tau} 
 for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{1,it}}, 
 which are restricted to the cointegration relations. 
 The accompanying lagged regressors are automatically included in \eqn{d_{2,it}}. 
 The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples.}
 
-\item{t_D2}{List of vectors. The activating break periods \eqn{\tau} 
+\item{t_D2}{List of vectors. The activating periods \eqn{\tau} 
 for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{2,it}}, 
 which are unrestricted.}
 
@@ -61,7 +61,7 @@ Deactivated if \code{FALSE} (the default).}
 \item{n.iterations}{Integer. The (maximum) number of iterations for the 
 pooled estimation of the cointegrating vectors.}
 
-\item{t_D}{List of vectors. The activating break periods \eqn{\tau} 
+\item{t_D}{List of vectors. The activating periods \eqn{\tau} 
 for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{it}} 
 of the SL-procedure. 
 The accompanying lagged regressors are automatically included in \eqn{d_{it}}. 
@@ -75,7 +75,7 @@ A list of class '\code{pcoint}' with elements:
   which contains one matrix for the test statistics and one for the \eqn{p}-values.}
 \item{individual}{List for the individual test results, 
   which contains one matrix for the test statistics and one for the \eqn{p}-values.}
-\item{CSD}{List of measures for cross-sectional dependency. 
+\item{CSD}{List of measures for cross-sectional dependence. 
   \code{NULL} if a first-generation test has been used.}
 \item{args_pcoint}{List of characters and integers 
   indicating the panel cointegration test and specifications that have been used.}
@@ -142,7 +142,7 @@ R.cain = pcoint.CAIN(L.data, lags=R.lags, t_D=R.t_D, type="SL_trend")
 
 }
 \references{
-Larsson, R., Lyhagen, J., and Lothgren, M. (2001): 
+Larsson, R., Lyhagen, J., and Loethgren, M. (2001): 
   "Likelihood-based Cointegration Tests in Heterogeneous Panels",
   \emph{Econometrics Journal}, 4, pp. 109-142.
 

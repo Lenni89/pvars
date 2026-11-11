@@ -8,7 +8,7 @@ subtitle: pvars - VAR Modeling for Heterogeneous Panels
 # pvars 1.2.0
 
 ### Features: 
-* `pid.iv` and `id.iv` now allow to impose all listed `S2` restrictions on SVD 
+* `pid.iv` and `id.iv` now allow imposing all listed `S2` restrictions on SVD 
 results automatically.
 
 ### Removed: 

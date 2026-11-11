@@ -3,7 +3,7 @@
 \docType{data}
 \name{ICAP}
 \alias{ICAP}
-\title{Data set on \emph{Infrastructure Capital Stocks}}
+\title{Data Set on \emph{Infrastructure Capital Stocks}}
 \format{
 A long-format data panel of class '\code{data.frame}', 
   where the columns \code{id_i} and \code{id_t} indicate the country and year 
@@ -23,7 +23,7 @@ The data set \code{ICAP} consists of annual observations for
   \item the real GDP \eqn{Y} in US dollars, 
   \item the physical capital stocks \eqn{K} in US dollars,
   \item the physical capital stocks \eqn{KBC30} via "backcasting" in US dollars, 
-  \item the number of workers \eqn{LWDI} providing the total labor force, and 
+  \item the total labor force \eqn{LWDI} in number of workers, and 
   \item the average years of secondary education \eqn{secondary} of the population. 
   }
   It further reports physical measures of infrastructure given by
@@ -36,7 +36,7 @@ The data set \code{ICAP} consists of annual observations for
   \item the kilometers of rails \eqn{rails}.
   }
   It covers the period 1960 to 2000 \eqn{(T=41)} for \eqn{N=97} countries.
-  The monetary values are given in US-Dollars at 2000 prices, i.e. constant PPP.
+  The monetary values are given in US dollars at 2000 prices, i.e. constant PPP.
 }
 \references{
 Calderon, C., Moral-Benito, E., and Serven, L. (2015): 

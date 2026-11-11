@@ -1,6 +1,6 @@
 
 
-#' @title Bootstrap with residual moving blocks for individual SVAR models
+#' @title Bootstrap with Residual Moving Blocks for Individual SVAR Models
 #' @description Calculates confidence bands for impulse response functions via recursive-design bootstrap.
 #'   Bias-adjusted estimates are calculated if a bias term for the VAR coefficients is included.
 #'   For a bootstrap-after-bootstrap, this bias term can be obtained from a first-step run of \code{sboot.mb}.
@@ -18,7 +18,7 @@
 #'   Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in \code{vars:::.bootsvec}, 
 #'   but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.
 #' @param deltas Vector. Numeric weights \eqn{\delta_j} that are successively multiplied 
-#'   to the bias estimate \eqn{\hat{\Psi}} for the stationarity correction in this step. 
+#'   by the bias estimate \eqn{\hat{\Psi}} for the stationarity correction in this step. 
 #'   The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 #'   to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
 #'   \code{deltas = 1} inhibits the stationarity correction, and 
@@ -44,7 +44,7 @@
 #' \item{varx}{Input VAR object of class '\code{varx}' 
 #'   that has been subjected to the first-step bias-correction
 #'   and that contains matrix '\code{PSI_bc}', too.}
-#' \item{nboot}{Number of correct bootstrap iterations.}
+#' \item{nboot}{Number of valid bootstrap iterations.}
 #' \item{b_length}{Length of each block.}
 #' \item{design}{Character indicating that the recursive design bootstrap has been performed.}
 #' \item{method}{Used bootstrap method.}
@@ -307,7 +307,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 }
 
 
-#' @title Bootstrap with residual panel blocks for panel SVAR models
+#' @title Bootstrap with Residual Panel Blocks for Panel SVAR Models
 #' @description Calculates confidence bands for impulse response functions via recursive-design bootstrap. 
 #'   Bias-adjusted estimates are calculated if bias terms for the VAR coefficients are included.
 #'   For a bootstrap-after-bootstrap, these bias terms can be obtained from a first-step run of \code{sboot.pmb}.
@@ -324,7 +324,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   by Empting et al. (2026) is performed.
 #' @param b.dim Vector of two integers. The dimensions \eqn{(b_{(t)}, b_{(i)})} 
 #'   of each residual panel block for temporal and cross-sectional resampling. The default 
-#'   \code{c(1, 1)} specifies an \eqn{i.i.d.} resampling in both dimensions, 
+#'   \code{c(1, 1)} specifies an \emph{iid} resampling in both dimensions, 
 #'   \code{c(1, FALSE)} a temporal resampling, and 
 #'   \code{c(FALSE, 1)} a cross-sectional resampling. 
 #'   Integers \eqn{> 1} assemble blocks of consecutive residuals. 
@@ -336,7 +336,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in \code{vars:::.bootsvec}, 
 #'   but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.
 #' @param deltas Vector. Numeric weights \eqn{\delta_j} that are successively multiplied 
-#'   to each bias estimate \eqn{\hat{\Psi}_i} for the stationarity correction in this step. 
+#'   by each bias estimate \eqn{\hat{\Psi}_i} for the stationarity correction in this step. 
 #'   The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 #'   to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
 #'   \code{deltas = 1} (used in Empting et al. 2026) inhibits the stationarity correction, and 
@@ -351,13 +351,13 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   names or \eqn{N} logical elements selecting a subset from the 
 #'   individuals \eqn{i = 1, \ldots, N} for the MG estimation. If \code{NULL} 
 #'   (the default), all \eqn{N} individuals are included without weights.
-#' @param MG_IRF Logical. If \code{TRUE}, the mean-group of individual 
+#' @param MG_IRF Logical. If \code{TRUE}, the mean group of individual 
 #'   IRF is calculated in accordance with Gambacorta et al. (2014). 
 #'   If \code{FALSE} (the default, recommended in Empting et al. 2026), 
-#'   the IRF is calculated for the mean-group of individual VAR estimates.
+#'   the IRF is calculated for the mean group of individual VAR estimates.
 #' 
 #' @return A list of class '\code{sboot2}' with elements:
-#' \item{true}{Mean group estimate of impulse response functions.}
+#' \item{true}{Mean-group estimate of impulse response functions.}
 #' \item{bootstrap}{List of length \code{nboot} holding bootstrap impulse response functions.}
 #' \item{A}{List for the VAR coefficients containing 
 #'   the matrix of point estimates '\code{par}' and 
@@ -372,7 +372,7 @@ sboot.mb <- function(x, b.length=1, n.ahead=20, n.boot=500, n.cores=1, fix_beta=
 #'   that has been subjected to the first-step bias-correction
 #'   and that contains list '\code{L.PSI_bc}', too.}
 #' \item{b.dim}{Dimensions of each block.}
-#' \item{nboot}{Number of correct bootstrap iterations.}
+#' \item{nboot}{Number of valid bootstrap iterations.}
 #' \item{design}{Character indicating that the recursive design bootstrap has been performed.}
 #' \item{method}{Used bootstrap method.}
 #' \item{stars_t}{Matrix of (\eqn{T \times }\code{n.boot}) integers containing 
@@ -676,10 +676,10 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
 }
 
 
-#' @title Mean group inference for panel SVAR models
-#' @description Calculates confidence bands for impulse response functions via mean group inference. 
+#' @title Mean-Group Inference for Panel SVAR Models
+#' @description Calculates confidence bands for impulse response functions via mean-group inference. 
 #'   The function does not perform bootstraps, but coerces the panel VAR object to class '\code{sboot}'
-#'   and, therewith, gives a distributional overview on the estimated parameter heterogeneity.
+#'   and, thereby, gives a distributional overview of the estimated parameter heterogeneity.
 #' @details MG inference presumes the individual estimates to be the empirical variation 
 #'   around a common parameter. In case of heterogeneous lag-orders \eqn{p_i},
 #'   specifically the '\code{summary}' of VAR coefficient matrices fills 
@@ -699,16 +699,17 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
 #'   (the default), all \eqn{N} individuals are included.
 #' 
 #' @return A list of class '\code{sboot2}' with elements:
-#' \item{true}{Mean group estimate of impulse response functions.}
+#' \item{true}{Mean-group estimate of impulse response functions.}
 #' \item{bootstrap}{List of length \eqn{N} holding the individual impulse response functions.}
 #' \item{A}{List for the VAR coefficients containing 
-#'   the matrix of mean group estimates '\code{par}' and 
+#'   the matrix of mean-group estimates '\code{par}' and 
 #'   the array of individual results '\code{sim}'.}
 #' \item{B}{List for the structural impact matrix containing 
-#'   the matrix of mean group estimates '\code{par}' and 
+#'   the matrix of mean-group estimates '\code{par}' and 
 #'   the array of individual results '\code{sim}'.}
 #' \item{pvarx}{Input panel VAR object of class '\code{pvarx}'.}
 #' \item{nboot}{Integer '0' indicating that no bootstrap iteration has been performed.}
+#' \item{design}{Character indicating that mean-group percentiles are calculated.}
 #' \item{method}{Method used for inference.}
 #' 
 #' @seealso For an actual panel bootstrap procedure see \code{\link{sboot.pmb}}.
@@ -726,7 +727,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
 #'   simplify=FALSE)
 #' R.lags = c(2, 4, 2, 3, 2, 4, 4, 2, 2, 3, 3, 3, 2, 4, 4, 2, 2, 2, 4, 2, 2, 2, 4)
 #' names(R.lags) = names_i
-#' idx_nord = c("DNK", "FIN", "ISL", "SWE")
+#' idx_nord = c("DNK", "FIN", "ISL", "NOR", "SWE")
 #' 
 #' R.pvec = pvarx.VEC(L.data, lags=R.lags, dim_r=2, type="Case4")
 #' R.pid  = pid.chol(R.pvec)
@@ -736,7 +737,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
 #' 
 #' # suppress imprecise results of restricted cointegrating coefficients #
 #' dim_r = R.pvec$args_pvarx$dim_r
-#' R.boot$beta$sim[ , 1:dim_r, ] = diag(dim_r)  # for normalized beta
+#' R.boot$beta$sim[1:dim_r, 1:dim_r, ] = diag(dim_r)  # for normalized beta
 #' summary(R.boot, idx_par="beta", level=0.95)
 #' 
 #' @export
@@ -760,8 +761,8 @@ sboot.mg <- function(x, n.ahead=20, normf=NULL, idx_i=NULL){
                 pvarx = R.pvarx,
                 nboot = 0,
                 rest_mat = matrix(NA, nrow=dim_K, ncol=dim_S),  # for 'bonferroni'
-                design = NULL,
-                method = "Mean group inference")
+                design = "percentile",
+                method = "Mean-group inference")
   class(result) = c("sboot2", "sboot")
   return(result)
 }
@@ -775,7 +776,7 @@ print.sboot2 <- function(x, ...){
   
   # print
   cat(header_args, "\n", sep="")
-  cat("To get a distributional overview on the parameter matrices, \n")
+  cat("To get a distributional overview of the parameter matrices, \n")
   cat("select 'summary(object, idx_par='A')' for the VAR coefficients \n")
   cat("or 'summary(object, idx_par='B')' for the structural impact matrix. \n")
   cat("\n", paste0(c("Specifications", rep(".", times=20))), sep="", "\n")

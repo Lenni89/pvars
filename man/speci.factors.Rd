@@ -2,7 +2,7 @@
 % Please edit documentation in R/speci.R
 \name{speci.factors}
 \alias{speci.factors}
-\title{Criteria on the number of common factors}
+\title{Criteria on the Number of Common Factors}
 \usage{
 speci.factors(
   L.data,
@@ -16,7 +16,7 @@ speci.factors(
 }
 \arguments{
 \item{L.data}{List of \eqn{N} \code{data.frame} objects each collecting the \eqn{K_i} time series along the rows \eqn{t=1,\ldots,T}.
-The \eqn{\sum_{i=1}^{N} K_i = NK} time series are immediately combined into the \eqn{T \times KN} data panel \code{X}.}
+The \eqn{\sum_{i=1}^{N} K_i} time series are immediately combined into the \eqn{T \times \sum_{i=1}^{N} K_i} data panel \code{X}.}
 
 \item{k_max}{Integer. The maximum number of factors to consider.}
 

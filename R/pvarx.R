@@ -1,6 +1,6 @@
 
 
-#' @title Estimation of VAR models for heterogeneous panels
+#' @title Estimation of VAR Models for Heterogeneous Panels
 #' @description Performs the (pooled) mean-group estimation of a panel VAR model. 
 #'   First, VAR models are estimated for all \eqn{N} individual entities. 
 #'   Then, their (pooled) mean-group estimate is calculated for each coefficient.
@@ -22,13 +22,13 @@
 #' 
 #' @return A list of class '\code{\link[=as.pvarx]{pvarx}}' with the elements: 
 #' \item{A}{Matrix. The lined-up coefficient matrices \eqn{A_j, j=1,\ldots,p} 
-#'         for the lagged variables in the panel VAR estimated by mean-group.}
+#'         for the lagged variables in the panel VAR estimated by mean group.}
 #' \item{B}{Matrix. Placeholder for the structural impact matrix.}
 #' \item{beta}{Matrix. The \eqn{((K+n_{d1}) \times r)} cointegrating matrix
 #'   of the VAR model if transformed from a rank-restricted VECM.}
 #' \item{L.varx}{List of '\code{varx}' objects for the individual estimation results.}
 #' \item{L.data}{List of '\code{data.frame}' objects for each individual.}
-#' \item{CSD}{List of measures for cross-sectional dependency. 
+#' \item{CSD}{List of measures for cross-sectional dependence. 
 #'   \code{NULL} if the individual VAR models have been estimated under independence.}
 #' \item{args_pvarx}{List of characters and integers 
 #'   indicating the estimator and specifications that have been used.}
@@ -58,8 +58,8 @@
 NULL
 
 
-#' @describeIn pvarx Mean Group (MG) of VAR models in levels.
-#' @param t_D List of vectors. The activating break periods \eqn{\tau} 
+#' @describeIn pvarx Mean group (MG) of VAR models in levels.
+#' @param t_D List of vectors. The activating periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} 
 #'   in \eqn{d_{it}} of the VAR model in levels.
 #' @param D List. A single '\code{data.frame}' of common deterministic 
@@ -96,7 +96,7 @@ pvarx.VAR <- function(L.data, lags, type=c("const", "trend", "both", "none"),
   L.D     = aux_check(D, "D", dim_N, names_i)
   if( is.null(names_i) ){ names_i = 1:dim_N }
   
-  # estimate individual VAR models and their panel mean-group
+  # estimate individual VAR models and their panel mean group
   L.def = sapply(names_i, FUN=function(i) aux_stackOLS(L.y[[i]], dim_p=L.dim_p[[i]], type=type, t_D=L.t_D[[i]], D=L.D[[i]]), simplify=FALSE)
   R.est = aux_pvar(L.def, n.factors=n.factors, n.iterations=n.iterations)  # OLS if n.factors==0
   R.mgA = aux_MG(R.est$L.varx, idx_par="A")
@@ -113,13 +113,13 @@ pvarx.VAR <- function(L.data, lags, type=c("const", "trend", "both", "none"),
 }
 
 
-#' @describeIn pvarx (Pooled) Mean Group (PMG) of VECM.
-#' @param t_D1 List of vectors. The activating break periods \eqn{\tau} 
+#' @describeIn pvarx (Pooled) mean group (PMG) of VECM.
+#' @param t_D1 List of vectors. The activating periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} 
 #'   in \eqn{d_{1,it}}, which are restricted to the cointegration relations. 
 #'   Just as in \code{\link{pcoint}}, the 
 #'   accompanying lagged regressors are automatically included in \eqn{d_{2,it}}.
-#' @param t_D2 List of vectors. The activating break periods \eqn{\tau} 
+#' @param t_D2 List of vectors. The activating periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} 
 #'   in \eqn{d_{2,it}}, which are unrestricted.
 #' @param D1 List. A single '\code{data.frame}' of common deterministic 
@@ -135,7 +135,7 @@ pvarx.VAR <- function(L.data, lags, type=c("const", "trend", "both", "none"),
 #'   These customized regressors correspond to '\code{dumvar}' in \strong{urca}'s 
 #'   \code{\link[urca]{ca.jo}}, which is fixed over bootstrap iterations.
 #' @param dim_r Integer. Common cointegration-rank \eqn{r} of the VECM.
-#' @param idx_pool Vector. Position \eqn{k = 1,...,K+n_1} of each variable 
+#' @param idx_pool Vector. Position \eqn{k = 1,...,K+n_{d1}} of each variable 
 #'   to be pooled using the two-step estimator by Breitung (2005). 
 #'   The integer vector specifies throughout heterogeneous coefficients up to 
 #'   the uniform upper block \eqn{I_{r}} estimated with the individual estimator 
@@ -186,7 +186,7 @@ pvarx.VEC <- function(L.data, lags, dim_r,
     name_ec = "GLS"
   }
   
-  # estimate individual VECM (with option to pool cointegrating vectors) and their panel mean-group
+  # estimate individual VECM (with option to pool cointegrating vectors) and their panel mean group
   L.def = sapply(names_i, FUN=function(i) aux_stackRRR(L.y[[i]], dim_p=L.dim_p[i], type=type, t_D1=L.t_D1[[i]], t_D2=L.t_D2[[i]], D1=L.D1[[i]], D2=L.D2[[i]]), simplify=FALSE)
   R.est = aux_pvec(L.def, L.beta=NULL, dim_r=dim_r, idx_pool=idx_pool, n.factors=n.factors, n.iterations=n.iterations)  # RRR if n.factors==0 and is.null(idx_pool)
   R.mgB = aux_MG(R.est$L.varx, idx_par="B")
@@ -284,7 +284,7 @@ summary.pvarx <- function(object, ..., modulus=TRUE, digits=3){
 # CRAN manual: https://cran.r-project.org/doc/manuals/R-exts.html#Generic-functions-and-methods
 # Roxygen: https://r-pkgs.org/man.html#man-s3
 
-#' @title Coerce into a '\code{pvarx}' object
+#' @title Coerce into a '\code{pvarx}' Object
 #' @description Coerce into a '\code{pvarx}' object. On top of the parent class 
 #'   '\code{pvarx}', the child class '\code{pid}' is imposed if the input object 
 #'   to be transformed contains a panel SVAR model. 
@@ -369,7 +369,7 @@ as.pvarx.default <- function(x, w=NULL, ...){
     if( !all(dim_K == L.dim_K) ){ 
       stop("The number of variables 'K' must be the same for all individuals.") }
     if(is_r){  if( !all(sapply(L.dim_r, FUN=function(x_i) identical(x_i, dim_r))) ){ 
-      stop("The cointegration rank-restriction 'r' must be the same for all individuals.") }}
+      stop("The cointegration rank restriction 'r' must be the same for all individuals.") }}
     if(is_id){ if( !all(sapply(L.argID, FUN=function(x_i) identical(x_i, L.argID[[1]]))) ){ 
       stop("The identification procedure must be the same for all individuals.") }}
     if(is_iv){ if( !all(dim_L == L.dim_L) ){ 
@@ -377,7 +377,7 @@ as.pvarx.default <- function(x, w=NULL, ...){
     
     # add panel estimates
     if(is.null(dim_r)){
-      # estimate panel mean-group for VAR
+      # estimate panel mean group for VAR
       R.mgA = aux_MG(L.varx, w=w, idx_par="A")
       R.mgB = aux_MG(L.varx, w=w, idx_par="B")
       
@@ -388,7 +388,7 @@ as.pvarx.default <- function(x, w=NULL, ...){
                     L.varx=L.varx, L.data=L.data, args_pvarx=args_pvarx)
       
     }else{
-      # estimate panel mean-group for rank-restricted VAR
+      # estimate panel mean group for rank-restricted VAR
       vecm = list(
         alpha = aux_MG(L.varx, w=w, idx_par="alpha"),
         beta  = aux_MG(L.varx, w=w, idx_par="beta"),
@@ -428,7 +428,7 @@ as.pvarx.pvarx <- function(x, w=NULL, ...){
   }else if(identical(w, x$args_pvarx$w)){
     return(x)
    
-  # add panel mean-group for VAR under new 'w' 
+  # add panel mean group for VAR under new 'w' 
   }else if(is.null(x$args_pvarx$dim_r)){
     x$MG_A = aux_MG(x$L.varx, w=w, idx_par="A")
     x$MG_B = aux_MG(x$L.varx, w=w, idx_par="B")
@@ -437,7 +437,7 @@ as.pvarx.pvarx <- function(x, w=NULL, ...){
     x$args_pvarx$w = w
     return(x)
   
-  # add panel mean-group for rank-restricted VAR under new 'w'
+  # add panel mean group for rank-restricted VAR under new 'w'
   }else{
     dim_p = max(sapply(x$L.varx, FUN=function(x_i) x_i$dim_p))
     vecm  = list(

@@ -2,7 +2,7 @@
 % Please edit documentation in R/sboot.R
 \name{sboot.pmb}
 \alias{sboot.pmb}
-\title{Bootstrap with residual panel blocks for panel SVAR models}
+\title{Bootstrap with Residual Panel Blocks for Panel SVAR Models}
 \usage{
 sboot.pmb(
   x,
@@ -27,7 +27,7 @@ by Empting et al. (2026) is performed.}
 
 \item{b.dim}{Vector of two integers. The dimensions \eqn{(b_{(t)}, b_{(i)})} 
 of each residual panel block for temporal and cross-sectional resampling. The default 
-\code{c(1, 1)} specifies an \eqn{i.i.d.} resampling in both dimensions, 
+\code{c(1, 1)} specifies an \emph{iid} resampling in both dimensions, 
 \code{c(1, FALSE)} a temporal resampling, and 
 \code{c(FALSE, 1)} a cross-sectional resampling. 
 Integers \eqn{> 1} assemble blocks of consecutive residuals.}
@@ -44,7 +44,7 @@ Use this for VECM with known \eqn{\beta}, too. Note that \eqn{\beta} is fixed in
 but not in \code{vars:::.bootirfsvec} or \code{vars:::.bootirfvec2var}.}
 
 \item{deltas}{Vector. Numeric weights \eqn{\delta_j} that are successively multiplied 
-to each bias estimate \eqn{\hat{\Psi}_i} for the stationarity correction in this step. 
+by each bias estimate \eqn{\hat{\Psi}_i} for the stationarity correction in this step. 
 The default weights \code{deltas = cumprod((100:0)/100)} correspond 
 to the iterative correction procedure of Step 1b in Kilian (1998). Choosing 
 \code{deltas = 1} (used in Empting et al. 2026) inhibits the stationarity correction, and 
@@ -62,14 +62,14 @@ names or \eqn{N} logical elements selecting a subset from the
 individuals \eqn{i = 1, \ldots, N} for the MG estimation. If \code{NULL} 
 (the default), all \eqn{N} individuals are included without weights.}
 
-\item{MG_IRF}{Logical. If \code{TRUE}, the mean-group of individual 
+\item{MG_IRF}{Logical. If \code{TRUE}, the mean group of individual 
 IRF is calculated in accordance with Gambacorta et al. (2014). 
 If \code{FALSE} (the default, recommended in Empting et al. 2026), 
-the IRF is calculated for the mean-group of individual VAR estimates.}
+the IRF is calculated for the mean group of individual VAR estimates.}
 }
 \value{
 A list of class '\code{sboot2}' with elements:
-\item{true}{Mean group estimate of impulse response functions.}
+\item{true}{Mean-group estimate of impulse response functions.}
 \item{bootstrap}{List of length \code{nboot} holding bootstrap impulse response functions.}
 \item{A}{List for the VAR coefficients containing 
   the matrix of point estimates '\code{par}' and 
@@ -84,7 +84,7 @@ A list of class '\code{sboot2}' with elements:
   that has been subjected to the first-step bias-correction
   and that contains list '\code{L.PSI_bc}', too.}
 \item{b.dim}{Dimensions of each block.}
-\item{nboot}{Number of correct bootstrap iterations.}
+\item{nboot}{Number of valid bootstrap iterations.}
 \item{design}{Character indicating that the recursive design bootstrap has been performed.}
 \item{method}{Used bootstrap method.}
 \item{stars_t}{Matrix of (\eqn{T \times }\code{n.boot}) integers containing 

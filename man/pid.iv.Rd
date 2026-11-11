@@ -2,7 +2,7 @@
 % Please edit documentation in R/pid_dta.R
 \name{pid.iv}
 \alias{pid.iv}
-\title{Identification of panel SVAR models by means of proxy variables}
+\title{Identification of Panel SVAR Models by Means of Proxy Variables}
 \usage{
 pid.iv(
   x,
@@ -49,7 +49,7 @@ List of class '\code{pid}' with elements:
   to which the structural impact matrices \eqn{B_i} have been added.}
 \item{eps0}{Matrix. The combined whitened residuals \eqn{\epsilon_{0}} 
   to which the pooled identification procedure has been applied subsequently.
-  These are still the unrotated baseline shocks! 
+  Note that these are the unrotated baseline shocks.
   \code{NULL} if '\code{indiv}' identifications have been used.}
 \item{Q}{Matrix. The orthogonal matrix suggested by the pooled identification 
   procedure. \code{NULL} if '\code{indiv}' identifications have been used.}
@@ -67,7 +67,7 @@ Given an estimated panel VAR model, this function
   In general, identification procedures determine \eqn{B_i} up to column ordering, scale, and sign. 
   For a unique solution, \code{pid.iv} follows the literature on proxy SVAR. 
   The \eqn{K_1} columns in \eqn{B_i = [B_{i,1} : B_{i,2}]} of the instrumented 
-  shocks \eqn{\epsilon_{itk}, k=1,\ldots,K_1,} are ordered first, and their 
+  shocks \eqn{\epsilon_{k,it}, k=1,\ldots,K_1,} are ordered first, and their 
   variances \eqn{\sigma^2_{\epsilon,ik} = 1} are normalized to unity  
   (see e.g. Mertens, Ravn 2013:1215 and Lunsford 2015:6, Eq. 9). 
   A normalization of the impulsed shock that may fix the size of the impact 

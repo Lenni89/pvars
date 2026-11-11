@@ -2,7 +2,7 @@
 % Please edit documentation in R/pid_thr.R
 \name{pid.grt}
 \alias{pid.grt}
-\title{Identification of panel SVEC models by imposing long- and short-run restrictions}
+\title{Identification of Panel SVEC Models by Imposing Long- and Short-Run Restrictions}
 \usage{
 pid.grt(
   x,

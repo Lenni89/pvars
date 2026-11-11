@@ -1,13 +1,13 @@
 
 
-#' @title Criteria on the number of common factors
+#' @title Criteria on the Number of Common Factors
 #' @description Determines the number of factors in an approximate factor model
 #'   for a data panel, where both dimensions \eqn{(T \times KN)} are large, 
 #'   and calculates the factor time series and corresponding list of \eqn{N} idiosyncratic components.
 #'   See Corona et al. (2017) for an overview and further details.
 #'   
 #' @param L.data List of \eqn{N} \code{data.frame} objects each collecting the \eqn{K_i} time series along the rows \eqn{t=1,\ldots,T}.
-#'   The \eqn{\sum_{i=1}^{N} K_i = NK} time series are immediately combined into the \eqn{T \times KN} data panel \code{X}.
+#'   The \eqn{\sum_{i=1}^{N} K_i} time series are immediately combined into the \eqn{T \times \sum_{i=1}^{N} K_i} data panel \code{X}.
 #' @param k_max Integer. The maximum number of factors to consider.
 #' @param n.iterations Integer. Number of iterations for the Onatski criterion.
 #' @param differenced Logical. If \code{TRUE}, each time series of the panel 
@@ -120,7 +120,7 @@ speci.factors <- function(L.data, k_max=20, n.iterations=4, differenced=FALSE, c
   # number of principal components
   dim_C2 = length(evals)  # min(dim(X))
   if(k_max > dim_C2){
-    warning("k_max supasses the minimum dimension of the data matrix. 'k_max = 0.1*min(dim(X)' has been used instead")
+    warning("k_max surpasses the minimum dimension of the data matrix. 'k_max = 0.1*min(dim(X))' has been used instead")
     k_max = round(0.1*dim_C2)
   }
   
@@ -141,7 +141,7 @@ speci.factors <- function(L.data, k_max=20, n.iterations=4, differenced=FALSE, c
     ft = sqrt(dim_T-differenced) * evecs  # common factors as (T-1 x n.factors) matrix
     LAMBDA = t(xit)%*%ft / (dim_T-differenced)  # loadings as (K*N x n.factors) matrix
     if(differenced){
-      Ft = apply(rbind(0, ft),  MARGIN=2, FUN=function(x) cumsum(x)) # cumulate first-differences into levels, see Bai,Ng (2004)
+      Ft = apply(rbind(0, ft),  MARGIN=2, FUN=function(x) cumsum(x)) # cumulate first differences into levels, see Bai,Ng (2004)
     }else{ Ft = ft }
     et = X - Ft%*%t(LAMBDA)  # idiosyncratic components as (T x K*N) matrix
     
@@ -171,7 +171,7 @@ speci.factors <- function(L.data, k_max=20, n.iterations=4, differenced=FALSE, c
 }
 
 
-#' @title Criteria on the lag-order and break period(s)
+#' @title Criteria on the Lag Order and Break Period(s)
 #' @description Determines the lag-order \eqn{p} and break period(s) \eqn{\tau} 
 #'   jointly via information criteria on the OLS-estimated VAR model for a given 
 #'   number of breaks. These \eqn{m} breaks are common to all \eqn{K} equations 
@@ -237,7 +237,7 @@ speci.factors <- function(L.data, k_max=20, n.iterations=4, differenced=FALSE, c
 #'   They use dynamic programming to reduce the number of least-squares operations. 
 #'   Although adapting their streamlined set of admissible combinations for \eqn{\tau}, 
 #'   \code{\link{speci.VAR}} still resorts to (parallelized brute-force) OLS estimation 
-#'   of all candidate VAR models and therewith circumvents issues of correct 
+#'   of all candidate VAR models and thereby circumvents issues of correct 
 #'   initialization and iterative updating for the models with partial breaks.
 #'   
 #' @references Bai, J., and Perron, P. (1998): 

@@ -49,7 +49,7 @@ tikz(file=paste0(path_fig, "Fig_Scree.tex"), width=textwidth, height=0.35*textwi
   plot(F.scree)
 dev.off()
 
-# Arsova,Oersal 2017:67, Tab.5 #
+# Oersal,Arsova 2017:67, Tab.5 #
 R.pcsl = pcoint.SL(L.data, lags=R.lags, type="SL_trend", n.factors=8)  # eight factors by Onatski criterion
 R.pcjo = pcoint.JO(L.data, lags=R.lags, type="Case4",    n.factors=8)
 
@@ -57,7 +57,7 @@ sink(file=paste0(path_tab, "Tab_MERM.tex"))
   toLatex(R.pcsl)
 sink(file=NULL)
 
-# Arsova,Oersal 2017:71, Fig.4 #
+# Oersal,Arsova 2017:71, Fig.4 #
 Ft   = ts(R.pcsl$CSD$Ft, start=c(1995, 1), frequency=12)
 F.Ft = autoplot(Ft, facets=FALSE, size=1.75) + theme_bw() + 
   scale_color_brewer(palette="Spectral") +
@@ -67,7 +67,7 @@ tikz(file=paste0(path_fig, "Fig_Factors.tex"), width=textwidth, height=0.4*textw
   plot(F.Ft)
 dev.off()
 
-# Arsova,Oersal 2017:67, Tab.6 #
+# Oersal,Arsova 2017:67, Tab.6 #
 vars::VARselect(Ft, lag.max=4, type="both")$selection
 speci.VAR(vars::VAR(Ft, p=1, type="both"), lag_set=1:4, type="both")
 R.Ftsl = coint.SL(y=R.pcsl$CSD$Ft, dim_p=2, type_SL="SL_trend")  # lag-order by AIC

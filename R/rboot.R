@@ -1,6 +1,6 @@
 
 
-#' @title Bootstrap for JB normality test
+#' @title Bootstrap for JB Normality Test
 #' @description Bootstraps the distribution of the Jarque-Bera test 
 #'   for individual VAR and VECM as described by Kilian, Demiroglu (2000).
 #' @param x VAR object of class '\code{varx}' or any other 
@@ -15,7 +15,7 @@
 #' @return A list of class '\code{rboot}' with elements:
 #' \item{sim}{Array of dimension \eqn{(3 \times (1+K) \times} \code{n.boot}) 
 #'   containing the \code{n.boot} iteration results for 
-#'   \emph{(i)} the JB, skewness and kurtosis tests and for
+#'   \emph{(i)} the JB, skewness, and kurtosis tests and for
 #'   \emph{(ii)} the multivariate and each univariate test 
 #'   for the \eqn{K} residual time series.}
 #' \item{stats}{Matrix of dimension \eqn{(3 \times (1+K))} containing the empirical test statistics.}

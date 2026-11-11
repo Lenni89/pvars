@@ -18,7 +18,7 @@ data("EU_w")
 }
 \description{
 The data set \code{EU_w} is a vector of 14 elements.
-  These are weights for \eqn{N=14} member countries of the Euro area, 
+  These are weights for \eqn{N=14} member countries of the euro area, 
   constructed as the average share of their respective real GDP 
   over the sample period in Herwartz, Wang (2024).
 }

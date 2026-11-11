@@ -20,7 +20,7 @@ This package implements (1) panel cointegration rank tests, (2) estimators for p
 
 **(2)** The panel functions to estimate the VAR models are: 
 
--   `pvarx.VAR()` mean-group of a panel of VAR models, 
+-   `pvarx.VAR()` mean-group estimation of a panel VAR model, 
 -   `pvarx.VEC()` pooled cointegrating vectors in a panel VECM.
 
 **(3)** The panel functions to retrieve structural impact matrices are: 
@@ -28,8 +28,8 @@ This package implements (1) panel cointegration rank tests, (2) estimators for p
 -   `pid.chol()` identification of panel SVAR models using Cholesky decomposition to impose recursive causality, 
 -   `pid.grt()` identification of panel SVEC models, 
 -   `pid.iv()` identification of panel SVAR models by means of proxy variables, 
--   `pid.dc()` independence-based identification of panel SVAR models using distance covariance (DC) statistic, 
--   `pid.cvm()` independence-based identification of panel SVAR models using Cramer-von Mises (CVM) distance.
+-   `pid.dc()` independence-based identification of panel SVAR models using the distance covariance (DC) statistic, 
+-   `pid.cvm()` independence-based identification of panel SVAR models using Cramer-von Mises (CvM) distance.
 
 Supporting tools, such as the specification functions (`speci.VAR`, `speci.factors`) and the panel block bootstrap procedure (`sboot.pmb`), complement the panel VAR functions and complete this coherent approach to ***VAR modeling for heterogeneous panels*** within the **vars** ecosystem. The provided data sets further allow for the exact replication of the implemented literature.
 
@@ -56,7 +56,7 @@ library("pvars")
 
 Several empirical illustrations accompany pvars to demonstrate its application. In the `help()` for functions, the examples provide chunks of R-code for directly copy-pasting unit-tested reproductions. In this README, we show how to reproduce the empirical illustration of Oersal and Arsova (2017, Sec. 5) on the *Monetary Exchange Rate Model*: We first transform the panel data set, then determine the number of factors in the approximate factor model, conduct panel cointegration rank tests on the idiosyncratic components, and finally test the cointegration rank of the common factors.
 
-**Data.** pvars' example data sets are panels in the popular long format and thus stored as $(N \cdot T ) \times (2 + K )$ `data.frame` objects. The first two columns `id_i` and `id_t` contain factor elements, which serve as identifiers for individuals $i = 1,\ldots,N$ and time periods $t = 1,\ldots,T$. The subsequent $K$ columns contain the $NT$ stacked observations for the $K$ variables. 
+**Data.** pvars' example data sets are panels in the popular long format and thus stored as $(N \cdot T ) \times (2 + K )$ `data.frame` objects. The first two columns `id_i` and `id_t` are factors, which serve as identifiers for individuals $i = 1,\ldots,N$ and time periods $t = 1,\ldots,T$. The subsequent $K$ columns contain the $NT$ stacked observations for the $K$ variables. 
 
 ``` r
 data("MERM")
@@ -130,7 +130,7 @@ toLatex(R.Ftsl, R.Ftjo, write_ME=TRUE,
 -   Bai, J., and Ng, S. (2004): "A PANIC Attack on Unit Roots and Cointegration", *Econometrica*, 72, pp. 1127-1173.
 -   Choi, I. (2001): "Unit Root Tests for Panel Data", *Journal of International Money and Finance*, 20, pp. 249-272.
 -   Johansen, S. (1996): *Likelihood-Based Inference in Cointegrated Vector Autoregressive Models*, Advanced Texts in Econometrics, Oxford University Press, USA.
--   Larsson, R., Lyhagen, J., and Lothgren, M. (2001): "Likelihood-based Cointegration Tests in Heterogeneous Panels", *Econometrics Journal*, 4, pp. 109-142.
+-   Larsson, R., Lyhagen, J., and Loethgren, M. (2001): "Likelihood-based Cointegration Tests in Heterogeneous Panels", *Econometrics Journal*, 4, pp. 109-142.
 -   Oersal, D. D. K., and Arsova, A. (2017): "Meta-Analytic Cointegrating Rank Tests for Dependent Panels", *Econometrics and Statistics*, 2, pp. 61-72.
 -   Onatski, A. (2010): "Determining the Number of Factors from Empirical Distribution of Eigenvalues", *Review of Economics and Statistics*, 92, pp. 1004-1016.
 -   Saikkonen, P., and Luetkepohl, H. (2000): "Trend Adjustment Prior to Testing for the Cointegrating Rank of a Vector Autoregressive Process", *Journal of Time Series Analysis*, 21, pp. 435-456.

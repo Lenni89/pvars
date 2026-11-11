@@ -2,7 +2,7 @@
 % Please edit documentation in R/pid_thr.R
 \name{pid.chol}
 \alias{pid.chol}
-\title{Recursive identification of panel SVAR models via Cholesky decomposition}
+\title{Recursive Identification of Panel SVAR Models via Cholesky Decomposition}
 \usage{
 pid.chol(x, order_k = NULL)
 }

@@ -1,6 +1,6 @@
 
 
-#' @title Recursive identification of panel SVAR models via Cholesky decomposition
+#' @title Recursive Identification of Panel SVAR Models via Cholesky Decomposition
 #' @description Given an estimated panel VAR model, this function uses the Cholesky decomposition to identify  
 #'   the structural impact matrix \eqn{B_i} of the corresponding SVAR model
 #'   \deqn{y_{it} = c_{it} + A_{i1} y_{i,t-1} + ... + A_{i,p_i} y_{i,t-p_i} + u_{it}}
@@ -88,7 +88,7 @@ pid.chol <- function(x, order_k=NULL){
   args_id  = list(method="Cholesky", order_k=order_k)
   x$L.varx = lapply(x$L.varx, function(x_i) idf(x_i))
   
-  # estimate panel mean-group
+  # estimate panel mean group
   x$MG_B = aux_MG(x$L.varx, w=x$args_pvarx$w, idx_par="B")
   x$B    = x$MG_B$mean
   
@@ -99,7 +99,7 @@ pid.chol <- function(x, order_k=NULL){
 }
 
 
-#' @title Identification of panel SVEC models by imposing long- and short-run restrictions
+#' @title Identification of Panel SVEC Models by Imposing Long- and Short-Run Restrictions
 #' @description Identifies a panel SVEC model by utilizing a scoring algorithm 
 #'   to impose long- and short-run restrictions. 
 #'   See the details of \code{\link[vars]{SVEC}} in \strong{vars}.
@@ -204,7 +204,7 @@ pid.grt <- function(x, LR=NULL, SR=NULL, start=NULL, max.iter=100, conv.crit=1e-
   args_id  = list(method="SVECM", SR=SR, LR=LR, start=start, max.iter=max.iter, conv.crit=conv.crit, maxls=maxls)
   x$L.varx = lapply(x$L.varx, function(x_i) idf(x_i))
   
-  # estimate panel mean-group
+  # estimate panel mean group
   x$MG_B = aux_MG(x$L.varx, w=x$args_pvarx$w, idx_par="B")
   x$B    = x$MG_B$mean
   

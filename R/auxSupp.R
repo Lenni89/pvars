@@ -4,7 +4,7 @@
 # CRAN manual: https://cran.r-project.org/doc/manuals/R-exts.html#Generic-functions-and-methods
 # Roxygen: https://r-pkgs.org/man.html#man-s3
 
-#' @title Deterministic regressors in \strong{pvars}
+#' @title Deterministic Regressors in \strong{pvars}
 #' @description Deterministic regressors can be specified via the arguments of
 #'   the \strong{\emph{conventional}} '\code{type}', \strong{\emph{customized}} 
 #'   '\code{D}', and \strong{\emph{period-specific}} '\code{t_D}'. 
@@ -332,7 +332,7 @@ aux_assign_varx <- function(object){
 }
 
 
-# remove all lagged impulse dummies which control for non-linearities
+# remove all lagged impulse dummies which control for nonlinearities
 aux_rm_Dnl <- function(x, dim_p, t_D1, t_D2, MARGIN=1){
   # define
   t_Dnl = c(t_D1$t_break, t_D1$t_shift)

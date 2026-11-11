@@ -1,6 +1,6 @@
 
 
-#' @title Impulse Response Functions for panel SVAR models
+#' @title Impulse Response Functions for Panel SVAR Models
 #' @description Calculates impulse response functions for panel VAR objects.
 #' @param x Panel VAR object of class '\code{pid}' or '\code{pvarx}' 
 #'   or a list of VAR objects that will be \link[=as.varx]{coerced} to '\code{varx}'.
@@ -15,10 +15,10 @@
 #'   names or \eqn{N} logical elements selecting a subset from the 
 #'   individuals \eqn{i = 1, \ldots, N} for the MG estimation. If \code{NULL} 
 #'   (the default), all \eqn{N} individuals are included without weights.
-#' @param MG_IRF Logical. If \code{TRUE}, the mean-group of individual 
+#' @param MG_IRF Logical. If \code{TRUE}, the mean group of individual 
 #'   IRF is calculated in accordance with Gambacorta et al. (2014). 
 #'   If \code{FALSE} (the default, recommended in Empting et al. 2026), 
-#'   the IRF is calculated for the mean-group of individual VAR estimates.
+#'   the IRF is calculated for the mean group of individual VAR estimates.
 #' 
 #' @return A list of class '\code{svarirf}' holding the impulse response functions as a '\code{data.frame}'.
 #' 

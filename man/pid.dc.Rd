@@ -2,7 +2,7 @@
 % Please edit documentation in R/pid_dta.R
 \name{pid.dc}
 \alias{pid.dc}
-\title{Independence-based identification of panel SVAR models using distance covariance (DC) statistic}
+\title{Independence-Based Identification of Panel SVAR Models Using the Distance Covariance (DC) Statistic}
 \usage{
 pid.dc(
   x,
@@ -39,7 +39,7 @@ List of class '\code{pid}' with elements:
   to which the structural impact matrices \eqn{B_i} have been added.}
 \item{eps0}{Matrix. The combined whitened residuals \eqn{\epsilon_{0}} 
   to which the ICA procedure has been applied subsequently. 
-  These are still the unrotated baseline shocks! 
+  Note that these are the unrotated baseline shocks.
   \code{NULL} if '\code{indiv}' identifications have been used.}
 \item{ICA}{List of objects resulting from the underlying ICA procedure. 
   \code{NULL} if '\code{indiv}' identifications have been used.}
@@ -65,24 +65,24 @@ Given an estimated panel VAR model, this function applies independence-based ide
   The reproduction of Herwartz and Wang (HW, 2024:630) serves as an 
   exemplary application and unit-test of the implementation by \strong{pvars}. 
   While \strong{vars}' \code{\link[vars]{VAR}} employs equation-wise \code{\link[stats]{lm}} 
-  with the QR-decomposition of the regressor matrix \eqn{X}, HW2024 and accordingly 
+  with the QR-decomposition of the regressor matrix \eqn{X}, HW and accordingly 
   the reproduction by \code{\link{pvarx.VAR}} both calculate \eqn{X'(XX')^{-1}} 
   for the multivariate least-squares estimation of \eqn{A_i}. Moreover, 
   both use \code{\link[steadyICA]{steadyICA}} for identification such that the 
-  reproduction result for the pooled rotation matrix \code{Q} is close to that of HW2024; 
+  reproduction result for the pooled rotation matrix \code{Q} is close to that of HW; 
   the mean absolute difference between both 4x4 matrices is less than 0.0032. 
-  Note that the single EA-Model is estimated and identified the same way, 
+  Note that the single EA model is estimated and identified the same way, 
   which can be extracted as a separate '\code{varx}' object from the trivial 
   panel object by \code{$L.varx[[1]]} and even bootstrapped by \code{\link{sboot.mb}}.
   
   Some differences remain such that the example does not exactly 
-  reproduce the results in HW2024. To account for the \eqn{n} exogenous and 
+  reproduce the results in HW. To account for the \eqn{n} exogenous and 
   deterministic regressors in slot \code{$D}, \code{\link{pvarx.VAR}} calculates 
   \eqn{\Sigma_{u,i}} with the degrees of freedom \eqn{T-Kp_i-n} instead of 
-  HW2024's \eqn{T-Kp_i-1}. Moreover, the confidence bands for the IRF are 
+  HW's \eqn{T-Kp_i-1}. Moreover, the confidence bands for the IRF are 
   based on \strong{pvars}' \link[=sboot.pmb]{panel moving-block-} instead of 
-  HW2024's wild bootstrap. The responses of real GDP and of inflation are not 
-  scaled by 0.01, unlike in HW2024. Note that both bootstrap procedures keep 
+  HW's wild bootstrap. The responses of real GDP and of inflation are not 
+  scaled by 0.01, unlike in HW. Note that both bootstrap procedures keep 
   \code{D} fixed over their iterations.
 }
 

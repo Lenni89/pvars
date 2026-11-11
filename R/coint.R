@@ -1,6 +1,6 @@
 
 
-#' @title Test procedures for the cointegration rank
+#' @title Test Procedures for the Cointegration Rank
 #' @description Performs test procedures for the rank of cointegration in a single VAR model.
 #'   The \eqn{p}-values are approximated by gamma distributions, 
 #'   whose moments are automatically adjusted to 
@@ -11,12 +11,12 @@
 #' @param x Matrix. A \eqn{(L \times (q+T))} data matrix of the \eqn{L} weakly exogenous time series variables.
 #' @param dim_q Integer. Lag-order \eqn{q} for the weakly exogenous variables \code{x}. 
 #'   The literature uses \code{dim_p} (the default).
-#' @param t_D1 List of vectors. The activating break periods \eqn{\tau} 
+#' @param t_D1 List of vectors. The activating periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{1,t}}, 
 #'   which are restricted to the cointegration relations.
 #'   The accompanying lagged regressors are automatically included in \eqn{d_{2,t}}. 
 #'   The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples.
-#' @param t_D2 List of vectors. The activating break periods \eqn{\tau} 
+#' @param t_D2 List of vectors. The activating periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{2,t}}, 
 #'   which are unrestricted.
 #' 
@@ -57,7 +57,7 @@ NULL
 #' @examples
 #' ### reproduce basic example in "urca" ###
 #' library("urca")
-#' data(denmark)
+#' data("denmark")
 #' sjd = denmark[ , c("LRM", "LRY", "IBO", "IDE")]
 #' 
 #' # rank test and estimation of the full VECM as in "urca" #
@@ -104,7 +104,7 @@ coint.JO <- function(y, dim_p, x=NULL, dim_q=dim_p,
 #' @describeIn coint (Trenkler)-Saikkonen-Luetkepohl procedure.
 #' @param type_SL Character. The conventional case of the 
 #'   \link[=as.t_D]{deterministic term} in the Saikkonen-Luetkepohl (SL) procedure. 
-#' @param t_D List of vectors. The activation periods \eqn{\tau} 
+#' @param t_D List of vectors. The activating periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{t}} of the SL-procedure. 
 #'   The accompanying lagged regressors are automatically included in \eqn{d_{t}}. 
 #'   The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples. 

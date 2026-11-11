@@ -2,7 +2,7 @@
 % Please edit documentation in R/pplot.R
 \name{as.pplot}
 \alias{as.pplot}
-\title{Coerce into a '\code{pplot}' object}
+\title{Coerce into a '\code{pplot}' Object}
 \usage{
 as.pplot(
   ...,
@@ -94,7 +94,7 @@ L.data  = sapply(names_i, FUN=function(i)
 L.vars = lapply(L.data, FUN=function(x) vars::VAR(x, p=2, type="both"))
 L.chol = lapply(L.vars, FUN=function(x) svars::id.chol(x))
 
-# overlay all IRF to get an overview on the stability #
+# overlay all IRF to get an overview of the stability #
 L.irf = lapply(L.chol, FUN=function(x) plot(irf(x, n.ahead=30)))
 summary(as.pvarx(L.vars))
 as.pplot(L.irf)
@@ -106,7 +106,7 @@ plot(R.irf)  # emphasize MG-IRF in next step
 R.irf = as.pplot(R.irf, color_g="black", shape_g=c(20, rep(NA, 4)))
 R.irf$F.plot + labs(color="Country")
 
-# compare two mean-groups and their quantiles #
+# compare two mean groups and their quantiles #
 idx_nord = c(5, 6, 10, 17, 20)  # Nordic countries
 R.irf = as.pplot(color_g=c("black", "blue"), 
   Other  = plot(sboot.mg(L.chol[-idx_nord])), 
@@ -131,7 +131,7 @@ R.mg = as.pplot(color_g=R.pal, shape_g=c(2, 3, 20), width_L=0.3,
 R.mg$F.plot + guides(fill=guide_legend()) + 
   labs(color="Ordering", fill="Ordering")
          
-# colorize and export a single sub-plot to Latex #
+# colorize and export a single sub-plot to LaTeX #
 library("tikzDevice")
 textwidth = 15.5/2.54  # LaTeX textwidth from "cm" into "inch"
 file_fig  = file.path(tempdir(), "Fig_irf.tex")
