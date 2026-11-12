@@ -2,7 +2,7 @@
 % Please edit documentation in R/pid_dta.R
 \name{pid.cvm}
 \alias{pid.cvm}
-\title{Independence-Based Identification of Panel SVAR Models via Cramer-von Mises (CvM) Distance}
+\title{Independence-Based Identification of Panel SVAR Models Using the Cramer-von Mises (CvM) Distance}
 \usage{
 pid.cvm(
   x,

@@ -80,7 +80,7 @@ Given an estimated panel VAR model, this function applies independence-based ide
   deterministic regressors in slot \code{$D}, \code{\link{pvarx.VAR}} calculates 
   \eqn{\Sigma_{u,i}} with the degrees of freedom \eqn{T-Kp_i-n} instead of 
   HW's \eqn{T-Kp_i-1}. Moreover, the confidence bands for the IRF are 
-  based on \strong{pvars}' \link[=sboot.pmb]{panel moving-block-} instead of 
+  based on \strong{pvars}' \link[=sboot.pmb]{panel-block bootstrap} instead of 
   HW's wild bootstrap. The responses of real GDP and of inflation are not 
   scaled by 0.01, unlike in HW. Note that both bootstrap procedures keep 
   \code{D} fixed over their iterations.

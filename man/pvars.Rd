@@ -34,11 +34,11 @@ and for structural breaks in the deterministic terms of the VAR processes.
 \item \code{\link{pid.grt}}  identification of panel SVEC models by imposing long- and short-run restrictions,
 \item \code{\link{pid.iv}}   identification of panel SVAR models by means of proxy variables,
 \item \code{\link{pid.dc}}   independence-based identification of panel SVAR models using the distance covariance (DC) statistic,
-\item \code{\link{pid.cvm}}  independence-based identification of panel SVAR models using Cramer-von Mises (CvM) distance.
+\item \code{\link{pid.cvm}}  independence-based identification of panel SVAR models using the Cramer-von Mises (CvM) distance.
 }
 
 Supporting tools, such as the specification functions (\code{\link{speci.VAR}}, 
-\code{\link{speci.factors}}) and the panel block bootstrap procedure 
+\code{\link{speci.factors}}) and the panel-block bootstrap procedure 
 (\code{\link{sboot.pmb}}), complement the panel VAR functions and complete 
 this coherent approach to \strong{\emph{VAR modeling for heterogeneous panels}} 
 within the \strong{vars} ecosystem. The provided data sets further allow for 

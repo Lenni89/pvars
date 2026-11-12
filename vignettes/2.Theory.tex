@@ -119,7 +119,7 @@ The residual covariance matrix is given by $ \widetilde{\Sigma}_u = \frac{\widet
 	\boldsymbol{y}^{d \! t}_{t} \ & = A_{1} \boldsymbol{y}^{d \! t}_{t-1} + ... + A_{p} \boldsymbol{y}^{d \! t}_{t-p} + \boldsymbol{u}^{d \! t}_{t}.
 \end{split}
 \end{align}
-Therein, the VAR process of the ``pure'' stochastic component $ \boldsymbol{y}^{d \! t}_{t} $ is usually abbreviated by a lag polynomial $ A(L) = I_K - A_1 L - \ldots - A_p L^p $. The $ K \times n_\mu $ matrix $ M_\mu $ collects the coefficients of the deterministic term in the moving-average representation of the VAR. Specifications of $ \boldsymbol{d}_t $ pursuant to the SL literature are listed in Table~\ref{tab:DetTerm} and illustrated in Section~\ref{sec:ERPT} in detail.
+Therein, the VAR process of the ``pure'' stochastic component $ \boldsymbol{y}^{d \! t}_{t} $ is usually abbreviated by a lag polynomial $ A(L) = I_K - A_1 L - \ldots - A_p L^p $. The $ K \times n_d $ matrix $ M_\mu $ collects the coefficients of the deterministic term in the moving-average representation of the VAR. Specifications of $ \boldsymbol{d}_t $ pursuant to the SL literature are listed in Table~\ref{tab:DetTerm} and illustrated in Section~\ref{sec:ERPT} in detail.
 
 %%% FGLS-ESTIMATION AS IN THE PVARS-PACKAGE %%%
 All SL-procedures consider a \textit{GLS estimator} to determine $ M_\mu $. It becomes feasible by a preceding ML estimation of the VECM in \eqref{eq:VECM}, for which Table~\ref{tab:DetTerm} indicates also the conforming deterministic cases. Each hypothesis $ r_{H0} = 0,\ldots,K-1 $ in the test sequence then requires its specific rank restriction on the ML estimates and an own GLS estimation of $ M_\mu $. For this, the ML estimates of the rank-restricted VECM are converted into $ \widetilde{A}_1, \ldots , \widetilde{A}_p $ of the VAR in levels and inserted into the transformed model
@@ -274,13 +274,13 @@ In macroeconomic panels, the idiosyncrasies of countries can subvert the objecti
 	R_{1,i} = \begin{bmatrix} R_{1,i}^{(1)} \\ R_{1,i}^{(2)} \end{bmatrix} \\
 \end{split}
 \end{align}
-partitioned into $ R_{1,i}^{(1)} $ as the $ r $ upper time series and $ R_{1,i}^{(2)} $ as the remaining $ r_\perp $ time series and $ n_1 $ restricted deterministic regressors. The left-multiplication $ \alpha_{i}^{(+)} \alpha_i = I_r $ eliminates the individual loadings $ \alpha_{i} $ in \eqref{eq:2S_stack} such that \eqref{eq:CoIntModel} is further transformed into
+partitioned into $ R_{1,i}^{(1)} $ as the $ r $ upper time series and $ R_{1,i}^{(2)} $ as the remaining $ r_\perp $ time series and $ n_{d1} $ restricted deterministic regressors. The left-multiplication $ \alpha_{i}^{(+)} \alpha_i = I_r $ eliminates the individual loadings $ \alpha_{i} $ in \eqref{eq:2S_stack} such that \eqref{eq:CoIntModel} is further transformed into
 \begin{align} \label{eq:2S_aux}
 \begin{split}
 	\alpha_{i}^{(+)} \left(R^{\ }_{0,i} - \alpha_{i} R_{1,i}^{(1)} \right) & = \mathbf{B} R_{1,i}^{(2)} + \alpha_{i}^{(+)} U_{i} \text{\quad using \quad} \alpha_{i}^{(+)} = \left( \alpha_i^\top \Sigma_{u,i}^{-1} \alpha_i \right)^{-1} \alpha_i^\top \Sigma_{u,i}^{-1}. \\
 \end{split}
 \end{align}
-The \textit{pooled OLS estimator} of the homogeneous $ \mathbf{B} $, i.e.~the right $ r \times \left( r_\perp + n_1 \right) $ block of the normalized and transposed cointegrating matrix, yields the second step given by
+The \textit{pooled OLS estimator} of the homogeneous $ \mathbf{B} $, i.e.~the right $ r \times \left( r_\perp + n_{d1} \right) $ block of the normalized and transposed cointegrating matrix, yields the second step given by
 \begin{align} \label{eq:2S_GLS}
 \begin{split}
 	\widehat{\mathbf{B}}_{2S} & = R_0^{(+)} R_1^{(2) \top} \left( R_1^{(2)} R_1^{(2) \top} \right)^{-1}
@@ -300,7 +300,7 @@ For feasible estimation, inserting any $ \sqrt{T} $-consistent estimates for $ \
 \end{split}
 \end{align}
 implies one additional choice for specifying the innovative deterministic term in Table~\ref{tab:DetTerm}:\footnote{\citet[Ch.~4.1]{GroenFrank2003} give an overview of the different combinations that emerge from this single additional option.} 
-The coefficients for $ D_{1,i} M_{2,i} $, containing the restricted deterministic regressors $ \boldsymbol{d}_{1,it} $, can be defined as having some homogeneous $ \beta_{0i} = \beta_{0} \ \forall \ i $ or individual-specific effects $ \beta_{0i} $. For example, \textit{Case 2} with heterogeneous intercepts $ \beta_{0i} $ and $ p_i = 1 \forall i $, i.e.~without the need to correct for lagged short-run effects by $ M_{2,i} $, adds \textit{fixed effects} to the auxiliary model of \eqref{eq:2S_aux}. The regressors of such individual-specific $ \mathbf{B}_i^{(3)} $ are partialled out from the pooled regression beforehand, while $ \mathbf{B}^{(2)} $ is simply extended by the $ r \times n_1 $ homogeneous $ \beta_{0}^\top $ and estimated by the pooled $ \widehat{\mathbf{B}}_{2S} $ of \eqref{eq:2S_GLS}. Note however that $ \Phi_{1,i} = \alpha_{i} \beta_{0}^\top $ remains heterogeneous irrespective of the homogeneity restriction on $ \beta_{0} $.
+The coefficients for $ D_{1,i} M_{2,i} $, containing the restricted deterministic regressors $ \boldsymbol{d}_{1,it} $, can be defined as having some homogeneous $ \beta_{0i} = \beta_{0} \ \forall \ i $ or individual-specific effects $ \beta_{0i} $. For example, \textit{Case 2} with heterogeneous intercepts $ \beta_{0i} $ and $ p_i = 1 \forall i $, i.e.~without the need to correct for lagged short-run effects by $ M_{2,i} $, adds \textit{fixed effects} to the auxiliary model of \eqref{eq:2S_aux}. The regressors of such individual-specific $ \mathbf{B}_i^{(3)} $ are partialled out from the pooled regression beforehand, while $ \mathbf{B}^{(2)} $ is simply extended by the $ r \times n_{d1} $ homogeneous $ \beta_{0}^\top $ and estimated by the pooled $ \widehat{\mathbf{B}}_{2S} $ of \eqref{eq:2S_GLS}. Note however that $ \Phi_{1,i} = \alpha_{i} \beta_{0}^\top $ remains heterogeneous irrespective of the homogeneity restriction on $ \beta_{0} $.
 
 
 \subsubsection{Testing the cointegration rank}

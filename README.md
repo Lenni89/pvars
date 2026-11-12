@@ -29,9 +29,9 @@ This package implements (1) panel cointegration rank tests, (2) estimators for p
 -   `pid.grt()` identification of panel SVEC models, 
 -   `pid.iv()` identification of panel SVAR models by means of proxy variables, 
 -   `pid.dc()` independence-based identification of panel SVAR models using the distance covariance (DC) statistic, 
--   `pid.cvm()` independence-based identification of panel SVAR models using Cramer-von Mises (CvM) distance.
+-   `pid.cvm()` independence-based identification of panel SVAR models using the Cramer-von Mises (CvM) distance.
 
-Supporting tools, such as the specification functions (`speci.VAR`, `speci.factors`) and the panel block bootstrap procedure (`sboot.pmb`), complement the panel VAR functions and complete this coherent approach to ***VAR modeling for heterogeneous panels*** within the **vars** ecosystem. The provided data sets further allow for the exact replication of the implemented literature.
+Supporting tools, such as the specification functions (`speci.VAR`, `speci.factors`) and the panel-block bootstrap procedure (`sboot.pmb`), complement the panel VAR functions and complete this coherent approach to ***VAR modeling for heterogeneous panels*** within the **vars** ecosystem. The provided data sets further allow for the exact replication of the implemented literature.
 
 
 ## Installation

@@ -668,7 +668,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
                 b.dim = b.dim,
                 rest_mat = matrix(NA, nrow=dim_K, ncol=dim_S),  # for 'bonferroni'
                 design = "recursive",
-                method = "Panel block bootstrap",
+                method = "Panel-block bootstrap",
                 stars_t = sapply(L.star, FUN=function(n) n$star_t),
                 stars_i = sapply(L.star, FUN=function(n) n$star_i))
   class(result) = c("sboot2", "sboot")
