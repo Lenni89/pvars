@@ -18,15 +18,15 @@
 #'   In the vector, \eqn{p_i} must have the same succession 
 #'   \eqn{i = 1,\ldots,N} as argument \code{L.data}.
 #' @param type Character. The conventional case of the \link[=as.t_D]{deterministic term}.
-#' @param t_D1 List of vectors. The activating periods \eqn{\tau} 
+#' @param t_D1 List of vectors. The activating (break) periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{1,it}}, 
 #'   which are restricted to the cointegration relations. 
 #'   The accompanying lagged regressors are automatically included in \eqn{d_{2,it}}. 
 #'   The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples.
-#' @param t_D2 List of vectors. The activating periods \eqn{\tau} 
+#' @param t_D2 List of vectors. The activating (break) periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{2,it}}, 
 #'   which are unrestricted.
-#' @param t_D  List of vectors. The activating periods \eqn{\tau} 
+#' @param t_D  List of vectors. The activating (break) periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{it}} 
 #'   of the SL-procedure. 
 #'   The accompanying lagged regressors are automatically included in \eqn{d_{it}}. 

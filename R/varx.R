@@ -12,12 +12,12 @@
 #'   or estimated by the reduced-rank regression if \code{NULL} (the default).
 #' @param type Character. The conventional case of the 
 #'   \link[=as.t_D]{deterministic term} in the Johansen procedure.  
-#' @param t_D1 List of vectors. The activating periods \eqn{\tau} 
+#' @param t_D1 List of vectors. The activating (break) periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{1,t}}, 
 #'   which are restricted to the cointegration relations.
 #'   Just as in \code{\link{coint}}, the 
 #'   accompanying lagged regressors are automatically included in \eqn{d_{2,t}}.
-#' @param t_D2 List of vectors. The activating periods \eqn{\tau} 
+#' @param t_D2 List of vectors. The activating (break) periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{2,t}}, 
 #'   which are unrestricted.
 #' @param D1 Matrix. A \eqn{(n_{\bullet} \times (p+T))} data matrix of customized 

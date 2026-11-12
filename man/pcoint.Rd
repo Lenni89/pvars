@@ -44,13 +44,13 @@ In the vector, \eqn{p_i} must have the same succession
 
 \item{type}{Character. The conventional case of the \link[=as.t_D]{deterministic term}.}
 
-\item{t_D1}{List of vectors. The activating periods \eqn{\tau} 
+\item{t_D1}{List of vectors. The activating (break) periods \eqn{\tau} 
 for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{1,it}}, 
 which are restricted to the cointegration relations. 
 The accompanying lagged regressors are automatically included in \eqn{d_{2,it}}. 
 The \eqn{p}-values are calculated for up to two breaks resp. three sub-samples.}
 
-\item{t_D2}{List of vectors. The activating periods \eqn{\tau} 
+\item{t_D2}{List of vectors. The activating (break) periods \eqn{\tau} 
 for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{2,it}}, 
 which are unrestricted.}
 
@@ -61,7 +61,7 @@ Deactivated if \code{FALSE} (the default).}
 \item{n.iterations}{Integer. The (maximum) number of iterations for the 
 pooled estimation of the cointegrating vectors.}
 
-\item{t_D}{List of vectors. The activating periods \eqn{\tau} 
+\item{t_D}{List of vectors. The activating (break) periods \eqn{\tau} 
 for the period-specific \link[=as.t_D]{deterministic regressors} in \eqn{d_{it}} 
 of the SL-procedure. 
 The accompanying lagged regressors are automatically included in \eqn{d_{it}}. 

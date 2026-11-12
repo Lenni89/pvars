@@ -29,7 +29,7 @@ In case of \eqn{K_1=1} instrumented shock series, all four choices provide ident
 \item{cov_u}{Character. Selection of the estimated residual covariance matrices \eqn{\hat{\Sigma}_{u,i}} 
 to be used in the identification procedure. 
 Either \code{'OMEGA'} (the default) for \eqn{\hat{U}_i \hat{U}_i'/T_i} as used in Mertens, Ravn (2013) and Jentsch, Lunsford (2022)
-or \code{'SIGMA'} for \eqn{\hat{U}_i \hat{U}_i'/(T_i - n_{zi})}, which corrects for the number of regressors \eqn{n_{zi}}. 
+or \code{'SIGMA'} for \eqn{\hat{U}_i \hat{U}_i'/(T_i - n_{z,i})}, which corrects for the number of regressors \eqn{n_{z,i}}. 
 Both character options refer to the name of the respective estimate in the '\code{varx}' objects.}
 
 \item{dim_K1}{Integer. Number of shock series instrumented by the \eqn{L \ge K_1} proxy variables. 
@@ -68,7 +68,7 @@ Given an estimated panel VAR model, this function
   For a unique solution, \code{pid.iv} follows the literature on proxy SVAR. 
   The \eqn{K_1} columns in \eqn{B_i = [B_{i,1} : B_{i,2}]} of the instrumented 
   shocks \eqn{\epsilon_{k,it}, k=1,\ldots,K_1,} are ordered first, and their 
-  variances \eqn{\sigma^2_{\epsilon,ik} = 1} are normalized to unity  
+  variances \eqn{\sigma^2_{\epsilon,ki} = 1} are normalized to unity  
   (see e.g. Mertens, Ravn 2013:1215 and Lunsford 2015:6, Eq. 9). 
   A normalization of the impulsed shock that may fix the size of the impact 
   response in the IRF can be imposed subsequently via '\code{normf}' 

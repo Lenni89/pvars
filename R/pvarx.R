@@ -59,7 +59,7 @@ NULL
 
 
 #' @describeIn pvarx Mean group (MG) of VAR models in levels.
-#' @param t_D List of vectors. The activating periods \eqn{\tau} 
+#' @param t_D List of vectors. The activating (break) periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} 
 #'   in \eqn{d_{it}} of the VAR model in levels.
 #' @param D List. A single '\code{data.frame}' of common deterministic 
@@ -114,12 +114,12 @@ pvarx.VAR <- function(L.data, lags, type=c("const", "trend", "both", "none"),
 
 
 #' @describeIn pvarx (Pooled) mean group (PMG) of VECM.
-#' @param t_D1 List of vectors. The activating periods \eqn{\tau} 
+#' @param t_D1 List of vectors. The activating (break) periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} 
 #'   in \eqn{d_{1,it}}, which are restricted to the cointegration relations. 
 #'   Just as in \code{\link{pcoint}}, the 
 #'   accompanying lagged regressors are automatically included in \eqn{d_{2,it}}.
-#' @param t_D2 List of vectors. The activating periods \eqn{\tau} 
+#' @param t_D2 List of vectors. The activating (break) periods \eqn{\tau} 
 #'   for the period-specific \link[=as.t_D]{deterministic regressors} 
 #'   in \eqn{d_{2,it}}, which are unrestricted.
 #' @param D1 List. A single '\code{data.frame}' of common deterministic 
