@@ -47,6 +47,9 @@
 #' \item{args_pid}{List of characters and integers indicating the identification methods and specifications that have been used.}
 #' \item{args_pvarx}{List of characters and integers indicating the estimator and specifications that have been used.}
 #' 
+#' @references Calhoun, V. D., Adali, T., Pearlson, G. D., and Pekar, J. J. (2001): 
+#'   "A Method for Making Group Inferences from Functional MRI Data Using Independent Component Analysis",
+#'   \emph{Human Brain Mapping}, 14 (3), pp. 140-151.
 #' @references Comon, P. (1994): 
 #'   "Independent Component Analysis: A New Concept?", 
 #'   \emph{Signal Processing}, 36, pp. 287-314.
@@ -58,11 +61,14 @@
 #'   Models Based on Independence Criteria", 
 #'   \emph{Journal of Applied Econometrics}, 39 (4), pp. 620-639.
 #' @references Herwartz, H. (2018): 
-#'   "Hodges-Lehmann Detection of Structural Shocks - An Analysis of Macroeconomic Dynamics in the Euro Area", 
+#'   "Hodges-Lehmann Detection of Structural Shocks: An Analysis of Macroeconomic Dynamics in the Euro Area", 
 #'   \emph{Oxford Bulletin of Economics and Statistics}, 80, pp. 736-754.
 #' @references Herwartz, H., and Ploedt, M. (2016): 
 #'   "The Macroeconomic Effects of Oil Price Shocks: Evidence from a Statistical Identification Approach", 
 #'   \emph{Journal of International Money and Finance}, 61, pp. 30-44.
+#' @references Lange, A., Dalheimer, B., Herwartz, H., and Maxand, S. (2021): 
+#'   "\strong{svars}: An R Package for Data-Driven Identification in Multivariate Time Series Analysis", 
+#'   \emph{Journal of Statistical Software}, 97 (5), pp. 1-34.
 #'   
 #' @seealso \ldots the individual \code{\link[svars]{id.cvm}} by Lange et al. (2021) in \strong{svars}. 
 #'   Note that \code{\link{pid.cvm}} relies on a modification of their procedure and 
@@ -72,7 +78,7 @@
 #' \donttest{
 #' # select minimal or full example #
 #' is_min = TRUE
-#' idx_i  = ifelse(is_min, 1, 1:14)
+#' idx_i  = if(is_min){ 1 }else{ 1:14 }
 #' 
 #' # load and prepare data #
 #' data("EURO")
@@ -255,7 +261,7 @@ pid.cvm <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, dd=N
 #' @param x An object of class '\code{pvarx}' or a list of VAR objects 
 #'   that will be \link[=as.varx]{coerced} to '\code{varx}'. 
 #'   Estimated panel of VAR objects.
-#' @param PIT Logical. If PIT='TRUE', the distribution and density of the 
+#' @param PIT Logical. If \code{PIT=TRUE}, the distribution and density of the 
 #'   independent components are estimated using Gaussian kernel density estimates.
 #' @param combine Character. The combination of the individual reduced-form residuals 
 #'   via '\code{group}' for the group ICA by Calhoun et al. (2001) using common structural shocks,
@@ -285,7 +291,7 @@ pid.cvm <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, dd=N
 #' 
 #' @references Calhoun, V. D., Adali, T., Pearlson, G. D., and Pekar, J. J. (2001): 
 #'   "A Method for Making Group Inferences from Functional MRI Data Using Independent Component Analysis",
-#'   \emph{Human Brain Mapping}, 16, pp. 673-690.
+#'   \emph{Human Brain Mapping}, 14 (3), pp. 140-151.
 #' @references Comon, P. (1994): 
 #'   "Independent Component Analysis: A New Concept?", 
 #'   \emph{Signal Processing}, 36, pp. 287-314.
@@ -458,7 +464,7 @@ pid.dc <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, n.ite
 #'   In general, identification procedures determine \eqn{B_i} up to column ordering, scale, and sign. 
 #'   For a unique solution, \code{pid.iv} follows the literature on proxy SVAR. 
 #'   The \eqn{K_1} columns in \eqn{B_i = [B_{i,1} : B_{i,2}]} of the instrumented 
-#'   shocks \eqn{\epsilon_{k,it}, k=1,\ldots,K_1,} are ordered first, and their 
+#'   shocks \eqn{\epsilon_{kit}, k=1,\ldots,K_1,} are ordered first, and their 
 #'   variances \eqn{\sigma^2_{\epsilon,ki} = 1} are normalized to unity  
 #'   (see e.g. Mertens, Ravn 2013:1215 and Lunsford 2015:6, Eq. 9). 
 #'   A normalization of the impulsed shock that may fix the size of the impact 

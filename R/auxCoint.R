@@ -11,7 +11,7 @@
 
 # check, define and stack matrices for RRR, from Johansen 1996:90, ch.6
 aux_stackRRR <- function(y, dim_p, x=NULL, dim_q=0, type=NULL, t_D1=list(), t_D2=list(), D1=NULL, D2=NULL){
-  ### see also Juselius 2007:115, ch.7 / Luetkepohl,Kraetzig 2004:93, ch.3.3.2 / Luetkepohl 2005:294, ch.7.2.3 (ch.10.3.2 for conditional VECM)
+  ### see also Juselius 2006:115, ch.7 / Luetkepohl,Kraetzig 2004:93, ch.3.3.2 / Luetkepohl 2005:294, ch.7.2.3 (ch.10.3.2 for conditional VECM)
   # endogenous variables
   y = aux_asDataMatrix(y, "y")  # named matrix y is KxT regardless of input 
   y_diff = t(diff(t(y)))
@@ -33,7 +33,7 @@ aux_stackRRR <- function(y, dim_p, x=NULL, dim_q=0, type=NULL, t_D1=list(), t_D2
   
   # deterministic term
   if(!is.null(type)){
-    # determin. term:  --restricted--   ; --unrestricted-- , from Johansen 1996:96, ch.6.2 / Juselius 2007, ch.6.3
+    # determin. term:  --restricted--   ; --unrestricted-- , from Johansen 1996:96, ch.6.2 / Juselius 2006, ch.6.3
     if(type=="Case1"){ type_D1 = "none" ; type_D2 = "none"  }else
     if(type=="Case2"){ type_D1 = "const"; type_D2 = "none"  }else
     if(type=="Case3"){ type_D1 = "none" ; type_D2 = "const" }else
@@ -113,7 +113,7 @@ aux_RRR <- function(Z0, Z1, Z2, via_R0_R1=FALSE){
   
   # eigenvectors as cointegrating vectors, from Johansen 1996:92,95
   cc_eigen = eigen(Cinv %*% S10 %*% S00inv %*% S01 %*% t(Cinv), symmetric=TRUE) # eigenvalue problem, from Pfaff 2008:81, Eq.4.13 / Johansen 1996:95
-  lambda = cc_eigen$values  # squared canonical correlation coefficients, see Juselius 2007:132
+  lambda = cc_eigen$values  # squared canonical correlation coefficients, see Juselius 2006:132
   e = cc_eigen$vector  # orthonormal eigenvectors, see Luetkepohl 2005:295 ### unit vectors with length of sqrt(colSums(e^2)) = sqrt(rowSums(e^2)) = (1,...,1) 
   V = t(Cinv) %*% e  # retransformed eigenvectors as cointegrating vectors ### already normalized to V'S_{11}V=I due to mathematical convention of e'Ie=I
   
@@ -403,7 +403,7 @@ aux_oc <- function(M){
 
 # test restriction of weak exogeneity, from Johansen 1996:126
 aux_LRrest <- function(lambda, lambda_rest, dim_r, dim_T, dim_L){
-  ### see also Johansen 1990:199 / Juselius 2007:195
+  ### see also Johansen 1990:199 / Juselius 2006:195
   # define
   #H # restriction matrix #### TODO test for weak exogeneity of each variable k=1,..,K 
   #dim_r = ncol(alpha) # cointegration rank
@@ -433,7 +433,7 @@ aux_beta <- function(V, dim_r, normalize=FALSE){
     return(beta)
   }else if(normalize==FALSE){  # preserve normalization such that \beta'S_{11}\beta=I
     beta = V[ ,1:dim_r, drop=FALSE]  # cointegrating matrix with restricted rank, from Johansen 1996:93, Eq.6.16
-  }else if(normalize=="first element"){  # normalize each eigenvector to its first element, see Juselius 2007:122
+  }else if(normalize=="first element"){  # normalize each eigenvector to its first element, see Juselius 2006:122
     beta = apply(V[ ,1:dim_r, drop=FALSE], MARGIN=2, FUN=function(v_k) v_k/v_k[1])
   }else if(normalize=="natural"){  # "natural" normalization, from Johansen 1996:179, Eq.13.3(I)
     beta = V[ ,1:dim_r, drop=FALSE] %*% solve(V[1:dim_r, 1:dim_r]) # restrict to \beta = [I_r:\beta_1']' with \beta_1 being (K-r x r)

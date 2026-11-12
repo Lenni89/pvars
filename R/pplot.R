@@ -13,7 +13,7 @@
 #'   functions to achieve compatibility with different classes. Equivalently to 
 #'   \code{\link{as.pvarx}} for panels of \eqn{N} VAR objects, \code{\link{as.pplot}} 
 #'   summarizes panels of \eqn{G} plot objects that have been returned 
-#'   from the '\code{plot}' method for class '\code{svarirf}' or '\code{sboot}'. 
+#'   from the '\code{plot}' method for class '\code{svarirf}' or '\code{sboot2}'. 
 #'   If the user wishes to extend the compatibility of the '\code{pplot}' 
 #'   functions with further classes, she may simply specify accordant 
 #'   \code{\link{as.pplot}}-methods instead of altering the original 

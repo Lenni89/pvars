@@ -1,8 +1,8 @@
 pvars
 =====
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/pvars)](https://cran.r-project.org/package=pvars) 
-[![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/pvars)](https://cran.r-project.org/package=pvars)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/pvars)](https://cran.r-project.org/package=pvars) 
+[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/pvars)](https://cran.r-project.org/package=pvars)
 
 VAR Modeling for Heterogeneous Panels in R
 
@@ -127,7 +127,7 @@ toLatex(R.Ftsl, R.Ftjo, write_ME=TRUE,
 ## References
 
 -   Arsova, A., and Oersal, D. D. K. (2018): "Likelihood-based Panel Cointegration Test in the Presence of a Linear Time Trend and Cross-Sectional Dependence", *Econometric Reviews*, 37, pp. 1033-1050.
--   Bai, J., and Ng, S. (2004): "A PANIC Attack on Unit Roots and Cointegration", *Econometrica*, 72, pp. 1127-1173.
+-   Bai, J., and Ng, S. (2004): "A PANIC Attack on Unit Roots and Cointegration", *Econometrica*, 72, pp. 1127-1177.
 -   Choi, I. (2001): "Unit Root Tests for Panel Data", *Journal of International Money and Finance*, 20, pp. 249-272.
 -   Johansen, S. (1996): *Likelihood-Based Inference in Cointegrated Vector Autoregressive Models*, Advanced Texts in Econometrics, Oxford University Press, USA.
 -   Larsson, R., Lyhagen, J., and Loethgren, M. (2001): "Likelihood-based Cointegration Tests in Heterogeneous Panels", *Econometrics Journal*, 4, pp. 109-142.

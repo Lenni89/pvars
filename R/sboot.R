@@ -678,7 +678,7 @@ sboot.pmb <- function(x, b.dim=c(1, 1), n.ahead=20, n.boot=500, n.cores=1, fix_b
 
 #' @title Mean-Group Inference for Panel SVAR Models
 #' @description Calculates confidence bands for impulse response functions via mean-group inference. 
-#'   The function does not perform bootstraps, but coerces the panel VAR object to class '\code{sboot}'
+#'   The function does not perform bootstraps, but coerces the panel VAR object to class '\code{sboot2}'
 #'   and, thereby, gives a distributional overview of the estimated parameter heterogeneity.
 #' @details MG inference presumes the individual estimates to be the empirical variation 
 #'   around a common parameter. In case of heterogeneous lag-orders \eqn{p_i},

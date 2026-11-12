@@ -216,14 +216,14 @@ pcoint.BR <- function(L.data, lags, type=c("Case1", "Case2", "Case3", "Case4"),
 #'    ts(MERM[MERM$id_i==i, names_k], start=c(1995, 1), frequency=12), 
 #'    simplify=FALSE)
 #' 
-#' # Oersal,Arsova 2017:67, Tab.5 #
+#' # Oersal,Arsova 2017:68, Tab.5 #
 #' R.lags = c(2, 2, 2, 2, 1, 2, 2, 4, 2, 3, 2, 2, 2, 2, 2, 1, 1, 2, 2)
 #' names(R.lags) = names_i  # individual lags by AIC (lag_max=4)
 #' n.factors = 8  # number of common factors by Onatski's (2010) criterion
 #' R.pcsl = pcoint.SL(L.data, lags=R.lags, n.factors=n.factors, type="SL_trend")
 #' R.pcjo = pcoint.JO(L.data, lags=R.lags, n.factors=n.factors, type="Case4")
 #' 
-#' # Oersal,Arsova 2017:67, Tab.6 #
+#' # Oersal,Arsova 2017:68, Tab.6 #
 #' R.Ftsl = coint.SL(y=R.pcsl$CSD$Ft, dim_p=2, type_SL="SL_trend")  # lag-order by AIC
 #' R.Ftjo = coint.JO(y=R.pcsl$CSD$Ft, dim_p=2, type="Case4")
 #' 
@@ -337,9 +337,12 @@ pcoint.SL <- function(L.data, lags, type="SL_trend", t_D=NULL, n.factors=FALSE){
 #' @references Arsova, A., and Oersal, D. D. K. (2021): 
 #'   "A Panel Cointegrating Rank Test with Structural Breaks and Cross-Sectional Dependence", 
 #'   \emph{Econometrics and Statistics}, 17, pp. 107-129.
+#' @references Arsova, A., and Oersal, D. D. K. (2016): 
+#'   "A Panel Cointegrating Rank Test with Structural Breaks and Cross-Sectional Dependence", 
+#'   \emph{Beitraege zur Jahrestagung des Vereins fuer Socialpolitik 2016}, D01-V3, German Economic Association.
 #' 
 #' @examples
-#' ### reproduce Oersal,Arsova 2016:13, Ch.6 ###
+#' ### reproduce Arsova,Oersal 2016:13, Ch.6 ###
 #' data("ERPT")
 #' names_k = c("lpm5", "lfp5", "llcusd")  # variable names for "Chemicals and related products"
 #' names_i = levels(ERPT$id_i)[c(1,6,2,5,4,3,7)]  # ordered country names
@@ -347,12 +350,12 @@ pcoint.SL <- function(L.data, lags, type="SL_trend", t_D=NULL, n.factors=FALSE){
 #'    ts(ERPT[ERPT$id_i==i, names_k], start=c(1995, 1), frequency=12), 
 #'    simplify=FALSE)
 #' 
-#' # Oersal,Arsova 2016:21, Tab.6 (only for individual results) #
+#' # Arsova,Oersal 2016:21, Tab.6 (only for individual results) #
 #' R.lags = c(3, 3, 3, 4, 3, 3, 3); names(R.lags)=names_i  # lags of VAR model by MAIC
 #' R.cain = pcoint.CAIN(L.data, lags=R.lags, type="SL_trend")
 #' R.pcsl = pcoint.SL(L.data,   lags=R.lags, type="SL_trend")
 #' 
-#' # Oersal,Arsova 2016:22, Tab.7/8 #
+#' # Arsova,Oersal 2016:22, Tab.7/8 #
 #' R.lags = c(3, 3, 3, 4, 4, 3, 4); names(R.lags)=names_i  # lags of VAR model by MAIC
 #' R.t_D  = list(t_break=89)  # a level shift and trend break in 2002_May for all countries
 #' R.cain = pcoint.CAIN(L.data, lags=R.lags, t_D=R.t_D, type="SL_trend")
@@ -377,7 +380,7 @@ pcoint.CAIN <- function(L.data, lags, type="SL_trend", t_D=NULL){
   dim_TN = max(L.dim_T)  # total number of periods incl. presamples
   idx_tN = -(0:dim_pN)   # periods without presample of any individual
   
-  # apply (T)SL procedure to each individual, from Oersal,Arsova 2016:3 / Trenkler et al. (2008)
+  # apply (T)SL procedure to each individual, from Arsova,Oersal 2016:3 / Trenkler et al. (2008)
   cointf <- function(i){
     # define
     y = L.y[[i]]  # named matrix y is KxT regardless of input
@@ -417,12 +420,12 @@ pcoint.CAIN <- function(L.data, lags, type="SL_trend", t_D=NULL){
   L.SLrank = lapply(1:dim_N,  FUN=function(i) cointf(i))
   LR.stats = sapply(L.SLrank, FUN=function(x) x$SLrank$stats_TR)  # matrix of trace statistics (K x N) with ordering r_H0 = 0,...,K-1
   LR.pvals = sapply(L.SLrank, FUN=function(x) x$SLrank$pvals_TR)  # matrix of p-values (K x N) with ordering r_H0 = 0,...,K-1
-  resids   = sapply(L.SLrank, FUN=function(x) x$resids[ , idx_tN, 1], simplify="array")  # residuals (K x T-p x N) under r_H0 = 0, from Oersal,Arsova 2016:7 
+  resids   = sapply(L.SLrank, FUN=function(x) x$resids[ , idx_tN, 1], simplify="array")  # residuals (K x T-p x N) under r_H0 = 0, from Arsova,Oersal 2016:7 
   
   # apply panel tests
   idx_lower = lower.tri(diag(dim_N))  # gets the lower triangular part of the NxN correlation matrices
   rho_resid = apply(resids, MARGIN=1, FUN=function(k) cor(k, method="pearson")[idx_lower])
-  rho_eps   = mean(abs(rho_resid))  # average absolute cross-sectional correlation, from Oersal,Arsova 2016:7, Eq.12
+  rho_eps   = mean(abs(rho_resid))  # average absolute cross-sectional correlation, from Arsova,Oersal 2016:7, Eq.12
   CAIN      = ptest.CAIN(LR.pvals, distribution="theoretical", dim_K=dim_K, r_H0=0:(dim_K-1), rho_eps=rho_eps)
   
   # return result

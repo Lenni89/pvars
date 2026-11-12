@@ -124,17 +124,17 @@ NULL
 #'   monthly observations for the logarithm of import prices \eqn{lpm^*}, 
 #'   foreign prices \eqn{lfp^*}, and the exchange rate against the US dollar \eqn{llcusd}.
 #'   It covers the period January 1995 to March 2005 \eqn{(T=123)} for \eqn{N=7} countries. 
-#'   The asterisk denotes the industry of the variables and can take values from 0 to 8:
+#'   The asterisk denotes the industry of the variables and can take values from 0 to 8 according to the \emph{Standard International Trade Classification} (SITC):
 #'   \itemize{
 #'   \item{0:} \emph{Food and live animals chiefly for food}
 #'   \item{1:} \emph{Beverages and tobacco}
 #'   \item{2:} \emph{Crude materials (inedible, except fuels)}
 #'   \item{3:} \emph{Mineral fuels, lubricants and related materials}
 #'   \item{4:} \emph{Animal and vegetable oils, fats and waxes}
-#'   \item{5:} \emph{Chemicals and related products}
+#'   \item{5:} \emph{Chemicals and related products, n.e.s.}
 #'   \item{6:} \emph{Manufactured goods classified chiefly by materials}
 #'   \item{7:} \emph{Machines, transport equipment}
-#'   \item{8:} \emph{Manufactured goods}
+#'   \item{8:} \emph{Manufactured goods n.e.c.}
 #'   }
 #' @usage data("ERPT")
 #' @format A long-format data panel of class '\code{data.frame}', 
@@ -170,7 +170,7 @@ NULL
 #'   \item the kilometers of rails \eqn{rails}.
 #'   }
 #'   It covers the period 1960 to 2000 \eqn{(T=41)} for \eqn{N=97} countries.
-#'   The monetary values are given in US dollars at 2000 prices, i.e. constant PPP.
+#'   All monetary values are given in constant 2000 PPP US dollars.
 #' @usage data("ICAP")
 #' @format A long-format data panel of class '\code{data.frame}', 
 #'   where the columns \code{id_i} and \code{id_t} indicate the country and year 
@@ -220,7 +220,7 @@ NULL
 #' @description The data set \code{MERM} consists of 
 #'   monthly observations for the log-ratios of 
 #'   prices \eqn{p}, money supply \eqn{m}, and industrial production \eqn{y} 
-#'   as well as the natural logarithm of nominal exchange rates against the dollar \eqn{s}. 
+#'   as well as the natural logarithm of nominal exchange rates against the US dollar \eqn{s}. 
 #'   It covers the period January 1995 to December 2007 \eqn{(T=156)} for \eqn{N=19} countries.
 #  # The data set in Mark, Sul (2001) covers the period Q1 1973 to Q1 1997 for N=19 countries.
 #' @usage data("MERM")
@@ -258,7 +258,7 @@ NULL
 #'   \item the persons employed \eqn{ET} and hours worked per person \eqn{HRS}.
 #'   }
 #'   It covers the period 1960 to 2019 \eqn{(T=60)} for \eqn{N=23} OECD countries.
-#'   All monetary values are given in US dollars at 2005 prices, i.e. constant PPP.
+#'   All monetary values are given in constant 2005 PPP US dollars.
 #' @usage data("PCAP")
 #' @format A long-format data panel of class '\code{data.frame}', 
 #'   where the columns \code{id_i} and \code{id_t} 

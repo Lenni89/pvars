@@ -51,16 +51,16 @@
 #'   ('\code{SL_trend}') by GLS-detrending.}
 #' \item{\strong{type (VECM)} is used in the 'innovative' Johansen procedure 
 #'   for testing the cointegration rank and estimating the VECM. In accordance 
-#'   with Juselius (2007, Ch.6.3), the available model specifications are:
+#'   with Juselius (2006, Ch.6.3), the available model specifications are:
 #'   '\code{Case1}' for none, 
 #'   '\code{Case2}' for a constant in the cointegration relation,
 #'   '\code{Case3}' for an unrestricted constant, 
 #'   '\code{Case4}' for a  linear trend in the cointegration relation and an unrestricted constant, or 
 #'   '\code{Case5}' for an unrestricted constant and linear trend.}
 #' }
-#' @references Juselius, K. (2007): 
+#' @references Juselius, K. (2006): 
 #'   \emph{The Cointegrated VAR Model: Methodology and Applications}, 
-#'   Advanced Texts in Econometrics, Oxford University Press, USA, 2nd ed.
+#'   Advanced Texts in Econometrics, Oxford University Press, USA.
 #' 
 #' @examples
 #' t_D = list(t_impulse=c(10, 20, 35), t_shift=10)

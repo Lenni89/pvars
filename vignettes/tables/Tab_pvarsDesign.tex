@@ -11,21 +11,21 @@
 		 & \code{pcoint.JO}   & \code{pcoint} & \code{coint.JO}  & \quad \code{print}, & & Panel \citeauthor{Johansen1988} tests & \citet{LarssonEtAl2001}, \citet{Choi2001} \\
 		 & \code{pcoint.BR}   & \code{pcoint} & \code{coint.JO}  & \quad \code{summary}, & & Panel test with pooled $ \beta $  & \citet{Breitung2005} \\
 		 & \code{pcoint.SL}   & \code{pcoint} & \code{coint.SL}  & \quad \code{toLatex} & & Panel SL-tests & Örsal, Droge \citeyearpar{OersalDroge2014} \\
-		 & \code{pcoint.CAIN} & \code{pcoint} & \code{coint.SL}  &  & & Correlation-augmented tests & Arsova, Örsal \citeyearpar{ArsovaOersal2020}, \citet{Hartung1999} \\
+		 & \code{pcoint.CAIN} & \code{pcoint} & \code{coint.SL}  &  & & Correlation-augmented tests & Arsova, Örsal \citeyearpar{ArsovaOersal2021}, \citet{Hartung1999} \\
 		 %& \code{pcoint.MSB}  & \code{pcoint} & \code{coint.MSB} & & & Panel MSB-test & Carrion-i-Silvestre, Surdeanu \citeyearpar{SilvestreSurdeanu2011} \\
 		 \hline
 		 
 		 \multicolumn{4}{l|}{ \textbf{\ref{sec:pvarx}} Estimating VAR models } & & &  & \\ 
 		 & \code{pvarx.VAR} & \code{pvarx} & \code{VAR}\tnote{a)} & \quad \code{irf}, \code{print}, & & Mean-group estimation & \citet{Rebucci2010}, Pesaran, Smith \citeyearpar{PesaranSmith1995} \\
-		 & \code{pvarx.VEC} & \code{pvarx} & \code{VECM} & \quad \code{summary} & & Pooled cointegrating vectors $ \beta $ & \citet{Breitung2005}, \cite{PesaranEtAl1999} \\
+		 & \code{pvarx.VEC} & \code{pvarx} & \code{VECM} & \quad \code{summary} & & Pooled cointegrating vectors $ \beta $ & \citet{Breitung2005}, \citet{PesaranEtAl1999} \\
 		 \hline
 		 
 		 \multicolumn{4}{l|}{ \textbf{\ref{sec:pid}} Identifying structure } & & &  & \\
 		 & \code{pid.chol} & \code{pid} & \code{id.chol}\tnote{a)} & \quad \code{irf}, & & Recursive causality & \citet{Sims1980} \\ %\# \citet{Pedroni2013}
-		 & \code{pid.grt} & \code{pid} & \code{id.grt}\tnote{c)} & \quad \code{print}, & & Long- \& short-run restrictions & \cite{BreitungEtAl2004} \\
-		 & \code{pid.iv} & \code{pid} & \code{id.iv} & \quad \code{summary}, & & Proxy SVAR & Empting et al.~\citeyearpar{EmptingEtAl2024} \\
-		 & \code{pid.dc} & \code{pid} & \code{id.dc}\tnote{a)} & \quad \code{toLatex} & & ICA by distance covariance & \quad \citet{CalhounEtAl2002} and \\
-		 & \code{pid.cvm} & \code{pid} & \code{id.cvm}\tnote{a)} & & & ICA by Cramér-von Mises dist. & \quad Herwartz, Wang \citeyearpar{Herwartz2017} \\
+		 & \code{pid.grt} & \code{pid} & \code{id.grt}\tnote{c)} & \quad \code{print}, & & Long- \& short-run restrictions & \citet{BreitungEtAl2004} \\
+		 & \code{pid.iv} & \code{pid} & \code{id.iv} & \quad \code{summary}, & & Proxy SVAR & Empting et al.~\citeyearpar{EmptingEtAl2026} \\
+		 & \code{pid.dc} & \code{pid} & \code{id.dc}\tnote{a)} & \quad \code{toLatex} & & ICA by distance covariance & \quad \citet{CalhounEtAl2001} and \\
+		 & \code{pid.cvm} & \code{pid} & \code{id.cvm}\tnote{a)} & & & ICA by Cramér-von Mises dist. & \quad Herwartz, Wang \citeyearpar{HerwartzWang2024} \\
 		 \hline
 		 
 		 \multicolumn{4}{l|}{ \textbf{\ref{sec:supp}} Supporting tools } & & & &  \\
@@ -35,13 +35,13 @@
 		 & \code{PP.system}   & \code{svarirf}\tnote{b)} & \qquad --- & \code{plot}, \code{print} & & Persistence profiles  & \quad Lee, Pesaran \citeyearpar{LeePesaran1993} and \\
 		 & \code{PP.variable} & \code{svarirf}\tnote{b)} & \qquad --- & \code{plot}, \code{print} & & (Structural) persistence profiles & \quad Pesaran, Shin \citeyearpar{PesaranShin1996} \\
 		 & \code{sboot.mg} & \code{sboot}\tnote{b)} & \qquad --- &  \quad\code{print}, \code{summary}, & & Mean-group inference & Pesaran, Smith \citeyearpar{PesaranSmith1995} \\
-		 & \code{sboot.pmb} & \code{sboot}\tnote{b)} & \code{sboot.mb} & \quad \code{plot}, \code{toLatex} & & Panel-block bootstrap & \citet{EmptingEtAl2024} \\% \quad \citet{EmptingEtAl2024} and \\
-		 %& & & & & & Bootstrap-after-bootstrap & \quad \cite{EmptingHerwartz2021b} \\
+		 & \code{sboot.pmb} & \code{sboot}\tnote{b)} & \code{sboot.mb} & \quad \code{plot}, \code{toLatex} & & Panel-block bootstrap & \citet{EmptingEtAl2026} \\% \quad \citet{EmptingEtAl2026} and \\
+		 %& & & & & & Bootstrap-after-bootstrap & \quad \citet{EmptingHerwartz2021b} \\
 		 \hline\hline
 	\end{tabular}
 	\begin{tablenotes}
-		\item[a)] Consider the \proglang{R}-packages \pkg{vars} and \pkg{svars} for these functions. Like \code{id.dc}, \pkg{pvars}' \code{pid.dc} uses \pkg{steadyICA} by \citet{RiskEtAl2015}.
-		\item[b)] This class and its methods are imported from the \proglang{R}-package \pkg{svars} by \cite{LangeEtAl_fc}.
-		\item[c)] Its scoring algorithm is part of the \code{SVEC} function from the \proglang{R}-package \pkg{vars} by \citet{Pfaff2008a}.\\
+		\item[a)] Consider the \proglang{R} packages \pkg{vars} and \pkg{svars} for these functions. Like \code{id.dc}, \pkg{pvars}' \code{pid.dc} uses \pkg{steadyICA} by \citet{RiskEtAl2015}.
+		\item[b)] This class and its methods are imported from the \proglang{R} package \pkg{svars} by \citet{LangeEtAl_fc}.
+		\item[c)] Its scoring algorithm is part of the \code{SVEC} function from the \proglang{R} package \pkg{vars} by \citet{Pfaff2008a}.\\
 	\end{tablenotes}
 \end{threeparttable}

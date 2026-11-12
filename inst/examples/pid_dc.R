@@ -3,7 +3,7 @@
 # select minimal or full example #
 is_min = TRUE
 n.boot = ifelse(is_min, 5, 1000)
-idx_i  = ifelse(is_min, 1, 1:14)
+idx_i  = if(is_min){ 1 }else{ 1:14 }
 
 # load and prepare data #
 data("EURO")

@@ -4,7 +4,7 @@
 
 %% Replication code to dynamically update image and table floats %%
 %<<include=FALSE>>=
-%source(~/inst/examples/pvars_reproduce.R)
+%source("inst/examples/pvars_reproductions.R")
 %@
 
 %% Wrapper to compile static article from ~/vignettes/ %%

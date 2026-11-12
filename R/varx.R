@@ -203,6 +203,7 @@ summary.varx <- function(object, ...){
 #' \item{beta}{Matrix. The \eqn{((K+n_{d1}) \times r)} cointegrating matrix of the VAR model 
 #'   if transformed from a rank-restricted VECM.}
 #' \item{SIGMA}{Matrix. The \eqn{(K \times K)} residual covariance matrix estimated by least-squares.}
+#' \item{OMEGA}{Matrix. The \eqn{(K \times K)} residual covariance matrix \eqn{\hat{U} \hat{U}'/T} estimated by maximum likelihood.}
 #'   The following integers indicate the size of dimensions:
 #' \item{dim_K}{Integer. The number of endogenous variables \eqn{K} in the full system.}
 #' \item{dim_S}{Integer. The number of identified shocks \eqn{S} in the SVAR model.}

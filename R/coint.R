@@ -122,8 +122,11 @@ coint.JO <- function(y, dim_p, x=NULL, dim_q=dim_p,
 #' @references Trenkler, C., Saikkonen, P., and Luetkepohl, H. (2008): 
 #'   "Testing for the Cointegrating Rank of a VAR Process with Level Shift and Trend Break", 
 #'   \emph{Journal of Time Series Analysis}, 29, pp. 331-358.
+#' @references Arsova, A., and Oersal, D. D. K. (2016): 
+#'   "A Panel Cointegrating Rank Test with Structural Breaks and Cross-Sectional Dependence", 
+#'   \emph{Beitraege zur Jahrestagung des Vereins fuer Socialpolitik 2016}, D01-V3, German Economic Association.
 #' @examples
-#' ### reproduce Oersal,Arsova 2016:22, Tab.7.5 "France" ###
+#' ### reproduce Arsova,Oersal 2016:22, Tab.7.5 "France" ###
 #' data("ERPT")
 #' names_k = c("lpm5", "lfp5", "llcusd")  # variable names for "Chemicals and related products"
 #' names_i = levels(ERPT$id_i)[c(1,6,2,5,4,3,7)]  # ordered country names

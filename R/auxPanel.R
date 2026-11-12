@@ -78,7 +78,7 @@ ptest.CAIN <- function(PVALS, distribution="theoretical", dim_K=nrow(PVALS), r_H
   dim_N = ncol(PVALS)  # number of individuals
   PROBITS = qnorm(PVALS)  # KxN matrix of individual probits
   
-  # test statistics according to Hartung (1999), from Oersal,Arsova 2016:6, Eq.6-8
+  # test statistics according to Hartung (1999), from Arsova,Oersal 2016:6, Eq.6-8
   LAMBDA   = array(1, dim=dim(PROBITS))  ### TODO function argument: KxN matrix of weights
   rho_prbt = c(1 - 1/(dim_N-1) * rowSums((PROBITS - rowSums(PROBITS)/dim_N)^2))
   rho_star = sapply(rho_prbt, FUN=function(x) max(c(-1/(dim_N), x)))
@@ -87,7 +87,7 @@ ptest.CAIN <- function(PVALS, distribution="theoretical", dim_K=nrow(PVALS), r_H
   pt.stdev = sqrt(rowSums(LAMBDA^2) + (rowSums(LAMBDA)^2 - rowSums(LAMBDA^2)) * rho_HA)
   pt.kappa = rowSums(LAMBDA * qnorm(PVALS)) / pt.stdev  # test statistic
   
-  # response surface approximation, from Oersal,Arsova 2016:10, Tab.2
+  # response surface approximation, from Arsova,Oersal 2016:10, Tab.2
   cain_rscoef = c(0.6319575, -0.5193669, 0.2721753, 
                   0.1821374, -0.0856903, 0.0041125,
                   0.0766267, -0.1008678, 0.1874919, 
@@ -107,7 +107,7 @@ ptest.CAIN <- function(PVALS, distribution="theoretical", dim_K=nrow(PVALS), r_H
                     d_H0^2 * rho_eps^2, 
                     d_H0^4 * rho_eps^4)
   
-  # test statistics, from Oersal,Arsova 2016:6, Eq.11
+  # test statistics, from Arsova,Oersal 2016:6, Eq.11
   rho_CAIN = c(cain_term %*% cain_rscoef)  # correction factor
   CAIN     = rowSums(PROBITS) / sqrt(dim_N + (dim_N^2 - dim_N) * rho_CAIN)
   pt.stats = cbind(pt.kappa, CAIN)

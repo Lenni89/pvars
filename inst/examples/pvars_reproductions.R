@@ -49,7 +49,7 @@ tikz(file=paste0(path_fig, "Fig_Scree.tex"), width=textwidth, height=0.35*textwi
   plot(F.scree)
 dev.off()
 
-# Oersal,Arsova 2017:67, Tab.5 #
+# Oersal,Arsova 2017:68, Tab.5 #
 R.pcsl = pcoint.SL(L.data, lags=R.lags, type="SL_trend", n.factors=8)  # eight factors by Onatski criterion
 R.pcjo = pcoint.JO(L.data, lags=R.lags, type="Case4",    n.factors=8)
 
@@ -67,7 +67,7 @@ tikz(file=paste0(path_fig, "Fig_Factors.tex"), width=textwidth, height=0.4*textw
   plot(F.Ft)
 dev.off()
 
-# Oersal,Arsova 2017:67, Tab.6 #
+# Oersal,Arsova 2017:68, Tab.6 #
 vars::VARselect(Ft, lag.max=4, type="both")$selection
 speci.VAR(vars::VAR(Ft, p=1, type="both"), lag_set=1:4, type="both")
 R.Ftsl = coint.SL(y=R.pcsl$CSD$Ft, dim_p=2, type_SL="SL_trend")  # lag-order by AIC
@@ -89,12 +89,12 @@ names_k = c("lpm5", "lfp5", "llcusd")  # variable names for "Chemicals and relat
 names_i = levels(ERPT$id_i)[c(1,6,2,5,4,3,7)]  # ordered country names
 L.data  = sapply(names_i, FUN=function(i) ts(ERPT[ERPT$id_i==i, names_k], start=c(1995, 1), frequency=12), simplify=FALSE)
 
-# Oersal,Arsova 2016:21, Tab.6 (only for individual results) #
+# Arsova,Oersal 2016:21, Tab.6 (only for individual results) #
 R.lags = c(3, 3, 3, 4, 3, 3, 3); names(R.lags)=names_i  # lags of VAR model by MAIC
 R.cain = pcoint.CAIN(L.data, lags=R.lags, type="SL_trend")
 R.pcsl = pcoint.SL(L.data,   lags=R.lags, type="SL_trend")
 
-# Oersal,Arsova 2016:22, Tab.7/8 #
+# Arsova,Oersal 2016:22, Tab.7/8 #
 R.lags = c(3, 3, 3, 4, 4, 3, 4); names(R.lags)=names_i  # lags of VAR model by MAIC
 R.t_D  = list(t_break=89)  # a level shift and trend break in 2002_May for all countries
 # L.t_D = sapply(names_i, function(i) list(t_break=89), simplify=FALSE)
