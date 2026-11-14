@@ -72,6 +72,10 @@ Kilian, L., and Demiroglu, U. (2000):
   "Residual-Based Tests for Normality in Autoregressions: 
   Asymptotic Theory and Simulation Evidence", 
   \emph{Journal of Business and Economic Statistics}, 18, pp. 40-50.
+
+Pfaff, B. (2008):
+  "VAR, SVAR and SVEC Models: Implementation within R Package \strong{vars}",
+  \emph{Journal of Statistical Software}, 27, pp. 1-32.
 }
 \seealso{
 \ldots the \code{\link[vars]{normality.test}} by Pfaff (2008) in \strong{vars},

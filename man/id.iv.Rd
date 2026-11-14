@@ -141,6 +141,10 @@ Jentsch, C., and Lunsford, K. G. (2022):
 
 Empting, L. F. T., Oeztuerk, S., Maxand, S., and Wagner, K. (2026): 
   "Inference in Panel SVARs with Two-Way Dependence", arXiv:2610.11898 [econ.EM].
+
+Lange, A., Dalheimer, B., Herwartz, H., and Maxand, S. (2021): 
+  "\strong{svars}: An R Package for Data-Driven Identification in Multivariate Time Series Analysis", 
+  \emph{Journal of Statistical Software}, 97 (5), pp. 1-34.
 }
 \seealso{
 \ldots the individual identification approaches 

@@ -111,18 +111,18 @@ L.data  = sapply(names_i, FUN=function(i)
    ts(MERM[MERM$id_i==i, names_k], start=c(1995, 1), frequency=12), 
    simplify=FALSE)
 
-# Oersal,Arsova 2017:67, Tab.5 #
+# Oersal,Arsova 2017:68, Tab.5 #
 R.lags = c(2, 2, 2, 2, 1, 2, 2, 4, 2, 3, 2, 2, 2, 2, 2, 1, 1, 2, 2)
 names(R.lags) = names_i  # individual lags by AIC (lag_max=4)
 n.factors = 8  # number of common factors by Onatski's (2010) criterion
 R.pcsl = pcoint.SL(L.data, lags=R.lags, n.factors=n.factors, type="SL_trend")
 R.pcjo = pcoint.JO(L.data, lags=R.lags, n.factors=n.factors, type="Case4")
 
-# Oersal,Arsova 2017:67, Tab.6 #
+# Oersal,Arsova 2017:68, Tab.6 #
 R.Ftsl = coint.SL(y=R.pcsl$CSD$Ft, dim_p=2, type_SL="SL_trend")  # lag-order by AIC
 R.Ftjo = coint.JO(y=R.pcsl$CSD$Ft, dim_p=2, type="Case4")
 
-### reproduce Oersal,Arsova 2016:13, Ch.6 ###
+### reproduce Arsova,Oersal 2016:13, Ch.6 ###
 data("ERPT")
 names_k = c("lpm5", "lfp5", "llcusd")  # variable names for "Chemicals and related products"
 names_i = levels(ERPT$id_i)[c(1,6,2,5,4,3,7)]  # ordered country names
@@ -130,12 +130,12 @@ L.data  = sapply(names_i, FUN=function(i)
    ts(ERPT[ERPT$id_i==i, names_k], start=c(1995, 1), frequency=12), 
    simplify=FALSE)
 
-# Oersal,Arsova 2016:21, Tab.6 (only for individual results) #
+# Arsova,Oersal 2016:21, Tab.6 (only for individual results) #
 R.lags = c(3, 3, 3, 4, 3, 3, 3); names(R.lags)=names_i  # lags of VAR model by MAIC
 R.cain = pcoint.CAIN(L.data, lags=R.lags, type="SL_trend")
 R.pcsl = pcoint.SL(L.data,   lags=R.lags, type="SL_trend")
 
-# Oersal,Arsova 2016:22, Tab.7/8 #
+# Arsova,Oersal 2016:22, Tab.7/8 #
 R.lags = c(3, 3, 3, 4, 4, 3, 4); names(R.lags)=names_i  # lags of VAR model by MAIC
 R.t_D  = list(t_break=89)  # a level shift and trend break in 2002_May for all countries
 R.cain = pcoint.CAIN(L.data, lags=R.lags, t_D=R.t_D, type="SL_trend")
@@ -183,5 +183,9 @@ Luetkepohl, H., Saikkonen, P., and Trenkler, C. (2004):
 Arsova, A., and Oersal, D. D. K. (2021): 
   "A Panel Cointegrating Rank Test with Structural Breaks and Cross-Sectional Dependence", 
   \emph{Econometrics and Statistics}, 17, pp. 107-129.
+
+Arsova, A., and Oersal, D. D. K. (2016): 
+  "A Panel Cointegrating Rank Test with Structural Breaks and Cross-Sectional Dependence", 
+  \emph{Beitraege zur Jahrestagung des Vereins fuer Socialpolitik 2016}, D01-V3, German Economic Association.
 }
 \concept{panel cointegration rank tests}

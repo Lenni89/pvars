@@ -33,7 +33,7 @@ The data set \code{PCAP} consists of annual observations for
   \item the persons employed \eqn{ET} and hours worked per person \eqn{HRS}.
   }
   It covers the period 1960 to 2019 \eqn{(T=60)} for \eqn{N=23} OECD countries.
-  All monetary values are given in US dollars at 2005 prices, i.e. constant PPP.
+  All monetary values are given in constant 2005 PPP US dollars.
 }
 \examples{
 ### LaTeX figure: public capital stocks ###

@@ -39,7 +39,7 @@ A list of class '\code{sboot2}' with elements:
 }
 \description{
 Calculates confidence bands for impulse response functions via mean-group inference. 
-  The function does not perform bootstraps, but coerces the panel VAR object to class '\code{sboot}'
+  The function does not perform bootstraps, but coerces the panel VAR object to class '\code{sboot2}'
   and, thereby, gives a distributional overview of the estimated parameter heterogeneity.
 }
 \details{

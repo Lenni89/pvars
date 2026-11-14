@@ -116,7 +116,7 @@ Bai, J., and Ng, S. (2002):
 
 Bai, J., and Ng, S. (2004): 
   "A PANIC Attack on Unit Roots and Cointegration", 
-  \emph{Econometrica}, 72, pp. 1127-1173.
+  \emph{Econometrica}, 72, pp. 1127-1177.
 
 Corona, F., Poncela, P., and Ruiz, E. (2017): 
   "Determining the Number of Factors after Stationary Univariate Transformations", 

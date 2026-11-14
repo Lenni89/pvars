@@ -21,7 +21,7 @@ data("MERM")
 The data set \code{MERM} consists of 
   monthly observations for the log-ratios of 
   prices \eqn{p}, money supply \eqn{m}, and industrial production \eqn{y} 
-  as well as the natural logarithm of nominal exchange rates against the dollar \eqn{s}. 
+  as well as the natural logarithm of nominal exchange rates against the US dollar \eqn{s}. 
   It covers the period January 1995 to December 2007 \eqn{(T=156)} for \eqn{N=19} countries.
 }
 \references{

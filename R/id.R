@@ -68,7 +68,7 @@
 #' @references Empting, L. F. T., Oeztuerk, S., Maxand, S., and Wagner, K. (2026): 
 #'   "Inference in Panel SVARs with Two-Way Dependence", arXiv:2610.11898 [econ.EM].
 #' @references Lange, A., Dalheimer, B., Herwartz, H., and Maxand, S. (2021): 
-#'   "svars: An R Package for Data-Driven Identification in Multivariate Time Series Analysis", 
+#'   "\strong{svars}: An R Package for Data-Driven Identification in Multivariate Time Series Analysis", 
 #'   \emph{Journal of Statistical Software}, 97 (5), pp. 1-34.
 #' @seealso \ldots the individual identification approaches 
 #'   by Lange et al. (2021) in \strong{svars}.

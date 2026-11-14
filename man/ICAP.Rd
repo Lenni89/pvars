@@ -36,7 +36,7 @@ The data set \code{ICAP} consists of annual observations for
   \item the kilometers of rails \eqn{rails}.
   }
   It covers the period 1960 to 2000 \eqn{(T=41)} for \eqn{N=97} countries.
-  The monetary values are given in US dollars at 2000 prices, i.e. constant PPP.
+  All monetary values are given in constant 2000 PPP US dollars.
 }
 \references{
 Calderon, C., Moral-Benito, E., and Serven, L. (2015): 

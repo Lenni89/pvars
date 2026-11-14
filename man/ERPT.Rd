@@ -22,17 +22,17 @@ The data set \code{ERPT} consists of
   monthly observations for the logarithm of import prices \eqn{lpm^*}, 
   foreign prices \eqn{lfp^*}, and the exchange rate against the US dollar \eqn{llcusd}.
   It covers the period January 1995 to March 2005 \eqn{(T=123)} for \eqn{N=7} countries. 
-  The asterisk denotes the industry of the variables and can take values from 0 to 8:
+  The asterisk denotes the industry of the variables and can take values from 0 to 8 according to the \emph{Standard International Trade Classification} (SITC):
   \itemize{
   \item{0:} \emph{Food and live animals chiefly for food}
   \item{1:} \emph{Beverages and tobacco}
   \item{2:} \emph{Crude materials (inedible, except fuels)}
   \item{3:} \emph{Mineral fuels, lubricants and related materials}
   \item{4:} \emph{Animal and vegetable oils, fats and waxes}
-  \item{5:} \emph{Chemicals and related products}
+  \item{5:} \emph{Chemicals and related products, n.e.s.}
   \item{6:} \emph{Manufactured goods classified chiefly by materials}
   \item{7:} \emph{Machines, transport equipment}
-  \item{8:} \emph{Manufactured goods}
+  \item{8:} \emph{Manufactured goods n.e.c.}
   }
 }
 \references{

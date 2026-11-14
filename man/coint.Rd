@@ -98,7 +98,7 @@ R.KNvecm = VECM(y=sjd[ , c("LRM"), drop=FALSE],   dim_p=2,
                 x=sjd[ , c("LRY", "IBO", "IDE")], dim_q=2, dim_r=1, 
                 type="Case2", t_D1=list(t_shift=36), t_D2=list(n.season=4))
 
-### reproduce Oersal,Arsova 2016:22, Tab.7.5 "France" ###
+### reproduce Arsova,Oersal 2016:22, Tab.7.5 "France" ###
 data("ERPT")
 names_k = c("lpm5", "lfp5", "llcusd")  # variable names for "Chemicals and related products"
 names_i = levels(ERPT$id_i)[c(1,6,2,5,4,3,7)]  # ordered country names
@@ -140,5 +140,9 @@ Trenkler, C. (2008):
 Trenkler, C., Saikkonen, P., and Luetkepohl, H. (2008): 
   "Testing for the Cointegrating Rank of a VAR Process with Level Shift and Trend Break", 
   \emph{Journal of Time Series Analysis}, 29, pp. 331-358.
+
+Arsova, A., and Oersal, D. D. K. (2016): 
+  "A Panel Cointegrating Rank Test with Structural Breaks and Cross-Sectional Dependence", 
+  \emph{Beitraege zur Jahrestagung des Vereins fuer Socialpolitik 2016}, D01-V3, German Economic Association.
 }
 \concept{cointegration rank tests}

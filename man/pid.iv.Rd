@@ -67,7 +67,7 @@ Given an estimated panel VAR model, this function
   In general, identification procedures determine \eqn{B_i} up to column ordering, scale, and sign. 
   For a unique solution, \code{pid.iv} follows the literature on proxy SVAR. 
   The \eqn{K_1} columns in \eqn{B_i = [B_{i,1} : B_{i,2}]} of the instrumented 
-  shocks \eqn{\epsilon_{k,it}, k=1,\ldots,K_1,} are ordered first, and their 
+  shocks \eqn{\epsilon_{kit}, k=1,\ldots,K_1,} are ordered first, and their 
   variances \eqn{\sigma^2_{\epsilon,ki} = 1} are normalized to unity  
   (see e.g. Mertens, Ravn 2013:1215 and Lunsford 2015:6, Eq. 9). 
   A normalization of the impulsed shock that may fix the size of the impact 

@@ -26,7 +26,7 @@ via '\code{indiv}' for individual-specific \eqn{B_i \forall i} using strictly se
 
 \item{n.iterations}{Integer. The maximum number of iterations in the 'steadyICA' algorithm. The default in 'steadyICA' is 100.}
 
-\item{PIT}{Logical. If PIT='TRUE', the distribution and density of the 
+\item{PIT}{Logical. If \code{PIT=TRUE}, the distribution and density of the 
 independent components are estimated using Gaussian kernel density estimates.}
 }
 \value{
@@ -92,7 +92,7 @@ Given an estimated panel VAR model, this function applies independence-based ide
 # select minimal or full example #
 is_min = TRUE
 n.boot = ifelse(is_min, 5, 1000)
-idx_i  = ifelse(is_min, 1, 1:14)
+idx_i  = if(is_min){ 1 }else{ 1:14 }
 
 # load and prepare data #
 data("EURO")
@@ -142,7 +142,7 @@ plot(R.irf)
 \references{
 Calhoun, V. D., Adali, T., Pearlson, G. D., and Pekar, J. J. (2001): 
   "A Method for Making Group Inferences from Functional MRI Data Using Independent Component Analysis",
-  \emph{Human Brain Mapping}, 16, pp. 673-690.
+  \emph{Human Brain Mapping}, 14 (3), pp. 140-151.
 
 Comon, P. (1994): 
   "Independent Component Analysis: A New Concept?", 
