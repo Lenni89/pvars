@@ -76,9 +76,9 @@ Coerce into a '\code{pplot}' object. This function allows (1)
   \code{\link{as.pvarx}} for panels of \eqn{N} VAR objects, \code{\link{as.pplot}} 
   summarizes panels of \eqn{G} plot objects that have been returned 
   from the '\code{plot}' method for class '\code{svarirf}' or '\code{sboot2}'. 
-  If the user wishes to extend the compatibility of the '\code{pplot}' 
-  functions with further classes, she may simply specify accordant 
-  \code{\link{as.pplot}}-methods instead of altering the original 
+  In order to extend the compatibility of the '\code{pplot}' functions 
+  with further classes, the user may simply write corresponding 
+  \code{\link{as.pplot}} methods instead of altering the original 
   '\code{pplot}' functions.
 }
 \examples{

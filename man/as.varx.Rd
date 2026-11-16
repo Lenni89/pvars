@@ -50,8 +50,8 @@ Coerce into a '\code{varx}' object. On top of the parent class
 \details{
 \code{\link{as.varx}} is used as an intermediary in the \strong{pvars} 
   functions to achieve compatibility with different classes of VAR objects.
-  If the user wishes to extend this compatibility with further classes, she 
-  may simply specify accordant \code{\link{as.varx}}-methods instead of altering 
+  In order to extend this compatibility with further classes, the user 
+  may simply write corresponding \code{\link{as.varx}} methods instead of altering 
   the original \strong{pvars} function. Classes already covered by \strong{pvars} 
   are those of the \strong{vars} ecosystem, in particular the classes
 \itemize{

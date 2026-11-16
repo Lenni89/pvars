@@ -290,8 +290,8 @@ summary.pvarx <- function(object, ..., modulus=TRUE, digits=3){
 #'   to be transformed contains a panel SVAR model. 
 #' @details \code{\link{as.pvarx}} is used as an intermediary in the \strong{pvars} 
 #'   functions to achieve compatibility with different classes of panel VAR objects.
-#'   If the user wishes to extend this compatibility with further classes, she 
-#'   may simply specify accordant \code{\link{as.pvarx}}-methods instead of 
+#'   In order to extend this compatibility with further classes, the user 
+#'   may simply write corresponding \code{\link{as.pvarx}} methods instead of 
 #'   altering the original \strong{pvars} function.
 #'   
 #' @param x A panel VAR object to be transformed.
