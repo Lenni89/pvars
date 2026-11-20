@@ -1,3 +1,7 @@
+## Submission Update v1.2.0 (2026-11-20)
+- FIXED: issues on MKL due to numerical inaccuracies flagged by testthat
+- This release includes new features and improvements. See NEWS.md for a detailed list of changes.
+
 ## Submission Update v1.1.1 (2025-10-23)
 - FIXED: issues on ATLAS, MKL, and OpenBLAS due to numerical inaccuracies flagged by testthat
 
