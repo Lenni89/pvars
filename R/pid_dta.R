@@ -325,7 +325,7 @@ pid.cvm <- function(x, combine=c("group", "pool", "indiv"), n.factors=NULL, dd=N
 #'   
 #'   Some differences remain such that the example does not exactly 
 #'   reproduce the results in HW. To account for the \eqn{n} exogenous and 
-#'   deterministic regressors in slot \code{$D}, \code{\link{pvarx.VAR}} calculates 
+#'   deterministic regressors in \code{$D}, \code{\link{pvarx.VAR}} calculates 
 #'   \eqn{\Sigma_{u,i}} with the degrees of freedom \eqn{T-Kp_i-n} instead of 
 #'   HW's \eqn{T-Kp_i-1}. Moreover, the confidence bands for the IRF are 
 #'   based on \strong{pvars}' \link[=sboot.pmb]{panel-block bootstrap} instead of 
