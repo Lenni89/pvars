@@ -18,6 +18,7 @@ results automatically.
 ### Changes or Improvements: 
 * Argument `MG_IRF` in `irf.pvarx` and `sboot.pmb` is now set to the recommended 
 default `FALSE`.
+* Minor improvements to spelling, wording, and notation in the documentation.
 
 ***
 # pvars 1.1.0

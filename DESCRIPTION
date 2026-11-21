@@ -1,7 +1,7 @@
 Type: Package
 Package: pvars
 Title: VAR Modeling for Heterogeneous Panels
-Version: 1.2.0
+Version: 1.2.1
 Authors@R: 
     person(given = "Lennart", family = "Empting",
            email = "lennart.empting@vwl.uni-due.de",

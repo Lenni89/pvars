@@ -206,7 +206,7 @@ NULL
 #'   "Cointegration Vector Estimation by Panel DOLS and Long-Run Money Demand", 
 #'   \emph{Oxford Bulletin of Economics and Statistics}, 65, pp. 655-680.
 #' @source The prepared data is sourced from OECD and IMF's 
-#'   \href{https://legacydata.imf.org/?sk=4c514d48-b6ba-49ed-8ab9-52b0c1a0179b}{\emph{International Financial Statistics}}
+#'   \href{https://data.imf.org/Datasets}{\emph{International Financial Statistics}}
 #'    of the year 1998, see the open 
 #'   \href{https://www.imf.org/en/About/copyright-and-terms#data}{terms of use}. 
 #'   Employed by Carrion-i-Silvestre and Surdeanu (2011:24, Ch.6.1), it was 
